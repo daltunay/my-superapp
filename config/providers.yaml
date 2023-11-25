@@ -1,0 +1,9 @@
+openai:
+  label: OpenAI
+  api_help: https://platform.openai.com/account/api-keys
+  env_var: OPENAI_API_KEY
+
+together:
+  label: Together AI
+  api_help: https://api.together.xyz/settings/api-keys
+  env_var: TOGETHER_API_KEY

@@ -1,0 +1,37 @@
+generative_ai:
+  large_language_models:
+    GPT-3.5 Turbo:
+      provider: openai
+      organization: OpenAI
+      owner: null
+      string: gpt-3.5-turbo
+      experimental_flag: true
+
+    LLaMA-2 Chat (7B):
+      provider: together
+      organization: Meta
+      owner: togethercomputer
+      string: llama-2-7b-chat
+      experimental_flag: true
+
+    Mistral (7B) Instruct:
+      provider: together
+      organization: mistralai
+      owner: mistralai
+      string: Mistral-7B-Instruct-v0.1
+      experimental_flag: true
+
+  image_creation:
+    DALL-E 2:
+      provider: openai
+      organization: OpenAI
+      owner: null
+      string: dall-e-2
+      experimental_flag: true
+
+    Stable Diffusion 2.1:
+      provider: together
+      organization: Stability AI
+      owner: stabilityai
+      string: stable-diffusion-2-1
+      experimental_flag: true
