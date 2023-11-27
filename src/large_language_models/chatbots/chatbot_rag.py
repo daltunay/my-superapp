@@ -2,9 +2,8 @@ import typing as t
 from functools import cached_property
 
 from langchain.chains import ConversationalRetrievalChain
-from langchain.chains.conversational_retrieval.base import (
-    BaseConversationalRetrievalChain,
-)
+from langchain.chains.conversational_retrieval.base import \
+    BaseConversationalRetrievalChain
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
 from langchain.vectorstores.base import VectorStoreRetriever

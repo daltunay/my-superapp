@@ -1,5 +1,7 @@
-import yaml
 import typing as t
+
+import yaml
+
 from src.image_generation.dall_e import dall_e_image
 from src.image_generation.stable_diffusion import stable_diffusion_image
 
