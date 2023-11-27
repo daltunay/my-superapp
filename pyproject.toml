@@ -20,6 +20,8 @@ faiss-cpu = "^1.7.4"
 pypdf = "^3.17.1"
 google-api-python-client = "^2.108.0"
 wikipedia = "^1.4.0"
+mediapipe = "^0.10.8"
+opencv-python = "^4.8.1.78"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.1.3"
