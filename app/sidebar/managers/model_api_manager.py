@@ -4,9 +4,9 @@ import requests
 import streamlit as st
 import yaml
 
-from utils.logging import configure_logger
+from utils.logging import set_logger
 
-logger = configure_logger(__file__)
+logger = set_logger(__file__)
 
 
 with open("config/models.yaml") as f:

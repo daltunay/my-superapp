@@ -6,16 +6,16 @@ from langchain.callbacks.base import BaseCallbackHandler
 from langchain.chains import LLMChain
 from langchain.chains.base import Chain
 from langchain.chat_models import ChatOpenAI
-from langchain.llms import Together
+from langchain.large_language_models import Together
 from langchain.memory import ConversationBufferMemory
 from langchain.prompts import PromptTemplate
 
-from ..callbacks import StreamingChatCallbackHandler
+from src.large_language_models.callbacks import StreamingChatCallbackHandler
 
 
 class ModelArgs(t.TypedDict):
     provider: t.Literal["openai", "together"]
-    owner: t.Optional[t.Literal["mistralai", "togethercomputer"]]
+    owner: t.Literal["mistralai", "togethercomputer"] | None
     string: t.Literal["gpt-3.5-turbo", "llama-2-7b-chat", "Mistral-7B-Instruct-v0.1"]
 
 
@@ -36,7 +36,7 @@ class Chatbot:
         self.model_string = model_kwargs.get("string", "gpt-3.5-turbo")
 
     @cached_property
-    def llm(self) -> t.Union[ChatOpenAI, Together]:
+    def llm(self) -> ChatOpenAI | Together:
         if self.model_provider == "openai":
             return ChatOpenAI(
                 model=self.model_string,
@@ -88,8 +88,8 @@ class Chatbot:
     def ask(
         self,
         query: str,
-        context: t.Optional[str] = None,
-        language: t.Optional[str] = None,
+        context: str | None = None,
+        language: str | None = None,
     ) -> str:
         return self.chain.run(
             question=query,

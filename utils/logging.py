@@ -2,7 +2,7 @@ import logging
 import os
 
 
-def configure_logger(file):
+def set_logger(file):
     script_name = os.path.splitext(os.path.basename(file))[0]
 
     logger = logging.getLogger(script_name)

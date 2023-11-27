@@ -4,21 +4,20 @@ from functools import cached_property
 from langchain.agents import AgentExecutor, AgentType, initialize_agent, load_tools
 from langchain.tools import BaseTool
 
-from .chatbot import Chatbot, ModelArgs
+from src.large_language_models.chatbots import Chatbot, ModelArgs
 
 
 class ChatbotTools(Chatbot):
     def __init__(
         self,
-        tool_names: t.Optional[
-            t.List[
-                t.Literal[
-                    "google-search",
-                    "wikipedia",
-                    "python_repl",
-                ]
+        tool_names: t.List[
+            t.Literal[
+                "google-search",
+                "wikipedia",
+                "python_repl",
             ]
-        ] = None,
+        ]
+        | None = None,
         **model_kwargs: t.Unpack[ModelArgs],
     ) -> None:
         super().__init__(**model_kwargs)
@@ -53,7 +52,7 @@ class ChatbotTools(Chatbot):
     def ask(
         self,
         query: str,
-        language: t.Optional[str] = None,
+        language: str | None = None,
     ) -> str:
         return self.chain.run(
             input=query,

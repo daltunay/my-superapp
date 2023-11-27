@@ -1,8 +1,8 @@
 import streamlit as st
 
-from utils.logging import configure_logger
+from utils.logging import set_logger
 
-logger = configure_logger(__file__)
+logger = set_logger(__file__)
 
 LANGUAGES = [
     "English",

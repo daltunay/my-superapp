@@ -1,4 +1,4 @@
-generative_ai:
+gen_ai:
   large_language_models:
     GPT-3.5 Turbo:
       provider: openai

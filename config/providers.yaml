@@ -1,9 +1,15 @@
 openai:
-  label: OpenAI
-  api_help: https://platform.openai.com/account/api-keys
-  env_var: OPENAI_API_KEY
+  name: OpenAI
+  url: https://openai.com/
+  api:
+    help: https://platform.openai.com/account/api-keys
+    endpoint: https://api.openai.com/v1/images/generations
+    key: OPENAI_API_KEY
 
 together:
-  label: Together AI
-  api_help: https://api.together.xyz/settings/api-keys
-  env_var: TOGETHER_API_KEY
+  name: Together AI
+  url: https://www.together.ai/
+  api:
+    help: https://api.together.xyz/settings/api-keys
+    endpoint: https://api.together.xyz/inference
+    key: TOGETHER_API_KEY

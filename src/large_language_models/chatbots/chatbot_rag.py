@@ -9,14 +9,14 @@ from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
 from langchain.vectorstores.base import VectorStoreRetriever
 
-from .chatbot import Chatbot, ModelArgs
+from src.large_language_models.chatbots import Chatbot, ModelArgs
 
 
 class ChatbotRAG(Chatbot):
     def __init__(
         self,
-        embeddings_kwargs: t.Optional[t.Dict] = None,
-        search_kwargs: t.Optional[t.Dict] = None,
+        embeddings_kwargs: t.Dict | None = None,
+        search_kwargs: t.Dict | None = None,
         **model_kwargs: t.Unpack[ModelArgs],
     ) -> None:
         super().__init__(**model_kwargs)
@@ -52,7 +52,7 @@ class ChatbotRAG(Chatbot):
     def ask(
         self,
         query: str,
-        language: t.Optional[str] = None,
+        language: str | None = None,
     ) -> str:
         return self.chain.run(
             question=query,
