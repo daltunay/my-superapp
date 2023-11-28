@@ -1,7 +1,7 @@
 import time
 import typing as t
 from functools import cached_property
-import matplotlib.pyplot as plt
+
 import cv2
 import mediapipe as mp
 import numpy as np
