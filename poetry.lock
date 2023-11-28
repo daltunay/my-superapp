@@ -122,13 +122,13 @@ frozenlist = ">=1.1.0"
 
 [[package]]
 name = "altair"
-version = "5.1.2"
+version = "5.2.0"
 description = "Vega-Altair: A declarative statistical visualization library for Python."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "altair-5.1.2-py3-none-any.whl", hash = "sha256:7219708ec33c152e53145485040f428954ed15fd09b2a2d89e543e6d111dae7f"},
-    {file = "altair-5.1.2.tar.gz", hash = "sha256:e5f52a71853a607c61ce93ad4a414b3d486cd0d46ac597a24ae8bd1ac99dd460"},
+    {file = "altair-5.2.0-py3-none-any.whl", hash = "sha256:8c4888ad11db7c39f3f17aa7f4ea985775da389d79ac30a6c22856ab238df399"},
+    {file = "altair-5.2.0.tar.gz", hash = "sha256:2ad7f0c8010ebbc46319cc30febfb8e59ccf84969a201541c207bc3a4fa6cf81"},
 ]
 
 [package.dependencies]
@@ -140,8 +140,8 @@ pandas = ">=0.25"
 toolz = "*"
 
 [package.extras]
-dev = ["anywidget", "black (<24)", "hatch", "ipython", "m2r", "mypy", "pandas-stubs", "pyarrow (>=11)", "pytest", "pytest-cov", "ruff", "types-jsonschema", "types-setuptools", "vega-datasets", "vegafusion[embed] (>=1.4.0)", "vl-convert-python (>=0.14.0)"]
-doc = ["docutils", "geopandas", "jinja2", "myst-parser", "numpydoc", "pillow (>=9,<10)", "pydata-sphinx-theme", "scipy", "sphinx", "sphinx-copybutton", "sphinx-design", "sphinxext-altair"]
+dev = ["anywidget", "geopandas", "hatch", "ipython", "m2r", "mypy", "pandas-stubs", "pyarrow (>=11)", "pytest", "pytest-cov", "ruff (>=0.1.3)", "types-jsonschema", "types-setuptools", "vega-datasets", "vegafusion[embed] (>=1.4.0)", "vl-convert-python (>=1.1.0)"]
+doc = ["docutils", "jinja2", "myst-parser", "numpydoc", "pillow (>=9,<10)", "pydata-sphinx-theme (>=0.14.1)", "scipy", "sphinx", "sphinx-copybutton", "sphinx-design", "sphinxext-altair"]
 
 [[package]]
 name = "annotated-types"
@@ -557,13 +557,13 @@ tests = ["pytest", "pytest-cov", "pytest-xdist"]
 
 [[package]]
 name = "dataclasses-json"
-version = "0.6.2"
+version = "0.6.3"
 description = "Easily serialize dataclasses to and from JSON."
 optional = false
 python-versions = ">=3.7,<4.0"
 files = [
-    {file = "dataclasses_json-0.6.2-py3-none-any.whl", hash = "sha256:71816ced3d0f55a2c5bc1a813ace1b8d4234e79a08744269a7cf84d6f7c06e99"},
-    {file = "dataclasses_json-0.6.2.tar.gz", hash = "sha256:1b934c1bd63e775880946b8361a902d7de86e894bab8098eab27c010f95724d1"},
+    {file = "dataclasses_json-0.6.3-py3-none-any.whl", hash = "sha256:4aeb343357997396f6bca1acae64e486c3a723d8f5c76301888abeccf0c45176"},
+    {file = "dataclasses_json-0.6.3.tar.gz", hash = "sha256:35cb40aae824736fdf959801356641836365219cfe14caeb115c39136f775d2a"},
 ]
 
 [package.dependencies]
@@ -632,6 +632,20 @@ files = [
 
 [package.extras]
 tests = ["asttokens (>=2.1.0)", "coverage", "coverage-enable-subprocess", "ipython", "littleutils", "pytest", "rich"]
+
+[[package]]
+name = "extra-streamlit-components"
+version = "0.1.60"
+description = "An all-in-one place, to find complex or just natively unavailable components on streamlit."
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "extra_streamlit_components-0.1.60-py3-none-any.whl", hash = "sha256:14378edc31bb7d8bfa1525c0e340a43bddcc6d3855e87edca0e3f014b09ffbae"},
+    {file = "extra_streamlit_components-0.1.60.tar.gz", hash = "sha256:9512870c431fd8af6e11282bb5a5293f3a1b48d834152e5c9e9a11ceed738586"},
+]
+
+[package.dependencies]
+streamlit = ">=1.18.0"
 
 [[package]]
 name = "faiss-cpu"
@@ -1111,13 +1125,13 @@ testing = ["flufl.flake8", "importlib-resources (>=1.3)", "packaging", "pyfakefs
 
 [[package]]
 name = "ipykernel"
-version = "6.26.0"
+version = "6.27.1"
 description = "IPython Kernel for Jupyter"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "ipykernel-6.26.0-py3-none-any.whl", hash = "sha256:3ba3dc97424b87b31bb46586b5167b3161b32d7820b9201a9e698c71e271602c"},
-    {file = "ipykernel-6.26.0.tar.gz", hash = "sha256:553856658eb8430bbe9653ea041a41bff63e9606fc4628873fc92a6cf3abd404"},
+    {file = "ipykernel-6.27.1-py3-none-any.whl", hash = "sha256:dab88b47f112f9f7df62236511023c9bdeef67abc73af7c652e4ce4441601686"},
+    {file = "ipykernel-6.27.1.tar.gz", hash = "sha256:7d5d594b6690654b4d299edba5e872dc17bb7396a8d0609c97cb7b8a1c605de6"},
 ]
 
 [package.dependencies]
@@ -1486,13 +1500,13 @@ text-helpers = ["chardet (>=5.1.0,<6.0.0)"]
 
 [[package]]
 name = "langsmith"
-version = "0.0.66"
+version = "0.0.67"
 description = "Client library to connect to the LangSmith LLM Tracing and Evaluation Platform."
 optional = false
 python-versions = ">=3.8.1,<4.0"
 files = [
-    {file = "langsmith-0.0.66-py3-none-any.whl", hash = "sha256:e5e6d2deff19de827ac04db106b900091c75b6a3c1a1c047a8aa78caf72a63ea"},
-    {file = "langsmith-0.0.66.tar.gz", hash = "sha256:33d011c9db9236c06789b17dba97acc023275bafd0c2bf097283730d6608dea7"},
+    {file = "langsmith-0.0.67-py3-none-any.whl", hash = "sha256:66a257b97dabd43a7e62af271b2ddb7566167ce4e446fd7b7760e97d6ce84a5e"},
+    {file = "langsmith-0.0.67.tar.gz", hash = "sha256:cef00bac2e7455a5943f3afaea91c032db1a1f2adb83003159a71e884fb5a9a2"},
 ]
 
 [package.dependencies]
@@ -3417,18 +3431,18 @@ telegram = ["requests"]
 
 [[package]]
 name = "traitlets"
-version = "5.13.0"
+version = "5.14.0"
 description = "Traitlets Python configuration system"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "traitlets-5.13.0-py3-none-any.whl", hash = "sha256:baf991e61542da48fe8aef8b779a9ea0aa38d8a54166ee250d5af5ecf4486619"},
-    {file = "traitlets-5.13.0.tar.gz", hash = "sha256:9b232b9430c8f57288c1024b34a8f0251ddcc47268927367a0dd3eeaca40deb5"},
+    {file = "traitlets-5.14.0-py3-none-any.whl", hash = "sha256:f14949d23829023013c47df20b4a76ccd1a85effb786dc060f34de7948361b33"},
+    {file = "traitlets-5.14.0.tar.gz", hash = "sha256:fcdaa8ac49c04dfa0ed3ee3384ef6dfdb5d6f3741502be247279407679296772"},
 ]
 
 [package.extras]
 docs = ["myst-parser", "pydata-sphinx-theme", "sphinx"]
-test = ["argcomplete (>=3.0.3)", "mypy (>=1.6.0)", "pre-commit", "pytest (>=7.0,<7.5)", "pytest-mock", "pytest-mypy-testing"]
+test = ["argcomplete (>=3.0.3)", "mypy (>=1.7.0)", "pre-commit", "pytest (>=7.0,<7.5)", "pytest-mock", "pytest-mypy-testing"]
 
 [[package]]
 name = "typer"
@@ -3753,4 +3767,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.11"
-content-hash = "c8bc69a9f883d040c1f63a3a28030a93450c02fba94339f7d66d4d999c5e186f"
+content-hash = "20c76082402ef880d653a75ba086adb26c275df174dd7584897c2db433ed7fd2"
