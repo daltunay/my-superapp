@@ -33,6 +33,8 @@ class PoseLandmarkerApp(BaseLandmarkerApp):
         return [
             {
                 "landmark_drawing_spec": mp.solutions.drawing_styles.get_default_pose_landmarks_style(),
-                "connection_drawing_spec": mp.solutions.drawing_utils.DrawingSpec(),
+                "connection_drawing_spec": mp.solutions.drawing_utils.DrawingSpec(
+                    thickness=3
+                ),
             }
         ]

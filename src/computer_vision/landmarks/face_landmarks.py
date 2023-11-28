@@ -37,7 +37,7 @@ class FaceLandmarkerApp(BaseLandmarkerApp):
         return [
             {
                 "connection_drawing_spec": style,
-                "landmark_drawing_spec": mp.solutions.drawing_utils.DrawingSpec(),
+                "landmark_drawing_spec": mp.solutions.drawing_utils.DrawingSpec(thickness=1),
             }
             for style in (
                 mp.solutions.drawing_styles.get_default_face_mesh_tesselation_style(),

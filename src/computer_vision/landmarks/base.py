@@ -56,8 +56,9 @@ class BaseLandmarkerApp:
                 {"time": t, "landmarks": landmarks_list},
             )
 
-            annotated_image = self.annotate_time(image=image.numpy_view(), timestamp=t)
-            annotated_image = self.annotate_landmarks(
+            annotated_image = image.numpy_view()
+            self.annotate_time(image=annotated_image, timestamp=t)
+            self.annotate_landmarks(
                 image=annotated_image,
                 connections_list=self.connections_list,
                 landmarks_list=landmarks_list,
@@ -66,7 +67,7 @@ class BaseLandmarkerApp:
 
             cv2.imshow("Landmarker", annotated_image)
 
-            if cv2.waitKey(1) & 0xFF == ord("q"):
+            if cv2.waitKey(1) & 0xFF == ord("\x1b"):
                 break
 
         self.cap.release()
@@ -92,33 +93,28 @@ class BaseLandmarkerApp:
     @classmethod
     def annotate_landmarks(
         cls,
-        image: mp.Image,
+        image: np.ndarray,
         connections_list: t.List[t.FrozenSet[t.Tuple[int, int]]],
         landmarks_list: mp.tasks.vision.PoseLandmarkerResult
         | mp.tasks.vision.FaceLandmarkerResult,
         drawing_specs_list: t.List[t.Dict[str, mp.solutions.drawing_utils.DrawingSpec]],
-    ) -> mp.Image:
+    ) -> None:
         if not landmarks_list:
             return image
         normalized_landmarks_list = cls.normalize_landmarks_list(landmarks_list)
 
-        annotated_image = np.copy(image)
-
         for connections, drawing_specs in zip(connections_list, drawing_specs_list):
             mp.solutions.drawing_utils.draw_landmarks(
-                image=annotated_image,
+                image=image,
                 landmarks_list=normalized_landmarks_list,
                 connections=connections,
                 **drawing_specs,
             )
 
-        return annotated_image
-
     @classmethod
-    def annotate_time(cls, image: mp.Image, timestamp: float):
-        annotated_image = np.copy(image)
+    def annotate_time(cls, image: np.ndarray, timestamp: float):
         cv2.putText(
-            img=annotated_image,
+            img=image,
             text=f"{timestamp:.2f}s",
             org=(10, 60),
             fontFace=cv2.FONT_HERSHEY_SIMPLEX,
@@ -127,4 +123,3 @@ class BaseLandmarkerApp:
             thickness=3,
             lineType=cv2.LINE_AA,
         )
-        return annotated_image
