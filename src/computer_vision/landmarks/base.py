@@ -14,7 +14,7 @@ class BaseLandmarkerApp:
     def __init__(self, model_path: str):
         self.model_path = model_path
         self.cap = cv2.VideoCapture(0)
-        self.landmarks_series = []
+        self.history = []
 
     @cached_property
     def landmarker(
@@ -51,18 +51,9 @@ class BaseLandmarkerApp:
             landmarks_list_raw = getattr(detection_result, self.landmarks_type)
             landmarks_list = landmarks_list_raw[0] if landmarks_list_raw else []
 
-            self.plot_landmarks(
-                landmarks_list=landmarks_list,
-                connections_list=self.connections_list,
-                drawing_specs_list=self.drawing_specs_list,
-            )
-
             t = time.time() - t0
-            self.landmarks_series.append(
-                {
-                    "time": t,
-                    "landmarks_list": landmarks_list,
-                },
+            self.history.append(
+                {"time": t, "landmarks": landmarks_list},
             )
 
             annotated_image = self.annotate_time(image=image.numpy_view(), timestamp=t)
@@ -137,26 +128,3 @@ class BaseLandmarkerApp:
             lineType=cv2.LINE_AA,
         )
         return annotated_image
-
-    @classmethod
-    def plot_landmarks(
-        cls,
-        landmarks_list: mp.tasks.vision.PoseLandmarkerResult,
-        connections_list: t.List[t.FrozenSet[t.Tuple[int, int]]],
-        drawing_specs_list: t.List[t.Dict[str, mp.solutions.drawing_utils.DrawingSpec]],
-    ):
-        if not landmarks_list:
-            return
-
-        normalized_landmarks_list = cls.normalize_landmarks_list(landmarks_list)
-        for connections, drawing_specs in zip(connections_list, drawing_specs_list):
-            mp.solutions.drawing_utils.plot_landmarks(
-                landmarks_list=normalized_landmarks_list,
-                connections=connections,
-                connection_drawing_spec=(
-                    list(drawing_specs["connection_drawing_spec"].values())[0]
-                    if isinstance(drawing_specs["connection_drawing_spec"], dict)
-                    else drawing_specs["connection_drawing_spec"]
-                ),
-                landmark_drawing_spec=drawing_specs["landmark_drawing_spec"],
-            )
