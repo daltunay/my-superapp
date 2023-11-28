@@ -9,6 +9,13 @@ def generate_logo_link(url: str, img_url: str) -> str:
     return f'<a href="{url}"><img src="{img_url}"></a>'
 
 
+def show_source_code(path: str):
+    st.markdown(
+        "[![source code](https://img.shields.io/badge/source_code-gray?logo=github)]"
+        f"(https://github.com/daltunay/daltunay/{path})"
+    )
+
+
 def show_logos(linkedin: bool = True, github: bool = True):
     logos = []
 
@@ -36,6 +43,7 @@ def show_logos(linkedin: bool = True, github: bool = True):
         </div>
     """
 
+    st.divider()
     st.markdown(html_content, unsafe_allow_html=True)
 
 

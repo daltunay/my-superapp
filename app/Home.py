@@ -1,27 +1,29 @@
 import streamlit as st
 
+import utils
 from app.sidebar import Sidebar
-from utils.logging import set_logger
-from utils.misc import show_logos
-from utils.secrets import load_secrets
 
-logger = set_logger(__file__)
+logger = utils.set_logger(__file__)
 
-st.set_page_config(page_title="daltunay", page_icon="🧠")
+st.set_page_config(page_title="daltunay", page_icon="🧠", layout="centered")
 
-load_secrets()
+utils.load_secrets()
 
 
 def main():
-    st.title("<title>", anchor=False)
-    st.caption("<caption>")
+    st.title("", anchor=False)
+
+    utils.show_source_code(path="")
+
+    st.caption(
+        body="",
+        help="",
+    )
 
     sidebar = st.session_state.setdefault("sidebar", Sidebar())
     sidebar.main()
 
-    # ...
-
-    show_logos(linkedin=True, github=True)
+    utils.show_logos(linkedin=True, github=True)
 
 
 if __name__ == "__main__":

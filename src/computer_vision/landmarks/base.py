@@ -38,7 +38,7 @@ class BaseLandmarkerApp:
             "drawing_specs property must be implemented in subclasses"
         )
 
-    def run(self) -> None:
+    def run(self, streamlit_mode: bool = False) -> np.ndarray | None:
         t0 = time.time()
         while self.cap.isOpened():
             ret, frame = self.cap.read()
@@ -65,7 +65,10 @@ class BaseLandmarkerApp:
                 drawing_specs_list=self.drawing_specs_list,
             )
 
-            cv2.imshow("Landmarker", annotated_image)
+            if streamlit_mode:
+                yield annotated_image
+            else:
+                cv2.imshow("Landmarker", annotated_image)
 
             if cv2.waitKey(1) & 0xFF == ord("\x1b"):
                 break
@@ -115,7 +118,7 @@ class BaseLandmarkerApp:
     def annotate_time(cls, image: np.ndarray, timestamp: float):
         cv2.putText(
             img=image,
-            text=f"{timestamp:.2f}s",
+            text=f"{timestamp:.3f}s",
             org=(10, 60),
             fontFace=cv2.FONT_HERSHEY_SIMPLEX,
             fontScale=2,
