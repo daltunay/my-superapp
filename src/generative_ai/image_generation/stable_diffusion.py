@@ -1,19 +1,21 @@
 import together
+from PIL import Image
 
-from src.generative_ai.image_generation import CONFIG
 from utils.logging import set_logger
 from utils.misc import base64_to_img
 
 logger = set_logger(__file__)
-
-model_config = CONFIG["Stable Diffusion 2.1"]
 
 
 def stable_diffusion_image(
     prompt: str,
     width: int = 1024,
     height: int = 1024,
-):
+) -> Image.Image:
+    from src.generative_ai.image_generation import CONFIG
+
+    model_config = CONFIG["Stable Diffusion 2.1"]
+
     response = together.Image.create(
         model=f"{model_config['owner']}/{model_config['string']}",
         prompt=prompt,
