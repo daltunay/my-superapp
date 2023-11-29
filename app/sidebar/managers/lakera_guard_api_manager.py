@@ -3,29 +3,30 @@ import os
 import requests
 import streamlit as st
 
-from utils.logging import set_logger
+import utils
 
-logger = set_logger(__file__)
+logger = utils.CustomLogger(__file__)
 
 
-class LakeraAPIManager:
-    key = "lakera_api_manager.activated"
+class LakeraGuardAPIManager:
+    key = "lakera_guard_api_manager"
 
     def __init__(self):
-        pass
+        logger.info("Initializing Lakera Guard API Manager")
 
+    @property
     def checkbox(self):
         return st.checkbox(
             label="LLM prompt injection security",
-            value=st.session_state.get(self.key, False),
-            key=self.key,
+            value=st.session_state.get(f"{self.key}.checkbox", False),
+            key=f"{self.key}.checkbox",
             help="Use Lakera Guard API to defend against LLM prompt injections",
             on_change=self.authentificate,
         )
 
     @classmethod
     def authentificate(cls):
-        if not st.session_state.get(cls.key):
+        if not st.session_state.get(f"{cls.key}.checkbox"):
             return
 
         lakera_guard_api_key = os.getenv("LAKERA_GUARD_API_KEY")
@@ -47,4 +48,4 @@ class LakeraAPIManager:
         st.toast(**toast)
 
     def main(self):
-        self.checkbox()
+        st.session_state.__setattr__("", self.checkbox)

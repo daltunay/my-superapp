@@ -1,10 +1,10 @@
 from openai import OpenAI
 from PIL import Image
 
-from utils.logging import set_logger
+import utils
 from utils.misc import base64_to_img
 
-logger = set_logger(__file__)
+logger = utils.CustomLogger(__file__)
 
 
 def dall_e_image(

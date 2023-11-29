@@ -1,8 +1,8 @@
 import streamlit as st
 
-from utils.logging import set_logger
+import utils
 
-logger = set_logger(__file__)
+logger = utils.CustomLogger(__file__)
 
 LANGUAGES = [
     "English",
@@ -13,27 +13,19 @@ LANGUAGES = [
 
 
 class LanguageManager:
-    def __init__(self, default_language="English"):
-        self.languages = LANGUAGES
-        self.selected_language = default_language
+    key = "language_manager"
 
-    def reset_state(self):
-        st.session_state.chatbot = None
-        st.session_state.current_choice = None
+    def __init__(self):
+        logger.info("Initializing Language Manager")
 
-    def choose_language(self):
+    def select_language(self):
         self.selected_language = st.selectbox(
             label="Select chat language:",
-            options=list(self.languages),
-            key="language_manager.selected_language",
-            index=list(self.languages).index(
-                st.session_state.get(
-                    "language_manager.selected_language", self.selected_language
-                )
-            ),
+            options=list(LANGUAGES),
+            key="self.key",
+            index=list(LANGUAGES).index(st.session_state.get("self.key", "English")),
             help="Changes the **chat language only**, not the interface language",
-            on_change=self.reset_state,
         )
 
     def main(self):
-        self.choose_language()
+        self.select_language()

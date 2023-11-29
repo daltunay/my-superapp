@@ -1,13 +1,13 @@
 import time
 
-import streamlit as st
 import extra_streamlit_components as stx
+import streamlit as st
 
 import utils
 from app.sidebar import Sidebar
 from src.computer_vision.landmarks import FaceLandmarkerApp, PoseLandmarkerApp
 
-logger = utils.set_logger(__file__)
+logger = utils.CustomLogger(__file__)
 
 st.set_page_config(page_title="daltunay", page_icon="🧠", layout="centered")
 

@@ -3,7 +3,7 @@ import streamlit as st
 import utils
 from app.sidebar import Sidebar
 
-logger = utils.set_logger(__file__)
+logger = utils.CustomLogger(__file__)
 
 st.set_page_config(page_title="daltunay", page_icon="🧠", layout="centered")
 
