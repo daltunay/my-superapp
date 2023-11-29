@@ -2,7 +2,6 @@ import os
 
 import requests
 import streamlit as st
-import streamlit_shadcn_ui as st_ui
 
 from utils.logging import set_logger
 
@@ -10,21 +9,23 @@ logger = set_logger(__file__)
 
 
 class LakeraAPIManager:
-    def __init__(self):
-        self.key = "lakera_api_manager.activated"
+    key = "lakera_api_manager.activated"
 
-    @property
-    def toggle_switch(self):
-        return st_ui.switch(
-            default_checked=st.session_state.get(self.key, False),
+    def __init__(self):
+        pass
+
+    def checkbox(self):
+        return st.checkbox(
             label="LLM prompt injection security",
+            value=st.session_state.get(self.key, False),
             key=self.key,
+            help="Use Lakera Guard API to defend against LLM prompt injections",
+            on_change=self.authentificate,
         )
 
     @classmethod
-    @st.cache_resource(show_spinner=False, max_entries=1)
-    def authentificate(_cls, toggle_state: bool):
-        if not toggle_state:
+    def authentificate(cls):
+        if not st.session_state.get(cls.key):
             return
 
         lakera_guard_api_key = os.getenv("LAKERA_GUARD_API_KEY")
@@ -46,5 +47,4 @@ class LakeraAPIManager:
         st.toast(**toast)
 
     def main(self):
-        toggle_state = self.toggle_switch
-        self.authentificate(toggle_state=toggle_state)
+        self.checkbox()

@@ -1,7 +1,7 @@
 import time
 
 import streamlit as st
-import streamlit_shadcn_ui as st_ui
+import extra_streamlit_components as stx
 
 import utils
 from app.sidebar import Sidebar
@@ -22,32 +22,34 @@ def main():
         help="https://developers.google.com/mediapipe/solutions",
     )
 
-    st_ui.link_button(
-        text="Source code",
-        url="https://github.com/daltunay/my-app/tree/main/src/computer_vision/landmarks/",
-        variant="outline",
-    )
+    utils.show_source_code(path="src/computer_vision/landmarks/")
 
-    sidebar = st.session_state.setdefault("sidebar", Sidebar())
-    sidebar.main()
+    st.session_state.setdefault("sidebar", Sidebar()).main()
 
     st.markdown("Select one of the two following modes:")
-    app_modes = {
-        "Face detection": FaceLandmarkerApp,
-        "Pose detection": PoseLandmarkerApp,
-    }
-    selected_mode = st_ui.tabs(options=app_modes.keys())
+    app_modes = {"face": FaceLandmarkerApp, "pose": PoseLandmarkerApp}
+    selected_app = stx.tab_bar(
+        data=[
+            stx.TabBarItemData(
+                id=app_mode,
+                title=f"Mode: {app_mode.capitalize()}",
+                description=f"Detection of {app_mode} landmarks",
+            )
+            for app_mode in app_modes
+        ],
+        return_type=str,
+        default=None,
+    )
 
-    if selected_mode in app_modes:
-        app = st.session_state.setdefault(selected_mode, app_modes[selected_mode]())
+    if selected_app in app_modes:
+        app = st.session_state.setdefault(selected_app, app_modes[selected_app]())
         container = st.empty()
         start_time = time.time()
         for i, image in enumerate(app.run(streamlit_mode=True)):
             elapsed_time = time.time() - start_time
-            fps = i / elapsed_time
             container.image(
                 image=image,
-                caption=f"FPS: {fps:.3f} frames/sec",
+                caption=f"FPS: {(i / elapsed_time):.3f} frames/sec",
                 channels="BGR",
                 use_column_width=True,
             )
