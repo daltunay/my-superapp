@@ -1,11 +1,11 @@
-import extra_streamlit_components as stx
+import time
+
 import streamlit as st
+import streamlit_shadcn_ui as st_ui
 
 import utils
 from app.sidebar import Sidebar
 from src.computer_vision.landmarks import FaceLandmarkerApp, PoseLandmarkerApp
-
-import time
 
 logger = utils.set_logger(__file__)
 
@@ -17,30 +17,27 @@ utils.load_secrets()
 def main():
     st.title("Landmark detection", anchor=False)
 
-    utils.show_source_code(path="src/computer_vision/landmarks/")
-
     st.caption(
         body="Using Google's Mediapipe module, this app performs landmark detection for both the face and the body pose.",
         help="https://developers.google.com/mediapipe/solutions",
     )
 
+    st_ui.link_button(
+        text="Source code",
+        url="https://github.com/daltunay/daltunay/tree/main/src/computer_vision/landmarks/",
+        variant="outline",
+    )
+
     sidebar = st.session_state.setdefault("sidebar", Sidebar())
     sidebar.main()
 
-    app_modes = {"face": FaceLandmarkerApp, "pose": PoseLandmarkerApp}
+    st.markdown("Select one of the two following modes:")
+    app_modes = {
+        "Face detection": FaceLandmarkerApp,
+        "Pose detection": PoseLandmarkerApp,
+    }
+    selected_app = st_ui.tabs(options=app_modes.keys())
 
-    selected_app = stx.tab_bar(
-        data=[
-            stx.TabBarItemData(
-                id=app_mode,
-                title=f"Mode: {app_mode.upper()}",
-                description=f"Detection of {app_mode} landmarks",
-            )
-            for app_mode in app_modes
-        ],
-        return_type=str,
-        default=None,
-    )
     if selected_app in app_modes:
         app = st.session_state.setdefault(selected_app, app_modes[selected_app]())
         container = st.empty()
