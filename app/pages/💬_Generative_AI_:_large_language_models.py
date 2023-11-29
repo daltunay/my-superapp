@@ -34,10 +34,10 @@ def main():
         "RAG chatbot": None,
         "Web access chatbot": None,
     }
-    selected_app = st_ui.tabs(options=app_modes.keys())
+    selected_mode = st_ui.tabs(options=app_modes.keys())
 
-    if selected_app in app_modes:
-        app = st.session_state.setdefault(selected_app, app_modes[selected_app]())
+    if selected_mode in app_modes:
+        app = st.session_state.setdefault(selected_mode, app_modes[selected_mode]())
         pass
     else:
         st.info(body="Please select a mode above", icon="ℹ️")
