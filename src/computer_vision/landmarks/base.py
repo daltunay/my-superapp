@@ -48,12 +48,12 @@ class BaseLandmarkerApp:
             image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame)
 
             detection_result = self.landmarker.detect(image)
-            landmarks_list_raw = getattr(detection_result, self.landmarks_type)
-            landmarks_list = landmarks_list_raw[0] if landmarks_list_raw else []
+            landmark_list_raw = getattr(detection_result, self.landmarks_type)
+            landmark_list = landmark_list_raw[0] if landmark_list_raw else []
 
             t = time.time() - t0
             self.history.append(
-                {"time": t, "landmarks": landmarks_list},
+                {"time": t, "landmarks": landmark_list},
             )
 
             annotated_image = image.numpy_view()
@@ -61,7 +61,7 @@ class BaseLandmarkerApp:
             self.annotate_landmarks(
                 image=annotated_image,
                 connections_list=self.connections_list,
-                landmarks_list=landmarks_list,
+                landmark_list=landmark_list,
                 drawing_specs_list=self.drawing_specs_list,
             )
 
@@ -77,39 +77,39 @@ class BaseLandmarkerApp:
         cv2.destroyAllWindows()
 
     @classmethod
-    def normalize_landmarks_list(
-        cls, landmarks_list: mp.tasks.vision.PoseLandmarkerResult
+    def normalize_landmark_list(
+        cls, landmark_list: mp.tasks.vision.PoseLandmarkerResult
     ) -> landmark_pb2.NormalizedLandmarkList:
-        normalized_landmarks_list = landmark_pb2.NormalizedLandmarkList()
-        normalized_landmarks_list.landmark.extend(
+        normalized_landmark_list = landmark_pb2.NormalizedLandmarkList()
+        normalized_landmark_list.landmark.extend(
             [
                 landmark_pb2.NormalizedLandmark(
                     x=landmark.x,
                     y=landmark.y,
                     z=landmark.z,
                 )
-                for landmark in landmarks_list
+                for landmark in landmark_list
             ]
         )
-        return normalized_landmarks_list
+        return normalized_landmark_list
 
     @classmethod
     def annotate_landmarks(
         cls,
         image: np.ndarray,
         connections_list: t.List[t.FrozenSet[t.Tuple[int, int]]],
-        landmarks_list: mp.tasks.vision.PoseLandmarkerResult
+        landmark_list: mp.tasks.vision.PoseLandmarkerResult
         | mp.tasks.vision.FaceLandmarkerResult,
         drawing_specs_list: t.List[t.Dict[str, mp.solutions.drawing_utils.DrawingSpec]],
     ) -> None:
-        if not landmarks_list:
+        if not landmark_list:
             return image
-        normalized_landmarks_list = cls.normalize_landmarks_list(landmarks_list)
+        normalized_landmark_list = cls.normalize_landmark_list(landmark_list)
 
         for connections, drawing_specs in zip(connections_list, drawing_specs_list):
             mp.solutions.drawing_utils.draw_landmarks(
                 image=image,
-                landmarks_list=normalized_landmarks_list,
+                landmark_list=normalized_landmark_list,
                 connections=connections,
                 **drawing_specs,
             )
