@@ -33,7 +33,7 @@ def main():
         data=[
             stx.TabBarItemData(
                 id=app_mode,
-                title=f"Mode: {app_mode.capitalize()}",
+                title=f"Mode: {app_mode.upper()}",
                 description=f"Detection of {app_mode} landmarks",
             )
             for app_mode in app_modes
