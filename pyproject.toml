@@ -5,7 +5,7 @@ description = "My personal web app!"
 authors = ["Daniel Altunay <daniel.altunay@gmail.com>"]
 readme = "README.md"
 homepage = "https://daltunay.streamlit.app/"
-repository = "https://github.com/daltunay/daltunay"
+repository = "https://github.com/daltunay/my-app"
 packages = [{ include = "app" }, { include = "src" }, { include = "utils" }]
 
 [tool.poetry.dependencies]

@@ -18,7 +18,7 @@ pip install poetry
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/daltunay/daltunay.git
+git clone https://github.com/daltunay/my-app.git
 cd daltunay
 ```
 

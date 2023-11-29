@@ -24,7 +24,7 @@ def main():
 
     st_ui.link_button(
         text="Source code",
-        url="https://github.com/daltunay/daltunay/tree/main/src/computer_vision/landmarks/",
+        url="https://github.com/daltunay/my-app/tree/main/src/computer_vision/landmarks/",
         variant="outline",
     )
 
