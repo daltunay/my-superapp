@@ -3,7 +3,7 @@ from utils.managers import (LakeraGuardAPIManager, LanguageManager,
                             ModelAPIManager)
 from utils.misc import (base64_to_img, generate_logo_link, show_logos,
                         show_source_code)
-from utils.pages_config import load_pages_config, load_page_config
+from utils.pages_config import PageConfigLoader
 from utils.secrets import load_secrets
 
 __all__ = [
@@ -16,6 +16,5 @@ __all__ = [
     "LakeraGuardAPIManager",
     "LanguageManager",
     "ModelAPIManager",
-    "load_pages_config",
-    "load_page_config",
+    "PageConfigLoader",
 ]
