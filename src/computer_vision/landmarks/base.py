@@ -2,7 +2,7 @@ import time
 import typing as t
 from functools import cached_property
 
-import av
+from av import VideoFrame
 import streamlit_webrtc as st_webrtc
 
 import cv2
@@ -41,7 +41,7 @@ class BaseLandmarkerApp:
             "drawing_specs property must be implemented in subclasses"
         )
 
-    def callback(self, frame: av.VideoFrame) -> av.VideoFrame:
+    def callback(self, frame: VideoFrame) -> VideoFrame:
         image = frame.to_ndarray(format="bgr24")
 
         detection_result = self.landmarker.detect(image)
@@ -62,7 +62,7 @@ class BaseLandmarkerApp:
             drawing_specs_list=self.drawing_specs_list,
         )
 
-        return av.VideoFrame.from_ndarray(image, format="bgr24")
+        return VideoFrame.from_ndarray(image, format="bgr24")
 
     def run(self) -> None:
         st_webrtc.webrtc_streamer(
@@ -70,7 +70,7 @@ class BaseLandmarkerApp:
             mode=st_webrtc.WebRtcMode.SENDRECV,
             video_frame_callback=self.callback,
             rtc_configuration={
-                "iceServers": st_webrtc.sample_utils.turn.get_ice_servers()
+                "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
             },
             media_stream_constraints={"video": True, "audio": False},
             async_processing=True,
