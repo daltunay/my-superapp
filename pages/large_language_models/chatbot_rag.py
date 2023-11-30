@@ -33,4 +33,4 @@ def main():
     ):
         st.chat_message("human").write(prompt)
         with st.chat_message("ai"):
-            chatbot.ask(query=prompt, context=None, language=None)
+            chatbot.ask(query=prompt, language=None)
