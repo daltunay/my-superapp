@@ -31,9 +31,8 @@ class LakeraWidget:
     def authentificate(cls):
         if not st_ss.get(f"{cls.key}.activated"):
             return
-
+        
         api_key = os.getenv("LAKERA_GUARD_API_KEY")
-
         try:
             response = requests.post(
                 url="https://api.lakera.ai/v1/prompt_injection",
