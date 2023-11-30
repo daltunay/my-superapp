@@ -40,8 +40,10 @@ class ChatbotTools(Chatbot):
             },
             tools=self.tools,
             handle_parsing_errors=True,
+            return_intermediate_steps=False,
         )
-        agent.agent.llm_chain.prompt += "Answer in {language} only"
+        agent.agent.llm_chain.prompt += "\n(answer in {language})"
+        agent.agent.llm_chain.prompt += "\nThe final answer must come in JSON format"
         return agent
 
     def ask(

@@ -35,12 +35,10 @@ def main():
         for message in chatbot.history:
             st.chat_message(message["role"]).write(message["content"])
     else:
-        st.error("Select a model above")
+        st.warning("Select a model above")
 
     if prompt := st.chat_input(
-        placeholder=f"Chat with {chosen_model}!"
-        if chosen_model
-        else "Select a model above first",
+        placeholder=f"Chat with {chosen_model}!" if chosen_model else "",
         disabled=not chosen_model,
     ):
         st.chat_message("human").write(prompt)
