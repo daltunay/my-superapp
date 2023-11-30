@@ -48,3 +48,8 @@ def show_logos(linkedin: bool = True, github: bool = True):
 
 def base64_to_img(base64: str) -> Image.Image:
     return Image.open(BytesIO(b64decode(base64)))
+
+
+def reset_session_state_key(key: str):
+    if hasattr(st.session_state, key):
+        delattr(st.session_state, key)

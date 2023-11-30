@@ -1,5 +1,4 @@
 import logging
-
 import typing as t
 from functools import cached_property
 

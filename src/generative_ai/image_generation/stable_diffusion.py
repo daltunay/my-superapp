@@ -12,9 +12,9 @@ def stable_diffusion_image(
     width: int = 1024,
     height: int = 1024,
 ) -> Image.Image:
-    from src.generative_ai.image_generation import CONFIG
+    from src.generative_ai.image_generation import IMAGE_GEN_CONFIG
 
-    model_config = CONFIG["Stable Diffusion 2.1"]
+    model_config = IMAGE_GEN_CONFIG["Stable Diffusion 2.1"]
 
     response = together.Image.create(
         model=f"{model_config['owner']}/{model_config['string']}",

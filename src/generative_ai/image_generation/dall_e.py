@@ -12,9 +12,9 @@ def dall_e_image(
     width: int = 1024,
     height: int = 1024,
 ) -> Image.Image:
-    from src.generative_ai.image_generation import CONFIG
+    from src.generative_ai.image_generation import IMAGE_GEN_CONFIG
 
-    model_config = CONFIG["DALL-E 2"]
+    model_config = IMAGE_GEN_CONFIG["DALL-E 2"]
 
     client = OpenAI()
     response = client.images.generate(
