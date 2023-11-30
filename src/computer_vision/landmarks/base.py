@@ -49,9 +49,9 @@ class BaseLandmarkerApp:
         landmark_list = landmark_list_raw[0] if landmark_list_raw else []
 
         t = time.time() - self.start_time
-        self.history.append(
-            {"time": t, "landmarks": landmark_list},
-        )
+        # self.history.append(
+        #     {"time": t, "landmarks": landmark_list},
+        # )
 
         annotated_image = image.numpy_view()
         self.annotate_time(image=annotated_image, timestamp=t)
@@ -71,6 +71,8 @@ class BaseLandmarkerApp:
             rtc_configuration={
                 "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
             },
+            media_stream_constraints={"video": True, "audio": False},
+            async_processing=True,
         )
 
     @classmethod
