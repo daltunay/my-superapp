@@ -62,11 +62,12 @@ class BaseLandmarkerApp:
             drawing_specs_list=self.drawing_specs_list,
         )
 
-        return av.VideoFrame.from_ndarray(image[::-1,:,:], format="bgr24")
+        return av.VideoFrame.from_ndarray(image[::-1, :, :], format="bgr24")
 
     def run(self) -> None:
         st_webrtc.webrtc_streamer(
             key="landmarker_app",
+            mode=st_webrtc.WebRtcMode.SENDRECV,
             video_frame_callback=self.callback,
             rtc_configuration={
                 "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
