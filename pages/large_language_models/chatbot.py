@@ -20,6 +20,11 @@ def main():
         kwargs={"key": "chatbot"},
     )
 
+    with st.sidebar:
+        st.header(body="Chat parameters", divider="gray")
+        st_ss.setdefault("language_widget", utils.LanguageWidget()).select()
+        st_ss.setdefault("lakera_widget", utils.LakeraWidget()).checkbox()
+
     if chosen_model:
         chatbot = st_ss.setdefault("chatbot", Chatbot(**LLM_CONFIG[chosen_model]))
         for message in chatbot.history:
@@ -32,5 +37,10 @@ def main():
         disabled=not chosen_model,
     ):
         st.chat_message("human").write(prompt)
+        if st_ss.get("lakera_widget.activated"):
+            flag, response = utils.LakeraWidget.flag_prompt(prompt=prompt)
+            if flag:
+                st.warning(body="Prompt injection detected", icon="🚨")
+                st.expander(label="LOGS").json(response)
         with st.chat_message("ai"):
-            chatbot.ask(query=prompt, context=None, language=None)
+            chatbot.ask(query=prompt, language=st_ss.get("language_widget.selection"))

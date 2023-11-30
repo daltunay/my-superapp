@@ -13,11 +13,17 @@ st_ss = st.session_state
 def main():
     chosen_model = st.selectbox(
         label="Large Language Model:",
+        placeholder="Choose an option",
         options=LLM_CONFIG.keys(),
         index=None,
         on_change=utils.reset_session_state_key,
         kwargs={"key": "chatbot"},
     )
+
+    with st.sidebar:
+        st.header(body="Chat parameters", divider="gray")
+        st_ss.setdefault("language_widget", utils.LanguageWidget()).select()
+        st_ss.setdefault("lakera_widget", utils.LakeraWidget()).checkbox()
 
     chosen_tools = st.sidebar.multiselect(
         label="Tools:",
@@ -28,11 +34,7 @@ def main():
 
     if chosen_model:
         chatbot = st_ss.setdefault(
-            "chatbot",
-            ChatbotTools(
-                **LLM_CONFIG[chosen_model],
-                tool_names=chosen_tools,
-            ),
+            "chatbot", ChatbotTools(**LLM_CONFIG[chosen_model], tool_names=chosen_tools)
         )
         for message in chatbot.history:
             st.chat_message(message["role"]).write(message["content"])
@@ -44,5 +46,10 @@ def main():
         disabled=not chosen_model,
     ):
         st.chat_message("human").write(prompt)
+        if st_ss.get("lakera_widget.activated"):
+            flag, response = utils.LakeraWidget.flag_prompt(prompt=prompt)
+            if flag:
+                st.warning(body="Prompt injection detected", icon="🚨")
+                st.expander(label="LOGS").json(response)
         with st.chat_message("ai"):
-            chatbot.ask(query=prompt, language=None)
+            chatbot.ask(query=prompt, language=st_ss.get("language_widget.selection"))
