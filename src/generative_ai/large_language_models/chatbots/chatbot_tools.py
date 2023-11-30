@@ -1,24 +1,18 @@
 import typing as t
 from functools import cached_property
 
-from langchain.agents import (AgentExecutor, AgentType, initialize_agent,
-                              load_tools)
+from langchain.agents import AgentExecutor, AgentType, initialize_agent, load_tools
 from langchain.tools import BaseTool
 
 from src.generative_ai.large_language_models.chatbots import Chatbot, ModelArgs
 
 
 class ChatbotTools(Chatbot):
+    available_tools = ["google-search", "wikipedia"]
+
     def __init__(
         self,
-        tool_names: t.List[
-            t.Literal[
-                "google-search",
-                "wikipedia",
-                "python_repl",
-            ]
-        ]
-        | None = None,
+        tool_names: t.List[str] | None = None,
         **model_kwargs: t.Unpack[ModelArgs],
     ) -> None:
         super().__init__(**model_kwargs)

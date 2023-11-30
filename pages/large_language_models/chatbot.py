@@ -24,6 +24,8 @@ def main():
         )
         for message in chatbot.history:
             st.chat_message(message["role"]).write(message["content"])
+    else:
+        st.error("Select a model above")
 
     if prompt := st.chat_input(
         placeholder=f"Chat with {chosen_model}!"

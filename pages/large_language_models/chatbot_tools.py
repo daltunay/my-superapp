@@ -11,19 +11,31 @@ loader.set_page_config(globals())
 def main():
     chosen_model = st.selectbox(
         label="Large Language Model:",
-        placeholder="Choose an option",
         options=LLM_CONFIG.keys(),
         index=None,
         on_change=utils.reset_session_state_key,
         kwargs={"key": "chatbot"},
     )
 
+    chosen_tools = st.multiselect(
+        label="Tools:",
+        options=ChatbotTools.available_tools,
+        on_change=utils.reset_session_state_key,
+        kwargs={"key": "chatbot"},
+    )
+
     if chosen_model:
         chatbot = st.session_state.setdefault(
-            "chatbot", ChatbotTools(**LLM_CONFIG[chosen_model])
+            "chatbot",
+            ChatbotTools(
+                **LLM_CONFIG[chosen_model],
+                tool_names=chosen_tools,
+            ),
         )
         for message in chatbot.history:
             st.chat_message(message["role"]).write(message["content"])
+    else:
+        st.error("Select a model above")
 
     if prompt := st.chat_input(
         placeholder=f"Chat with {chosen_model}!"

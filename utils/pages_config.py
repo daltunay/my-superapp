@@ -38,6 +38,6 @@ class PageConfigLoader:
         }
 
     def set_page_config(self, _globals):
-        self.logger.info(self.page_config)
+        self.logger.info(f"Setting page config: {self.page_config}")
         for key, value in self.page_config.items():
             _globals[key] = value
