@@ -13,7 +13,6 @@ st_ss = st.session_state
 
 class LakeraWidget:
     key = "lakera_widget"
-    api_key = os.getenv("LAKERA_GUARD_API_KEY")
 
     def __init__(self):
         logger.info("Initializing Lakera Guard Widget")
@@ -33,11 +32,13 @@ class LakeraWidget:
         if not st_ss.get(f"{cls.key}.activated"):
             return
 
+        api_key = os.getenv("LAKERA_GUARD_API_KEY")
+
         try:
             response = requests.post(
                 url="https://api.lakera.ai/v1/prompt_injection",
                 json={"input": "<AUTHENTICATION TEST>"},
-                headers={"Authorization": f"Bearer {cls.api_key}"},
+                headers={"Authorization": f"Bearer {api_key}"},
             )
         except requests.exceptions.SSLError:
             toast = {"body": "SSL CERTIFICATE VERIFY FAILED", "icon": "🚫"}
