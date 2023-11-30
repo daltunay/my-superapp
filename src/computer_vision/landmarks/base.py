@@ -78,7 +78,7 @@ class BaseLandmarkerApp:
         )
 
     def run(self) -> None:
-        while self.state.playing:
+        while self.streamer.state.playing:
             pass
 
     @classmethod
