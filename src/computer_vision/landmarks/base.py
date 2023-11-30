@@ -41,7 +41,7 @@ class BaseLandmarkerApp:
             "drawing_specs property must be implemented in subclasses"
         )
 
-    def callback(self, frame):
+    def callback(self, frame: np.ndarray) -> av.VideoFrame:
         image = frame.to_ndarray(format="bgr24")
 
         detection_result = self.landmarker.detect(image)
@@ -49,20 +49,19 @@ class BaseLandmarkerApp:
         landmark_list = landmark_list_raw[0] if landmark_list_raw else []
 
         t = time.time() - self.start_time
-        # self.history.append(
-        #     {"time": t, "landmarks": landmark_list},
-        # )
+        # self.history.append(
+        #     {"time": t, "landmarks": landmark_list},
+        # )
 
-        annotated_image = image.numpy_view()
-        self.annotate_time(image=annotated_image, timestamp=t)
+        self.annotate_time(image=image, timestamp=t)
         self.annotate_landmarks(
-            image=annotated_image,
+            image=image,
             connections_list=self.connections_list,
             landmark_list=landmark_list,
             drawing_specs_list=self.drawing_specs_list,
         )
 
-        return av.VideoFrame.from_ndarray(annotated_image, format="bgr24")
+        return av.VideoFrame.from_ndarray(image, format="bgr24")
 
     def run(self) -> None:
         st_webrtc.webrtc_streamer(
@@ -72,7 +71,6 @@ class BaseLandmarkerApp:
                 "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
             },
             media_stream_constraints={"video": True, "audio": False},
-            async_processing=True,
         )
 
     @classmethod
