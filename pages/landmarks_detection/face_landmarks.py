@@ -1,5 +1,3 @@
-import time
-
 import streamlit as st
 
 import utils
@@ -19,5 +17,6 @@ def main():
 
     utils.show_source_code(path="src/computer_vision/landmarks/face_landmarks/")
 
-    app = FaceLandmarkerApp()
-    app.run()
+    if st.session_state.get("app") is None:
+        app = st.session_state.setdefault("app", FaceLandmarkerApp())
+        app.run()
