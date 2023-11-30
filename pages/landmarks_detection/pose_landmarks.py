@@ -20,12 +20,4 @@ def main():
     utils.show_source_code(path="src/computer_vision/landmarks/pose_landmarks/")
 
     app = PoseLandmarkerApp()
-    container = st.empty()
-    start_time = time.time()
-    for i, image in enumerate(app.run(streamlit_mode=True)):
-        container.image(
-            image=image,
-            caption=f"FPS: {(i / (time.time() - start_time)):.3f} frames/sec",
-            channels="BGR",
-            use_column_width=True,
-        )
+    app.run()

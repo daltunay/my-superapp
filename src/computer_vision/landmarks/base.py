@@ -2,6 +2,9 @@ import time
 import typing as t
 from functools import cached_property
 
+import av
+import streamlit_webrtc as st_webrtc
+
 import cv2
 import mediapipe as mp
 import numpy as np
@@ -13,7 +16,7 @@ class BaseLandmarkerApp:
 
     def __init__(self, model_path: str):
         self.model_path = model_path
-        self.cap = cv2.VideoCapture(0)
+        self.start_time = time.time()
         self.history = []
 
     @cached_property
@@ -38,43 +41,37 @@ class BaseLandmarkerApp:
             "drawing_specs property must be implemented in subclasses"
         )
 
-    def run(self, streamlit_mode: bool = False) -> np.ndarray | None:
-        t0 = time.time()
-        while self.cap.isOpened():
-            ret, frame = self.cap.read()
-            if not ret:
-                break
+    def callback(self, frame):
+        image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame)
 
-            image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame)
+        detection_result = self.landmarker.detect(image)
+        landmark_list_raw = getattr(detection_result, self.landmarks_type)
+        landmark_list = landmark_list_raw[0] if landmark_list_raw else []
 
-            detection_result = self.landmarker.detect(image)
-            landmark_list_raw = getattr(detection_result, self.landmarks_type)
-            landmark_list = landmark_list_raw[0] if landmark_list_raw else []
+        t = time.time() - self.start_time
+        self.history.append(
+            {"time": t, "landmarks": landmark_list},
+        )
 
-            t = time.time() - t0
-            self.history.append(
-                {"time": t, "landmarks": landmark_list},
-            )
+        annotated_image = image.numpy_view()
+        self.annotate_time(image=annotated_image, timestamp=t)
+        self.annotate_landmarks(
+            image=annotated_image,
+            connections_list=self.connections_list,
+            landmark_list=landmark_list,
+            drawing_specs_list=self.drawing_specs_list,
+        )
 
-            annotated_image = image.numpy_view()
-            self.annotate_time(image=annotated_image, timestamp=t)
-            self.annotate_landmarks(
-                image=annotated_image,
-                connections_list=self.connections_list,
-                landmark_list=landmark_list,
-                drawing_specs_list=self.drawing_specs_list,
-            )
+        return av.VideoFrame.from_ndarray(annotated_image, format="bgr24")
 
-            if streamlit_mode:
-                yield annotated_image
-            else:
-                cv2.imshow("Landmarker", annotated_image)
-
-            if cv2.waitKey(1) & 0xFF == ord("\x1b"):
-                break
-
-        self.cap.release()
-        cv2.destroyAllWindows()
+    def run(self) -> None:
+        st_webrtc.webrtc_streamer(
+            key="landmarker_app",
+            video_frame_callback=self.callback,
+            rtc_configuration={
+                "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
+            },
+        )
 
     @classmethod
     def normalize_landmark_list(
