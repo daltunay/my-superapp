@@ -8,8 +8,6 @@ from utils.misc import base64_to_img
 
 logger = utils.CustomLogger(__file__)
 
-together.api_key = os.getenv("TOGETHER_API_KEY")
-
 
 def stable_diffusion_image(
     prompt: str,
@@ -19,6 +17,7 @@ def stable_diffusion_image(
     from src.generative_ai.image_generation import IMAGE_GEN_CONFIG
 
     model_config = IMAGE_GEN_CONFIG["Stable Diffusion 2.1"]
+    together.api_key = os.environ["TOGETHER_API_KEY"]
 
     response = together.Image.create(
         model=f"{model_config['owner']}/{model_config['string']}",
