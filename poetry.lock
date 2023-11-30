@@ -838,20 +838,6 @@ files = [
 tests = ["asttokens (>=2.1.0)", "coverage", "coverage-enable-subprocess", "ipython", "littleutils", "pytest", "rich"]
 
 [[package]]
-name = "extra-streamlit-components"
-version = "0.1.60"
-description = "An all-in-one place, to find complex or just natively unavailable components on streamlit."
-optional = false
-python-versions = ">=3.6"
-files = [
-    {file = "extra_streamlit_components-0.1.60-py3-none-any.whl", hash = "sha256:14378edc31bb7d8bfa1525c0e340a43bddcc6d3855e87edca0e3f014b09ffbae"},
-    {file = "extra_streamlit_components-0.1.60.tar.gz", hash = "sha256:9512870c431fd8af6e11282bb5a5293f3a1b48d834152e5c9e9a11ceed738586"},
-]
-
-[package.dependencies]
-streamlit = ">=1.18.0"
-
-[[package]]
 name = "faiss-cpu"
 version = "1.7.4"
 description = "A library for efficient similarity search and clustering of dense vectors."
@@ -4187,4 +4173,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.11"
-content-hash = "8a6feee0fe7011e50e62ae94f4a1fecb05bcb45e92edd6bb83946e164136ba30"
+content-hash = "6527bfd117541f484a75a3ad732beec4a2624a838177c0de63b2b71c28d14dd2"
