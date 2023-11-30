@@ -1,3 +1,5 @@
+import os
+
 import together
 from PIL import Image
 
@@ -5,6 +7,8 @@ import utils
 from utils.misc import base64_to_img
 
 logger = utils.CustomLogger(__file__)
+
+together.api_key = os.getenv("TOGETHER_API_KEY")
 
 
 def stable_diffusion_image(
