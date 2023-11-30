@@ -64,9 +64,8 @@ class BaseLandmarkerApp:
 
         return VideoFrame.from_ndarray(image, format="bgr24")
 
-    @cached_property
-    def streamer(self):
-        return st_webrtc.webrtc_streamer(
+    def run(self) -> None:
+        st_webrtc.webrtc_streamer(
             key="landmarker_app",
             mode=st_webrtc.WebRtcMode.SENDRECV,
             video_frame_callback=self.callback,
@@ -76,10 +75,6 @@ class BaseLandmarkerApp:
             media_stream_constraints={"video": True, "audio": False},
             async_processing=True,
         )
-
-    def run(self) -> None:
-        while self.streamer.state.playing:
-            pass
 
     @classmethod
     def normalize_landmark_list(
