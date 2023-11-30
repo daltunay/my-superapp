@@ -1,5 +1,5 @@
 import logging
-import os
+# import os
 import typing as t
 from functools import cached_property
 
@@ -10,7 +10,8 @@ class CustomLogger:
     method_names = ["debug", "info", "warning", "error", "critical"]
 
     def __init__(self, file: str, level: str = "info"):
-        self.script_name = os.path.splitext(os.path.basename(file))[0]
+        # self.script_name = os.path.splitext(os.path.basename(file))[0]
+        self.script_name = file.split("my-app/")[1]
         self.level = getattr(logging, level.upper())
         self.cache_methods(methods_to_cache=self.method_names)
 
@@ -35,6 +36,6 @@ class CustomLogger:
             wrapped_method = st.cache_resource(
                 func=method,
                 show_spinner=False,
-                max_entries=1,
+                # max_entries=1,
             )
             setattr(self, method_name, wrapped_method)

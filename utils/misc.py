@@ -43,7 +43,6 @@ def show_logos(linkedin: bool = True, github: bool = True):
         </div>
     """
 
-    st.divider()
     st.markdown(html_content, unsafe_allow_html=True)
 
 

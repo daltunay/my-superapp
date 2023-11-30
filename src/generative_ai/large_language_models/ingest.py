@@ -26,7 +26,3 @@ def main() -> None:
     embeddings = OpenAIEmbeddings()
     db = FAISS.from_documents(documents=documents, embedding=embeddings)
     db.save_local("faiss_index")
-
-
-if __name__ == "__main__":
-    main()

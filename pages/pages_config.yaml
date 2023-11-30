@@ -1,0 +1,69 @@
+__init__.py:
+  NAME: "Home"
+  ICON: "🏠"
+  DESCRIPTION: "Welcome to my app!"
+
+action_recognition:
+  __init__.py:
+    NAME: Action Recognition
+    ICON: 🏋️
+    DESCRIPTION: Perform action recognition using a classifier!
+    TAG: 👁️ Computer Vision
+
+image_generation:
+  __init__.py:
+    NAME: Image Generation
+    ICON: 🎨
+    DESCRIPTION: Generate pictures with AI!
+    SIDEBAR: radio
+    TAG: 🧠 Generative AI
+
+  dall_e.py:
+    NAME: DALL·E
+    ICON: 🖼️
+    DESCRIPTION: DALL·E model from OpenAI
+
+  stable_diffusion.py:
+    NAME: Stable Diffusion
+    ICON: 🖼️
+    DESCRIPTION: Stable Diffusion model from Stability AI
+
+landmarks_detection:
+  __init__.py:
+    NAME: Landmarks Detection
+    ICON: 🎯
+    DESCRIPTION: Detect face and body pose landmarks!
+    TAG: 👁️ Computer Vision
+
+  face_landmarks.py:
+    NAME: Face Landmarks
+    ICON: 👤📍
+    DESCRIPTION: Face landmarker
+
+  pose_landmarks.py:
+    NAME: Pose Landmarks
+    ICON: 🤸‍♂️📍
+    DESCRIPTION: Body pose landmarker
+
+large_language_models:
+  __init__.py:
+    NAME: Large Language Models
+    ICON: 💬
+    DESCRIPTION: Chat with large language models!
+    SIDEBAR: radio
+    TAG: 🧠 Generative AI
+
+  chatbot.py:
+    NAME: Chatbot
+    ICON: 🤖
+    DESCRIPTION: A regular chatbot.
+
+  chatbot_rag.py:
+    NAME: Chatbot RAG
+    ICON: 🤖📄
+    DESCRIPTION: A chatbot with RAG (retrieval augmented generation).
+
+  chatbot_tools.py:
+    NAME: Chatbot Tools
+    ICON: 🤖🛠️
+    DESCRIPTION: A chatbot augmented with tools (web access, code interpreter, etc.)
