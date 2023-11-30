@@ -4,6 +4,8 @@ from io import BytesIO
 import streamlit as st
 from PIL import Image
 
+st_ss = st.session_state
+
 
 def generate_logo_link(url: str, img_url: str) -> str:
     return f'<a href="{url}"><img src="{img_url}"></a>'
@@ -51,5 +53,5 @@ def base64_to_img(base64: str) -> Image.Image:
 
 
 def reset_session_state_key(key: str):
-    if hasattr(st.session_state, key):
-        delattr(st.session_state, key)
+    if hasattr(st_ss, key):
+        delattr(st_ss, key)

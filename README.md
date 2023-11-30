@@ -42,7 +42,7 @@ key="<OPENAI_API_KEY>"
 [together_api]
 key="<TOGETHER_API_KEY>"
 
-[lakera_guard_api]
+[lakera_api]
 key="<LAKERA_GUARD_API_KEY>"
 
 [google_api]

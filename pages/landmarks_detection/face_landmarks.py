@@ -8,6 +8,8 @@ loader.set_page_config(globals())
 
 logger = utils.CustomLogger(__file__)
 
+st_ss = st.session_state
+
 
 def main():
     st.caption(
@@ -17,5 +19,5 @@ def main():
 
     utils.show_source_code(path="src/computer_vision/landmarks/face_landmarks/")
 
-    app = st.session_state.setdefault("app", FaceLandmarkerApp())
+    app = st_ss.setdefault("app", FaceLandmarkerApp())
     app.run()

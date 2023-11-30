@@ -7,6 +7,8 @@ from src.generative_ai.large_language_models import Chatbot
 loader = utils.PageConfigLoader(__file__)
 loader.set_page_config(globals())
 
+st_ss = st.session_state
+
 
 def main():
     chosen_model = st.selectbox(
@@ -19,13 +21,11 @@ def main():
     )
 
     if chosen_model:
-        chatbot = st.session_state.setdefault(
-            "chatbot", Chatbot(**LLM_CONFIG[chosen_model])
-        )
+        chatbot = st_ss.setdefault("chatbot", Chatbot(**LLM_CONFIG[chosen_model]))
         for message in chatbot.history:
             st.chat_message(message["role"]).write(message["content"])
     else:
-        st.warning("Select a model above")
+        st.info("Select a model above", icon="ℹ️")
 
     if prompt := st.chat_input(
         placeholder=f"Chat with {chosen_model}!" if chosen_model else "",
