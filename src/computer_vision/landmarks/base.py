@@ -2,13 +2,12 @@ import time
 import typing as t
 from functools import cached_property
 
-from av import VideoFrame
-import streamlit_webrtc as st_webrtc
-
 import cv2
 import mediapipe as mp
-import numpy as np
+import streamlit_webrtc as st_webrtc
+from av import VideoFrame
 from mediapipe.framework.formats import landmark_pb2
+from numpy import ndarray
 
 
 class BaseLandmarkerApp:
@@ -45,14 +44,13 @@ class BaseLandmarkerApp:
         image = frame.to_ndarray(format="bgr24")
 
         detection_result = self.landmarker.detect(image)
-        print(detection_result)
         landmark_list_raw = getattr(detection_result, self.landmarks_type)
         landmark_list = landmark_list_raw[0] if landmark_list_raw else []
 
         t = time.time() - self.start_time
-        # self.history.append(
-        #     {"time": t, "landmarks": landmark_list},
-        # )
+        self.history.append(
+            {"time": t, "landmarks": landmark_list},
+        )
 
         self.annotate_time(image=image, timestamp=t)
         self.annotate_landmarks(
@@ -96,7 +94,7 @@ class BaseLandmarkerApp:
     @classmethod
     def annotate_landmarks(
         cls,
-        image: np.ndarray,
+        image: ndarray,
         connections_list: t.List[t.FrozenSet[t.Tuple[int, int]]],
         landmark_list: mp.tasks.vision.PoseLandmarkerResult
         | mp.tasks.vision.FaceLandmarkerResult,
@@ -115,7 +113,7 @@ class BaseLandmarkerApp:
             )
 
     @classmethod
-    def annotate_time(cls, image: np.ndarray, timestamp: float):
+    def annotate_time(cls, image: ndarray, timestamp: float):
         cv2.putText(
             img=image,
             text=f"{timestamp:.3f}s",
