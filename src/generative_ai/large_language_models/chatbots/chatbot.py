@@ -28,7 +28,7 @@ class Chatbot:
     <chat_history>{chat_history}</chat_history>
     <question>{question}</question>
     
-    Answer in {language} only
+    Your answer (in {language}):
     """
 
     def __init__(self, **model_kwargs: t.Unpack[ModelArgs]) -> None:
