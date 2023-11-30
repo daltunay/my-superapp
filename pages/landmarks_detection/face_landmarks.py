@@ -17,6 +17,5 @@ def main():
 
     utils.show_source_code(path="src/computer_vision/landmarks/face_landmarks/")
 
-    if st.session_state.get("app") is None:
-        app = st.session_state.setdefault("app", FaceLandmarkerApp())
-        app.run()
+    app = st.session_state.setdefault("app", FaceLandmarkerApp())
+    app.run()
