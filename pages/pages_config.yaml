@@ -33,6 +33,7 @@ landmarks_detection:
     NAME: Landmarks Detection
     ICON: 🎯
     DESCRIPTION: Detect face and body pose landmarks!
+    SIDEBAR: radio
     TAG: 👁️ Computer Vision
 
   face_landmarks.py:
