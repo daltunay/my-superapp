@@ -42,7 +42,7 @@ class BaseLandmarkerApp:
         )
 
     def callback(self, frame):
-        image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame)
+        image = frame.to_ndarray(format="bgr24")
 
         detection_result = self.landmarker.detect(image)
         landmark_list_raw = getattr(detection_result, self.landmarks_type)
