@@ -45,6 +45,7 @@ class BaseLandmarkerApp:
         image = frame.to_ndarray(format="bgr24")
 
         detection_result = self.landmarker.detect(image)
+        print(detection_result)
         landmark_list_raw = getattr(detection_result, self.landmarks_type)
         landmark_list = landmark_list_raw[0] if landmark_list_raw else []
 
@@ -61,7 +62,7 @@ class BaseLandmarkerApp:
             drawing_specs_list=self.drawing_specs_list,
         )
 
-        return av.VideoFrame.from_ndarray(image, format="bgr24")
+        return av.VideoFrame.from_ndarray(image[::-1,:,:], format="bgr24")
 
     def run(self) -> None:
         st_webrtc.webrtc_streamer(
