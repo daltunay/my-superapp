@@ -1,5 +1,5 @@
-import typing as t
 import os
+import typing as t
 
 import requests
 import streamlit as st
@@ -18,8 +18,9 @@ class LakeraWidget:
     def __init__(self):
         logger.info("Initializing Lakera Guard Widget")
 
-    def checkbox(self):
-        st.checkbox(
+    @property
+    def lakera_activated(self):
+        return st.checkbox(
             label="LLM prompt injection security",
             value=st_ss.get(f"{self.key}.activated", False),
             key=f"{self.key}.activated",

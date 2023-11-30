@@ -14,8 +14,9 @@ class LanguageWidget:
     def __init__(self):
         logger.info("Initializing Language Widget")
 
-    def select(self):
-        st.selectbox(
+    @property
+    def selected_language(self):
+        return st.selectbox(
             label="Chat language:",
             options=list(self.languages),
             key=f"{self.key}.selection",
