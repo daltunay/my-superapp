@@ -17,5 +17,5 @@ def main():
 
     utils.show_source_code(path="src/computer_vision/landmarks/pose_landmarks/")
 
-    app = st.session_state.setdefault("app", FaceLandmarkerApp())
+    app = st.session_state.setdefault("app", PoseLandmarkerApp())
     app.run()
