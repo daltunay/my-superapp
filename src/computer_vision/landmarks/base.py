@@ -8,6 +8,7 @@ import streamlit_webrtc as st_webrtc
 from av import VideoFrame
 from mediapipe.framework.formats import landmark_pb2
 from numpy import ndarray
+from queue import Queue
 
 
 class BaseLandmarkerApp:
@@ -17,6 +18,7 @@ class BaseLandmarkerApp:
         self.model_path = model_path
         self.start_time = time.time()
         self.history = []
+        self.queue = Queue[t.List[ndarray]] = Queue()
 
     @cached_property
     def landmarker(
@@ -60,9 +62,7 @@ class BaseLandmarkerApp:
             drawing_specs_list=self.drawing_specs_list,
         )
 
-        import streamlit as st  # TO REMOVE
-
-        st.session_state.current_image = image  # TO REMOVE
+        self.queue.put(item=image)
 
         return VideoFrame.from_ndarray(image, format="bgr24")
 

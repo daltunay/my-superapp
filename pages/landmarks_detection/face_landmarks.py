@@ -21,5 +21,5 @@ def main():
 
     app = st_ss.setdefault("app", FaceLandmarkerApp())
     app.stream()
-    if img := st_ss.get("current_image"):
+    if img := app.queue.get():
         st.image(img)
