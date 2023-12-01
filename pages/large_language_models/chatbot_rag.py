@@ -11,7 +11,6 @@ st_ss = st.session_state
 
 
 def main():
-    return
     chosen_model = st.selectbox(
         label="Large Language Model:",
         placeholder="Choose an option",
@@ -31,7 +30,9 @@ def main():
         ).lakera_activated
 
     if chosen_model:
-        chatbot = st_ss.setdefault("chatbot_rag", ChatbotRAG(**LLM_CONFIG[chosen_model]))
+        chatbot = st_ss.setdefault(
+            "chatbot_rag", ChatbotRAG(**LLM_CONFIG[chosen_model])
+        )
         for message in chatbot.history:
             st.chat_message(message["role"]).write(message["content"])
     else:
