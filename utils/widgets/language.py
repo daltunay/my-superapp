@@ -1,7 +1,8 @@
+import typing as t
+
 import streamlit as st
 
 import utils
-import typing as t
 
 logger = utils.CustomLogger(__file__)
 
