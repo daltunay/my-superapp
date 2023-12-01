@@ -1,3 +1,4 @@
+import os
 import time
 import typing as t
 from functools import cached_property
@@ -13,6 +14,8 @@ from numpy import ndarray
 import utils
 
 logger = utils.CustomLogger(__file__)
+
+os.environ["MEDIAPIPE_DISABLE_GPU"] = "1"
 
 
 class BaseLandmarkerApp:
