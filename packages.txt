@@ -7,3 +7,4 @@ tesseract-ocr
 libtesseract-dev
 libtesseract4
 tesseract-ocr-all
+python3-opencv

@@ -47,42 +47,40 @@ class BaseLandmarkerApp:
             "drawing_specs property must be implemented in subclasses"
         )
 
-    def callback(self, frame: VideoFrame) -> VideoFrame:
-        logger.info(f"New callback: {time.time()}")
-        image = frame.to_ndarray(format="bgr24")
+    class VideoProcessor:
+        def recv(self, frame: VideoFrame) -> VideoFrame:
+            logger.info("Processing new frame")
+            image = frame.to_ndarray(format="bgr24")
 
-        detection_result = self.landmarker.detect(image)
-        landmark_list_raw = getattr(detection_result, self.landmarks_type)
-        landmark_list = landmark_list_raw[0] if landmark_list_raw else []
+            detection_result = self.landmarker.detect(image)
+            landmark_list_raw = getattr(detection_result, self.landmarks_type)
+            landmark_list = landmark_list_raw[0] if landmark_list_raw else []
 
-        t = time.time() - self.start_time
-        self.history.append(
-            {"time": t, "landmarks": landmark_list},
-        )
+            t = time.time() - self.start_time
+            self.history.append(
+                {"time": t, "landmarks": landmark_list},
+            )
 
-        self.annotate_time(image=image, timestamp=t)
-        self.annotate_landmarks(
-            image=image,
-            connections_list=self.connections_list,
-            landmark_list=landmark_list,
-            drawing_specs_list=self.drawing_specs_list,
-        )
+            self.annotate_time(image=image, timestamp=t)
+            self.annotate_landmarks(
+                image=image,
+                connections_list=self.connections_list,
+                landmark_list=landmark_list,
+                drawing_specs_list=self.drawing_specs_list,
+            )
 
-        return VideoFrame.from_ndarray(image, format="bgr24")
+            return VideoFrame.from_ndarray(image, format="bgr24")
 
     def stream(self) -> None:
-        def callback(frame):
-            return self.callback(frame)
-
         st_webrtc.webrtc_streamer(
+            video_processor_factory=self.VideoProcessor,
             key=f"{self.landmarks_type}_streamer",
             mode=st_webrtc.WebRtcMode.SENDRECV,
-            video_frame_callback=callback,
-            rtc_configuration={
-                "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
-            },
+            rtc_configuration=st_webrtc.RTCConfiguration(
+                {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
+            ),
             media_stream_constraints={"video": True, "audio": False},
-            async_processing=False,
+            async_processing=True,
         )
 
     @classmethod
