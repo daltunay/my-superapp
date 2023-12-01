@@ -1,5 +1,6 @@
 freeglut3-dev
 libgtk2.0-dev
+ffmpeg
 libgl1
 libgl1-mesa-glx
 tesseract-ocr
