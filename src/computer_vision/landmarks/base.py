@@ -25,7 +25,7 @@ class BaseLandmarkerApp:
         self.model_path = model_path
         self.start_time = time.time()
         self.history = []
-        self.queue: Queue[t.List[ndarray]] = Queue()
+        # self.queue: Queue[t.List[ndarray]] = Queue()
 
     @cached_property
     def landmarker(
@@ -70,7 +70,7 @@ class BaseLandmarkerApp:
             drawing_specs_list=self.drawing_specs_list,
         )
 
-        self.queue.put(item=image)
+        # self.queue.put(item=image)
 
         return VideoFrame.from_ndarray(image, format="bgr24")
 
