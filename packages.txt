@@ -1,10 +1,1 @@
-freeglut3-dev
-libgtk2.0-dev
-ffmpeg
-libgl1
-libgl1-mesa-glx
-tesseract-ocr
-libtesseract-dev
-libtesseract4
-tesseract-ocr-all
 python3-opencv
