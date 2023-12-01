@@ -43,6 +43,7 @@ class BaseLandmarkerApp:
         )
 
     def callback(self, frame: VideoFrame) -> VideoFrame:
+        print("New callback: ", time.time())
         image = frame.to_ndarray(format="bgr24")
 
         detection_result = self.landmarker.detect(image)
