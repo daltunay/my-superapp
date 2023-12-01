@@ -48,33 +48,64 @@ class BaseLandmarkerApp:
             "drawing_specs property must be implemented in subclasses"
         )
 
-    class VideoProcessor(st_webrtc.VideoProcessorBase):
+    class VideoTransformer(st_webrtc.VideoProcessorBase):
+        frame_lock: threading.Lock()
+        in_image: ndarray | None
+        out_image: ndarray | None
+
         def __init__(self) -> None:
             self.frame_lock = threading.Lock()
+            self.in_image = None
+            self.out_image = None
+
+        def transform(self, frame: av.VideoFrame) -> np.ndarray:
+            in_image = frame.to_ndarray(format="bgr24")
+
+            out_image = in_image[:, ::-1, :]  # Simple flipping for example.
+
+            with self.frame_lock:
+                self.in_image = in_image
+                self.out_image = out_image
+
+            return out_image
+
+    class VideoProcessor(st_webrtc.VideoProcessorBase):
+        frame_lock: threading.Lock()
+        in_image: ndarray | None
+        out_image: ndarray | None
+
+        def __init__(self) -> None:
+            self.frame_lock = threading.Lock()
+            self.in_image = None
+            self.out_image = None
 
         def recv(self, frame: VideoFrame) -> VideoFrame:
             logger.info("Processing new frame")
-            image = frame.to_ndarray(format="bgr24")
+            in_image = frame.to_ndarray(format="bgr24")
+            out_image = frame.to_ndarray(format="bgr24")
+
+            detection_result = self.landmarker.detect(in_image)
+            landmark_list_raw = getattr(detection_result, self.landmarks_type)
+            landmark_list = landmark_list_raw[0] if landmark_list_raw else []
+
+            t = time.time() - self.start_time
+
+            self.annotate_time(image=out_image, timestamp=t)
+            self.annotate_landmarks(
+                image=out_image,
+                connections_list=self.connections_list,
+                landmark_list=landmark_list,
+                drawing_specs_list=self.drawing_specs_list,
+            )
 
             with self.frame_lock:
-                # detection_result = self.landmarker.detect(image)
-                # landmark_list_raw = getattr(detection_result, self.landmarks_type)
-                # landmark_list = landmark_list_raw[0] if landmark_list_raw else []
+                self.in_image = in_image
+                self.out_image = out_image
 
-                t = time.time() - self.start_time
-
-                self.annotate_time(image=image, timestamp=t)
-                # self.annotate_landmarks(
-                #     image=image,
-                #     connections_list=self.connections_list,
-                #     landmark_list=landmark_list,
-                #     drawing_specs_list=self.drawing_specs_list,
-                # )
-
-            return VideoFrame.from_ndarray(image, format="bgr24")
+            return VideoFrame.from_ndarray(out_image, format="bgr24")
 
     def stream(self) -> None:
-        st_webrtc.webrtc_streamer(
+        streamer = st_webrtc.webrtc_streamer(
             video_processor_factory=self.VideoProcessor,
             key=f"{self.landmarks_type}_streamer",
             mode=st_webrtc.WebRtcMode.SENDRECV,
@@ -84,6 +115,12 @@ class BaseLandmarkerApp:
             media_stream_constraints={"video": True, "audio": False},
             async_processing=True,
         )
+        if streamer.video_processor:
+            with streamer.video_transformer.frame_lock:
+                if in_image := streamer.video_transformer.in_image:
+                    logger.info("IN IMAGE: " + str(in_image))
+                if out_image := streamer.video_transformer.out_image:
+                    logger.info("OUT IMAGE: " + str(out_image))
 
     @classmethod
     def normalize_landmark_list(
