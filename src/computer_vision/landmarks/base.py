@@ -80,7 +80,7 @@ class BaseLandmarkerApp:
                 {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
             ),
             media_stream_constraints={"video": True, "audio": False},
-            async_processing=True,
+            async_processing=False,
         )
 
     @classmethod
