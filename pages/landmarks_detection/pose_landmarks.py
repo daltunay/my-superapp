@@ -20,4 +20,5 @@ def main():
     utils.show_source_code(path="src/computer_vision/landmarks/pose_landmarks/")
 
     app = st_ss.setdefault("app", PoseLandmarkerApp())
-    app.run()
+    while app.streamer.state.playing:
+        pass
