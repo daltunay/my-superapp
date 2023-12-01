@@ -48,27 +48,6 @@ class BaseLandmarkerApp:
             "drawing_specs property must be implemented in subclasses"
         )
 
-    class VideoTransformer(st_webrtc.VideoProcessorBase):
-        frame_lock: threading.Lock()
-        in_image: ndarray | None
-        out_image: ndarray | None
-
-        def __init__(self) -> None:
-            self.frame_lock = threading.Lock()
-            self.in_image = None
-            self.out_image = None
-
-        def transform(self, frame: av.VideoFrame) -> np.ndarray:
-            in_image = frame.to_ndarray(format="bgr24")
-
-            out_image = in_image[:, ::-1, :]  # Simple flipping for example.
-
-            with self.frame_lock:
-                self.in_image = in_image
-                self.out_image = out_image
-
-            return out_image
-
     class VideoProcessor(st_webrtc.VideoProcessorBase):
         frame_lock: threading.Lock()
         in_image: ndarray | None
