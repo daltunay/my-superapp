@@ -2,7 +2,6 @@ import os
 import time
 import typing as t
 from functools import cached_property
-from queue import Queue
 
 import cv2
 import mediapipe as mp
@@ -25,7 +24,6 @@ class BaseLandmarkerApp:
         self.model_path = model_path
         self.start_time = time.time()
         self.history = []
-        # self.queue: Queue[t.List[ndarray]] = Queue()
 
     @cached_property
     def landmarker(
@@ -69,8 +67,6 @@ class BaseLandmarkerApp:
             landmark_list=landmark_list,
             drawing_specs_list=self.drawing_specs_list,
         )
-
-        # self.queue.put(item=image)
 
         return VideoFrame.from_ndarray(image, format="bgr24")
 
