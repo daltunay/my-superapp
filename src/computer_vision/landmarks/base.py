@@ -59,23 +59,23 @@ class BaseLandmarkerApp:
             self.out_image = None
 
         def recv(self, frame: VideoFrame) -> VideoFrame:
+            t = time.time() - self.start_time
+
             logger.info("Processing new frame")
             in_image = frame.to_ndarray(format="bgr24")
             out_image = frame.to_ndarray(format="bgr24")
 
-            detection_result = self.landmarker.detect(in_image)
-            landmark_list_raw = getattr(detection_result, self.landmarks_type)
-            landmark_list = landmark_list_raw[0] if landmark_list_raw else []
-
-            t = time.time() - self.start_time
+            # detection_result = self.landmarker.detect(in_image, t)
+            # landmark_list_raw = getattr(detection_result, self.landmarks_type)
+            # landmark_list = landmark_list_raw[0] if landmark_list_raw else []
 
             self.annotate_time(image=out_image, timestamp=t)
-            self.annotate_landmarks(
-                image=out_image,
-                connections_list=self.connections_list,
-                landmark_list=landmark_list,
-                drawing_specs_list=self.drawing_specs_list,
-            )
+            # self.annotate_landmarks(
+            #     image=out_image,
+            #     connections_list=self.connections_list,
+            #     landmark_list=landmark_list,
+            #     drawing_specs_list=self.drawing_specs_list,
+            # )
 
             with self.frame_lock:
                 self.in_image = in_image
