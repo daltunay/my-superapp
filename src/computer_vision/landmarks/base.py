@@ -1,6 +1,7 @@
 import time
 import typing as t
 from functools import cached_property
+from queue import Queue
 
 import cv2
 import mediapipe as mp
@@ -8,7 +9,10 @@ import streamlit_webrtc as st_webrtc
 from av import VideoFrame
 from mediapipe.framework.formats import landmark_pb2
 from numpy import ndarray
-from queue import Queue
+
+import utils
+
+logger = utils.CustomLogger(__file__)
 
 
 class BaseLandmarkerApp:
@@ -43,7 +47,7 @@ class BaseLandmarkerApp:
         )
 
     def callback(self, frame: VideoFrame) -> VideoFrame:
-        print("New callback: ", time.time())
+        logger.info(f"New callback: {time.time()}")
         image = frame.to_ndarray(format="bgr24")
 
         detection_result = self.landmarker.detect(image)
@@ -73,7 +77,7 @@ class BaseLandmarkerApp:
 
         st_webrtc.webrtc_streamer(
             key=f"{self.landmarks_type}_streamer",
-            # mode=st_webrtc.WebRtcMode.SENDRECV,
+            # mode=st_webrtc.WebRtcMode.SENDRECV,
             video_frame_callback=callback,
             rtc_configuration={
                 "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
