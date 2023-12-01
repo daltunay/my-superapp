@@ -57,19 +57,20 @@ class BaseLandmarkerApp:
             image = frame.to_ndarray(format="bgr24")
 
             with self.frame_lock:
-                detection_result = self.landmarker.detect(image)
-                landmark_list_raw = getattr(detection_result, self.landmarks_type)
-                landmark_list = landmark_list_raw[0] if landmark_list_raw else []
+                pass
+                # detection_result = self.landmarker.detect(image)
+                # landmark_list_raw = getattr(detection_result, self.landmarks_type)
+                # landmark_list = landmark_list_raw[0] if landmark_list_raw else []
 
-                t = time.time() - self.start_time
+                # t = time.time() - self.start_time
 
-                self.annotate_time(image=image, timestamp=t)
-                self.annotate_landmarks(
-                    image=image,
-                    connections_list=self.connections_list,
-                    landmark_list=landmark_list,
-                    drawing_specs_list=self.drawing_specs_list,
-                )
+                # self.annotate_time(image=image, timestamp=t)
+                # self.annotate_landmarks(
+                #     image=image,
+                #     connections_list=self.connections_list,
+                #     landmark_list=landmark_list,
+                #     drawing_specs_list=self.drawing_specs_list,
+                # )
 
             return VideoFrame.from_ndarray(image, format="bgr24")
 
