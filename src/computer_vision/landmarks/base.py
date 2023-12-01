@@ -47,7 +47,7 @@ class BaseLandmarkerApp:
             "drawing_specs property must be implemented in subclasses"
         )
 
-    class VideoProcessor:
+    class VideoProcessor(st_webrtc.models.VideoProcessor):
         def recv(self, frame: VideoFrame) -> VideoFrame:
             logger.info("Processing new frame" + self.landmarks_type)
             image = frame.to_ndarray(format="bgr24")
@@ -80,7 +80,7 @@ class BaseLandmarkerApp:
                 {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
             ),
             media_stream_constraints={"video": True, "audio": False},
-            async_processing=False,
+            async_processing=True,
         )
 
     @classmethod
