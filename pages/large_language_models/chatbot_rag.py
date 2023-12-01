@@ -11,6 +11,7 @@ st_ss = st.session_state
 
 
 def main():
+    return
     chosen_model = st.selectbox(
         label="Large Language Model:",
         placeholder="Choose an option",

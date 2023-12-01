@@ -12,51 +12,46 @@ st_ss = st.session_state
 
 
 class LakeraWidget:
-    key = "lakera_widget"
+    widget_key = "lakera_widget"
+    checkbox_key = f"{widget_key}.checkbox"
 
-    def __init__(self):
-        logger.info("Initializing Lakera Guard Widget")
+    def __init__(
+        self,
+        default: bool = False,
+    ):
+        logger.info(f"Initializing {self.__class__.__name__}")
+        self.api_key = os.getenv("LAKERA_GUARD_API_KEY")
+        self.default = default
 
     @property
     def lakera_activated(self):
         return st.checkbox(
             label="LLM prompt injection security",
-            value=st_ss.get(f"{self.key}.activated", False),
-            key=f"{self.key}.activated",
+            value=st_ss.get(self.checkbox_key, self.default),
+            key=self.checkbox_key,
             help="Use Lakera Guard API to defend against LLM prompt injections",
             on_change=self.authentificate,
         )
 
-    @classmethod
-    def authentificate(cls):
-        if not st_ss.get(f"{cls.key}.activated"):
+    def request_api(self, input: str) -> requests.Response:
+        return requests.post(
+            url="https://api.lakera.ai/v1/prompt_injection",
+            json={"input": input},
+            headers={"Authorization": f"Bearer {self.api_key}"},
+        )
+
+    def authentificate(self):
+        if not st_ss.get(self.checkbox_key):
             return
-        
-        api_key = os.getenv("LAKERA_GUARD_API_KEY")
         try:
-            response = requests.post(
-                url="https://api.lakera.ai/v1/prompt_injection",
-                json={"input": "<AUTHENTICATION TEST>"},
-                headers={"Authorization": f"Bearer {api_key}"},
-            )
+            response = self.request_api("<AUTHENTICATION TEST>")
         except requests.exceptions.SSLError:
-            toast = {"body": "SSL CERTIFICATE VERIFY FAILED", "icon": "🚫"}
+            st.toast("SSL CERTIFICATE VERIFY FAILED", icon="🚫")
         else:
-            body = "Lakera Guard API authentication"
-            if response.ok:
-                toast = {"body": f"{body} successful", "icon": "✅"}
-            else:
-                toast = {"body": f"{body} failed", "icon": "🚫"}
+            success = response.ok
+            st.toast("Lakera Guard API authentication", icon="✅" if success else "🚫")
 
-        st.toast(**toast)
-
-    @classmethod
-    def flag_prompt(cls, prompt: str) -> t.Tuple[bool, t.Dict]:
-        response = requests.post(
-            "https://api.lakera.ai/v1/prompt_injection",
-            json={"input": prompt},
-            headers={"Authorization": f"Bearer {cls.api_key}"},
-        ).json()
-
+    def flag_prompt(self, prompt: str) -> t.Tuple[bool, t.Dict]:
+        response = self.request_api(prompt).json()
         flagged = response["results"][0]["flagged"]
         return flagged, response
