@@ -1,5 +1,5 @@
 import streamlit as st
 
 
-def main():
+if __name__ == "__main__":
     st.write(st.session_state)
