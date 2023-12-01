@@ -59,17 +59,21 @@ class BaseLandmarkerApp:
             landmark_list=landmark_list,
             drawing_specs_list=self.drawing_specs_list,
         )
-        
+
         import streamlit as st  # TO REMOVE
+
         st.session_state.current_image = image  # TO REMOVE
 
         return VideoFrame.from_ndarray(image, format="bgr24")
 
     def stream(self) -> None:
+        def callback(frame):
+            return self.callback(frame)
+
         st_webrtc.webrtc_streamer(
             key=f"{self.landmarks_type}_streamer",
             mode=st_webrtc.WebRtcMode.SENDRECV,
-            video_frame_callback=self.callback,
+            video_frame_callback=callback,
             rtc_configuration={
                 "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
             },
