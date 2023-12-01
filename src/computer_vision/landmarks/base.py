@@ -17,6 +17,7 @@ logger = utils.CustomLogger(__file__)
 
 os.environ["MEDIAPIPE_DISABLE_GPU"] = "1"
 cv2.setUseOptimized(False)
+cv2.namedWindow("window_name", cv2.WINDOW_OPENGL)
 
 
 class BaseLandmarkerApp:
