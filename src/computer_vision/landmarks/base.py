@@ -15,7 +15,7 @@ import utils
 
 logger = utils.CustomLogger(__file__)
 
-os.environ["MEDIAPIPE_DISABLE_GPU"] = "1"
+os.environ["MEDIAPIPE_DISABLE_GPU"] = 1
 
 
 class BaseLandmarkerApp:
