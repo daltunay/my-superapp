@@ -20,5 +20,4 @@ def main():
     utils.show_source_code(path="src/computer_vision/landmarks/face_landmarks/")
 
     app = st_ss.setdefault("app", FaceLandmarkerApp())
-    while app.streamer.state.playing:
-        pass
+    streamer = app.streamer
