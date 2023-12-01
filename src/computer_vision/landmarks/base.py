@@ -1,4 +1,5 @@
 import os
+import threading
 import time
 import typing as t
 from functools import cached_property
@@ -14,7 +15,7 @@ import utils
 
 logger = utils.CustomLogger(__file__)
 
-# os.environ["MEDIAPIPE_DISABLE_GPU"] = "1"
+# os.environ["MEDIAPIPE_DISABLE_GPU"] = "1"
 
 
 class BaseLandmarkerApp:
@@ -47,31 +48,34 @@ class BaseLandmarkerApp:
             "drawing_specs property must be implemented in subclasses"
         )
 
-    def process_frame(self, frame: VideoFrame, save: bool = False) -> VideoFrame:
-        logger.info("Processing new frame")
-        image = frame.to_ndarray(format="bgr24")
+    class VideoProcessor(st_webrtc.VideoProcessorBase):
+        def __init__(self) -> None:
+            self.frame_lock = threading.Lock()
 
-        detection_result = self.landmarker.detect(image)
-        landmark_list_raw = getattr(detection_result, self.landmarks_type)
-        landmark_list = landmark_list_raw[0] if landmark_list_raw else []
+        def recv(self, frame: VideoFrame) -> VideoFrame:
+            logger.info("Processing new frame")
+            image = frame.to_ndarray(format="bgr24")
 
-        t = time.time() - self.start_time
-        if save:
-            self.history.append({"time": t, "landmarks": landmark_list})
+            with self.frame_lock:
+                detection_result = self.landmarker.detect(image)
+                landmark_list_raw = getattr(detection_result, self.landmarks_type)
+                landmark_list = landmark_list_raw[0] if landmark_list_raw else []
 
-        self.annotate_time(image=image, timestamp=t)
-        self.annotate_landmarks(
-            image=image,
-            connections_list=self.connections_list,
-            landmark_list=landmark_list,
-            drawing_specs_list=self.drawing_specs_list,
-        )
+                t = time.time() - self.start_time
 
-        return VideoFrame.from_ndarray(image, format="bgr24")
+                self.annotate_time(image=image, timestamp=t)
+                self.annotate_landmarks(
+                    image=image,
+                    connections_list=self.connections_list,
+                    landmark_list=landmark_list,
+                    drawing_specs_list=self.drawing_specs_list,
+                )
+
+            return VideoFrame.from_ndarray(image, format="bgr24")
 
     def stream(self) -> None:
         st_webrtc.webrtc_streamer(
-            video_frame_callback=self.process_frame,
+            video_processor_factory=self.VideoProcessor,
             key=f"{self.landmarks_type}_streamer",
             mode=st_webrtc.WebRtcMode.SENDRECV,
             rtc_configuration=st_webrtc.RTCConfiguration(
