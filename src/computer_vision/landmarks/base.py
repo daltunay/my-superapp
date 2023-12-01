@@ -49,7 +49,7 @@ class BaseLandmarkerApp:
 
     class VideoProcessor:
         def recv(self, frame: VideoFrame) -> VideoFrame:
-            logger.info("Processing new frame")
+            logger.info("Processing new frame" + self.landmarks_type)
             image = frame.to_ndarray(format="bgr24")
 
             detection_result = self.landmarker.detect(image)
