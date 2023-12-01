@@ -80,7 +80,7 @@ class BaseLandmarkerApp:
 
         st_webrtc.webrtc_streamer(
             key=f"{self.landmarks_type}_streamer",
-            # mode=st_webrtc.WebRtcMode.SENDRECV,
+            mode=st_webrtc.WebRtcMode.SENDRECV,
             video_frame_callback=callback,
             rtc_configuration={
                 "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
