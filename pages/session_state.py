@@ -1,3 +1,5 @@
 import streamlit as st
 
-st.write(st.session_state)
+
+def main():
+    st.write(st.session_state)
