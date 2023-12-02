@@ -48,7 +48,7 @@ class BaseLandmarkerApp:
             "drawing_specs property must be implemented in subclasses"
         )
 
-    def frame_callback(self, frame: VideoFrame) -> VideoFrame:
+    async def frame_callback(self, frame: VideoFrame) -> VideoFrame:
         t = time.time() - self.start_time
 
         image = frame.to_ndarray(format="bgr24")
