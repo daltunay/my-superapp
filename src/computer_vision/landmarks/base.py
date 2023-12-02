@@ -71,6 +71,7 @@ class BaseLandmarkerApp:
             )
         except Exception as e:
             logger.error(e)
+            self.queue.put(None)
 
         return VideoFrame.from_ndarray(image, format="bgr24")
 
@@ -87,7 +88,7 @@ class BaseLandmarkerApp:
         )
         if streamer.state.playing:
             while True:
-                yield self.result_queue.get()
+                yield self.queue.get()
 
     @classmethod
     def normalize_landmark_list(
