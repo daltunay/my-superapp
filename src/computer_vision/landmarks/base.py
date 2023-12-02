@@ -23,7 +23,6 @@ class BaseLandmarkerApp:
     def __init__(self, model_path: str):
         self.model_path = model_path
         self.start_time = time.time()
-        self.ctx = None
 
     @cached_property
     def landmarker(
