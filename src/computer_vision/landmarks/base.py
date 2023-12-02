@@ -9,7 +9,6 @@ import streamlit_webrtc as st_webrtc
 from av import VideoFrame
 from mediapipe.framework.formats import landmark_pb2
 from numpy import ndarray
-from streamlit.runtime.scriptrunner import get_script_run_ctx
 
 import utils
 
@@ -51,31 +50,28 @@ class BaseLandmarkerApp:
     class VideoProcessor(st_webrtc.VideoProcessorBase):
         def __init__(self) -> None:
             self.start_time = time.time()
-            self.ctx = get_script_run_ctx()
 
         def recv(self, frame: VideoFrame) -> VideoFrame:
-            with self.ctx:
-                t = time.time() - self.start_time
+            t = time.time() - self.start_time
 
-                logger.info("Processing new frame")
-                image = frame.to_ndarray(format="bgr24")
+            logger.info("Processing new frame")
+            image = frame.to_ndarray(format="bgr24")
 
-                # detection_result = self.landmarker.detect(in_image, t)
-                # landmark_list_raw = getattr(detection_result, self.landmarks_type)
-                # landmark_list = landmark_list_raw[0] if landmark_list_raw else []
+            # detection_result = self.landmarker.detect(in_image, t)
+            # landmark_list_raw = getattr(detection_result, self.landmarks_type)
+            # landmark_list = landmark_list_raw[0] if landmark_list_raw else []
 
-                self.annotate_time(image=image, timestamp=t)
-                # self.annotate_landmarks(
-                #     image=out_image,
-                #     connections_list=self.connections_list,
-                #     landmark_list=landmark_list,
-                #     drawing_specs_list=self.drawing_specs_list,
-                # )
+            self.annotate_time(image=image, timestamp=t)
+            # self.annotate_landmarks(
+            #     image=out_image,
+            #     connections_list=self.connections_list,
+            #     landmark_list=landmark_list,
+            #     drawing_specs_list=self.drawing_specs_list,
+            # )
 
             return VideoFrame.from_ndarray(image, format="bgr24")
 
     def stream(self) -> None:
-        self.ctx = get_script_run_ctx()
         st_webrtc.webrtc_streamer(
             video_processor_factory=self.VideoProcessor,
             key=f"{self.landmarks_type}_streamer",
