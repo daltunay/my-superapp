@@ -73,7 +73,8 @@ class BaseLandmarkerApp:
 
     def stream(self) -> None:
         st_webrtc.webrtc_streamer(
-            video_processor_factory=self.VideoProcessor,
+            # video_processor_factory=self.VideoProcessor,
+            video_frame_callback=self.VideoProcessor.recv,
             key=f"{self.landmarks_type}_streamer",
             mode=st_webrtc.WebRtcMode.SENDRECV,
             rtc_configuration=st_webrtc.RTCConfiguration(
