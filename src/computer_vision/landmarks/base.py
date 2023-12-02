@@ -2,6 +2,7 @@
 import time
 import typing as t
 from functools import cached_property
+from queue import Queue
 
 import cv2
 import mediapipe as mp
@@ -23,6 +24,7 @@ class BaseLandmarkerApp:
     def __init__(self, model_path: str):
         self.model_path = model_path
         self.start_time = time.time()
+        self.result_queue: "Queue[t.List[ndarray]]" = Queue()
 
     @cached_property
     def landmarker(
@@ -46,37 +48,29 @@ class BaseLandmarkerApp:
             "drawing_specs property must be implemented in subclasses"
         )
 
-    class VideoProcessor(st_webrtc.VideoProcessorBase):
-        def __init__(self) -> None:
-            self.start_time = time.time()
+    def frame_callback(self, frame: VideoFrame) -> VideoFrame:
+        t = time.time() - self.start_time
 
-        def recv(self, frame: VideoFrame) -> VideoFrame:
-            t = time.time() - self.start_time
+        logger.info("Processing new frame")
+        image = frame.to_ndarray(format="bgr24")
 
-            logger.info("Processing new frame")
-            image = frame.to_ndarray(format="bgr24")
+        # detection_result = self.landmarker.detect(in_image, t)
+        # landmark_list_raw = getattr(detection_result, self.landmarks_type)
+        # landmark_list = landmark_list_raw[0] if landmark_list_raw else []
 
-            # detection_result = self.landmarker.detect(in_image, t)
-            # landmark_list_raw = getattr(detection_result, self.landmarks_type)
-            # landmark_list = landmark_list_raw[0] if landmark_list_raw else []
-
-            self.annotate_time(image=image, timestamp=t)
-            # self.annotate_landmarks(
-            #     image=out_image,
-            #     connections_list=self.connections_list,
-            #     landmark_list=landmark_list,
-            #     drawing_specs_list=self.drawing_specs_list,
-            # )
-
-            return VideoFrame.from_ndarray(image, format="bgr24")
+        self.annotate_time(image=image, timestamp=t)
+        # self.annotate_landmarks(
+        #     image=out_image,
+        #     connections_list=self.connections_list,
+        #     landmark_list=landmark_list,
+        #     drawing_specs_list=self.drawing_specs_list,
+        # )
+        self.result_queue.put(t)
+        return VideoFrame.from_ndarray(image, format="bgr24")
 
     def stream(self) -> None:
-        def frame_callback(frame):
-            return self.VideoProcessor.recv(frame)
-
-        st_webrtc.webrtc_streamer(
-            # video_processor_factory=self.VideoProcessor,
-            video_frame_callback=frame_callback,
+        streamer = st_webrtc.webrtc_streamer(
+            video_frame_callback=self.frame_callback,
             key=f"{self.landmarks_type}_streamer",
             mode=st_webrtc.WebRtcMode.SENDRECV,
             rtc_configuration=st_webrtc.RTCConfiguration(
@@ -85,6 +79,9 @@ class BaseLandmarkerApp:
             media_stream_constraints={"video": True, "audio": False},
             async_processing=True,
         )
+        if streamer.state.playing:
+            while True:
+                yield self.result_queue.get()
 
     @classmethod
     def normalize_landmark_list(
