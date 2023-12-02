@@ -1,4 +1,4 @@
-# import os
+import os
 import time
 import typing as t
 from functools import cached_property
@@ -15,7 +15,7 @@ import utils
 
 logger = utils.CustomLogger(__file__)
 
-# os.environ["MEDIAPIPE_DISABLE_GPU"] = "1"
+os.environ["MEDIAPIPE_DISABLE_GPU"] = "1"
 
 
 class BaseLandmarkerApp:
@@ -24,7 +24,7 @@ class BaseLandmarkerApp:
     def __init__(self, model_path: str):
         self.model_path = model_path
         self.start_time = time.time()
-        self.result_queue: "Queue[t.List[ndarray]]" = Queue()
+        self.queue: "Queue[t.List[ndarray]]" = Queue()
 
     @cached_property
     def landmarker(
@@ -51,13 +51,13 @@ class BaseLandmarkerApp:
     def frame_callback(self, frame: VideoFrame) -> VideoFrame:
         t = time.time() - self.start_time
 
-        logger.info("Processing new frame")
         image = frame.to_ndarray(format="bgr24")
 
+        logger.info("Detecting frame landmarks")
         detection_result = self.landmarker.detect(image, t)
         landmark_list_raw = getattr(detection_result, self.landmarks_type)
         landmark_list = landmark_list_raw[0] if landmark_list_raw else []
-        self.result_queue.put(landmark_list)
+        self.queue.put(landmark_list)
 
         self.annotate_time(image=image, timestamp=t)
         self.annotate_landmarks(
