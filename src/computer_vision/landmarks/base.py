@@ -81,14 +81,17 @@ class BaseLandmarkerApp:
             key=f"{self.landmarks_type}_streamer",
             mode=st_webrtc.WebRtcMode.SENDRECV,
             rtc_configuration=st_webrtc.RTCConfiguration(
-                {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
+                {
+                    "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}],
+                    "iceTransportPolicy": "relay",
+                }
             ),
             media_stream_constraints={"video": True, "audio": False},
             async_processing=True,
         )
-        if streamer.state.playing:
-            while True:
-                yield self.queue.get()
+        # if streamer.state.playing:
+        #     while True:
+        #         yield self.queue.get()
 
     @classmethod
     def normalize_landmark_list(

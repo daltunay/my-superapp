@@ -20,5 +20,6 @@ def main():
     utils.show_source_code(path="src/computer_vision/landmarks/face_landmarks/")
 
     app = st_ss.setdefault("app", FaceLandmarkerApp())
-    for t in app.stream():
-        st.write(t)
+    app.stream()
+    # for t in app.stream():
+    #     st.write(t)
