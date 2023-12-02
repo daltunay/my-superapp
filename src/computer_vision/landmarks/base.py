@@ -81,14 +81,14 @@ class BaseLandmarkerApp:
             key=f"{self.landmarks_type}_streamer",
             mode=st_webrtc.WebRtcMode.SENDRECV,
             rtc_configuration=st_webrtc.RTCConfiguration(
-                {
-                    "iceServers": utils.get_ice_servers(),
-                    "iceTransportPolicy": "relay",
-                }
+                {"iceServers": utils.get_ice_servers(), "iceTransportPolicy": "relay"}
             ),
             media_stream_constraints={"video": True, "audio": False},
             async_processing=True,
         )
+        if st_webrtc.state.playing:
+            while True:
+                self.queue.get()
 
     @classmethod
     def normalize_landmark_list(
