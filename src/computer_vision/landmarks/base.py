@@ -52,20 +52,25 @@ class BaseLandmarkerApp:
         t = time.time() - self.start_time
 
         image = frame.to_ndarray(format="bgr24")
-
-        logger.info("Detecting frame landmarks")
-        detection_result = self.landmarker.detect(image, t)
-        landmark_list_raw = getattr(detection_result, self.landmarks_type)
-        landmark_list = landmark_list_raw[0] if landmark_list_raw else []
-        self.queue.put(landmark_list)
-
         self.annotate_time(image=image, timestamp=t)
-        self.annotate_landmarks(
-            image=image,
-            connections_list=self.connections_list,
-            landmark_list=landmark_list,
-            drawing_specs_list=self.drawing_specs_list,
-        )
+
+        try:
+            logger.info("Detecting frame landmarks")
+
+            detection_result = self.landmarker.detect(image, t)
+            landmark_list_raw = getattr(detection_result, self.landmarks_type)
+            landmark_list = landmark_list_raw[0] if landmark_list_raw else []
+
+            self.queue.put(landmark_list)
+
+            self.annotate_landmarks(
+                image=image,
+                connections_list=self.connections_list,
+                landmark_list=landmark_list,
+                drawing_specs_list=self.drawing_specs_list,
+            )
+        except Exception as e:
+            logger.error(e)
 
         return VideoFrame.from_ndarray(image, format="bgr24")
 
