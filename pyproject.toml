@@ -25,6 +25,7 @@ faiss-cpu = "^1.7.4"
 pypdf = "^3.17.1"
 google-api-python-client = "^2.108.0"
 wikipedia = "^1.4.0"
+twilio = "^8.10.3"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.1.3"
