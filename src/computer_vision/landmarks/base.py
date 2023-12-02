@@ -71,9 +71,12 @@ class BaseLandmarkerApp:
             return VideoFrame.from_ndarray(image, format="bgr24")
 
     def stream(self) -> None:
+        def frame_callback(frame):
+            return self.VideoProcessor.recv(frame)
+
         st_webrtc.webrtc_streamer(
             # video_processor_factory=self.VideoProcessor,
-            video_frame_callback=self.VideoProcessor.recv,
+            video_frame_callback=frame_callback,
             key=f"{self.landmarks_type}_streamer",
             mode=st_webrtc.WebRtcMode.SENDRECV,
             rtc_configuration=st_webrtc.RTCConfiguration(
