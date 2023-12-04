@@ -1,3 +1,4 @@
+import streamlit as st
 from openai import OpenAI
 from PIL import Image
 
@@ -7,6 +8,7 @@ from utils.misc import base64_to_img
 logger = utils.CustomLogger(__file__)
 
 
+@st.cache_data(show_spinner="Generating picture...", max_entries=1)
 def dall_e_image(
     prompt: str,
     width: int = 1024,
