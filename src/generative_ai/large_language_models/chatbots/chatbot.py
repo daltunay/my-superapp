@@ -10,8 +10,9 @@ from langchain.llms import Together
 from langchain.memory import ConversationBufferMemory
 from langchain.prompts import PromptTemplate
 
-from src.generative_ai.large_language_models.callbacks import \
-    StreamingChatCallbackHandler
+from src.generative_ai.large_language_models.callbacks import (
+    StreamingChatCallbackHandler,
+)
 
 
 class ModelArgs(t.TypedDict):
@@ -47,8 +48,7 @@ class Chatbot:
         elif self.model_provider == "together":
             return Together(
                 model=f"{self.model_owner}/{self.model_string}",
-                # streaming=True,
-                # model_kwargs={},
+                max_tokens=4096,
             )
 
     @cached_property
