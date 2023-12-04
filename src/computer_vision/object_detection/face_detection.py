@@ -61,11 +61,16 @@ class FaceDetectionApp:
         detection_list: t.List[detection_pb2.Detection],
     ) -> None:
         for detection in detection_list:
-            bbox = detection.bounding_box
+            bbox = detection.location_data.relative_bounding_box
+            height, width, _ = image.shape
+            xmin, ymin = int(bbox.xmin * width), int(bbox.ymin * height)
+            xmax, ymax = int((bbox.xmin + bbox.width) * width), int(
+                (bbox.ymin + bbox.height) * height
+            )
             cv2.rectangle(
                 img=image,
-                pt1=(bbox.origin_x, bbox.origin_y),
-                pt2=(bbox.origin_x + bbox.width, bbox.origin_y + bbox.height),
+                pt1=(xmin, ymin),
+                pt2=(xmax, ymax),
                 color=(0, 255, 0),
                 thickness=3,
             )
