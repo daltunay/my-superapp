@@ -76,7 +76,7 @@ class BaseLandmarkerApp:
         return VideoFrame.from_ndarray(image, format="bgr24")
 
     def stream(self) -> None:
-        st_webrtc.webrtc_streamer(
+        streamer = st_webrtc.webrtc_streamer(
             video_frame_callback=self.frame_callback,
             key=f"{self.landmarks_type}_streamer",
             mode=st_webrtc.WebRtcMode.SENDRECV,
@@ -86,7 +86,7 @@ class BaseLandmarkerApp:
             media_stream_constraints={"video": True, "audio": False},
             async_processing=True,
         )
-        if st_webrtc.state.playing:
+        if streamer.state.playing:
             while True:
                 self.queue.get()
 
