@@ -18,7 +18,7 @@ os.environ["MEDIAPIPE_DISABLE_GPU"] = "1"
 
 
 class BaseLandmarkerApp:
-    landmarks_type = None
+    landmarks_type: None | str = None
 
     def __init__(self, model_path: str):
         self.model_path = model_path
@@ -53,8 +53,6 @@ class BaseLandmarkerApp:
         self.annotate_time(image=image, timestamp=t)
 
         try:
-            logger.info("Detecting frame landmarks")
-
             detection_result = self.landmarker.detect(image, t)
             landmark_list_raw = getattr(detection_result, self.landmarks_type)
             landmark_list = landmark_list_raw[0] if landmark_list_raw else []
@@ -71,7 +69,7 @@ class BaseLandmarkerApp:
         return VideoFrame.from_ndarray(image, format="bgr24")
 
     def stream(self) -> None:
-        streamer = st_webrtc.webrtc_streamer(
+        st_webrtc.webrtc_streamer(
             video_frame_callback=self.frame_callback,
             key=f"{self.landmarks_type}_streamer",
             mode=st_webrtc.WebRtcMode.SENDRECV,

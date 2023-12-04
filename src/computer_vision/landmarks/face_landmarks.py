@@ -7,20 +7,20 @@ from src.computer_vision.landmarks import BaseLandmarkerApp
 
 
 class FaceLandmarkerApp(BaseLandmarkerApp):
-    landmarks_type = "face_landmarks"
+    landmarks_type: str = "face_landmarks"
 
-    def __init__(
-        self, model_path="src/computer_vision/landmarks/models/face_landmarker.task"
-    ):
-        super().__init__(model_path)
+    def __init__(self):
+        pass
 
     @cached_property
-    def landmarker(self) -> mp.tasks.vision.FaceLandmarker:
-        options = mp.tasks.vision.FaceLandmarkerOptions(
-            base_options=mp.tasks.BaseOptions(model_asset_path=self.model_path),
-            running_mode=mp.tasks.vision.RunningMode.IMAGE,
+    def landmarker(self) -> mp.solutions.face_mesh.FaceMesh:
+        return mp.solutions.face_mesh.FaceMesh(
+            static_image_mode=False,
+            max_num_faces=1,
+            refine_landmarks=True,
+            min_detection_confidence=0.5,
+            min_tracking_confidence=0.5,
         )
-        return mp.tasks.vision.FaceLandmarker.create_from_options(options)
 
     @cached_property
     def connections_list(self) -> t.List[t.FrozenSet[t.Tuple[int, int]]]:
@@ -37,7 +37,9 @@ class FaceLandmarkerApp(BaseLandmarkerApp):
         return [
             {
                 "connection_drawing_spec": style,
-                "landmark_drawing_spec": mp.solutions.drawing_utils.DrawingSpec(thickness=1),
+                "landmark_drawing_spec": mp.solutions.drawing_utils.DrawingSpec(
+                    thickness=1
+                ),
             }
             for style in (
                 mp.solutions.drawing_styles.get_default_face_mesh_tesselation_style(),

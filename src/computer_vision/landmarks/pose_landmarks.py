@@ -7,20 +7,21 @@ from src.computer_vision.landmarks import BaseLandmarkerApp
 
 
 class PoseLandmarkerApp(BaseLandmarkerApp):
-    landmarks_type = "pose_landmarks"
+    landmarks_type: str = "pose_landmarks"
 
-    def __init__(
-        self, model_path="src/computer_vision/landmarks/models/pose_landmarker.task"
-    ):
-        super().__init__(model_path)
+    def __init__(self):
+        pass
 
     @cached_property
-    def landmarker(self) -> mp.tasks.vision.PoseLandmarker:
-        options = mp.tasks.vision.PoseLandmarkerOptions(
-            base_options=mp.tasks.BaseOptions(model_asset_path=self.model_path),
-            running_mode=mp.tasks.vision.RunningMode.IMAGE,
+    def landmarker(self) -> mp.solutions.pose.Pose:
+        return mp.solutions.pose.Pose(
+            static_image_mode=False,
+            model_complexity=1,
+            smooth_landmarks=True,
+            enable_segmentation=False,
+            min_detection_confidence=0.5,
+            min_tracking_confidence=0.5,
         )
-        return mp.tasks.vision.PoseLandmarker.create_from_options(options)
 
     @cached_property
     def connections_list(self) -> t.List[t.FrozenSet[t.Tuple[int, int]]]:
