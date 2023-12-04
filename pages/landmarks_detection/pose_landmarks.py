@@ -21,5 +21,3 @@ def main():
 
     app = st_ss.setdefault("app", PoseLandmarkerApp())
     app.stream()
-    # for t in app.stream():
-    #     st.write(t)
