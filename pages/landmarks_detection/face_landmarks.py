@@ -19,5 +19,5 @@ def main():
 
     utils.show_source_code(path="src/computer_vision/landmarks/face_landmarks/")
 
-    app = st_ss.setdefault("app", FaceLandmarkerApp())
+    app = st_ss.setdefault("face_app", FaceLandmarkerApp())
     app.stream()

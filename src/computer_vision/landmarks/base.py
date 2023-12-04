@@ -17,7 +17,7 @@ class BaseLandmarkerApp:
     def __init__(self):
         self.start_time = time.time()
 
-    def frame_callback(self, frame: VideoFrame) -> VideoFrame:
+    def video_frame_callback(self, frame: VideoFrame) -> VideoFrame:
         t = time.time() - self.start_time
 
         image = frame.to_ndarray(format="rgb24")
@@ -42,7 +42,7 @@ class BaseLandmarkerApp:
 
     def stream(self) -> None:
         st_webrtc.webrtc_streamer(
-            video_frame_callback=self.frame_callback,
+            video_frame_callback=self.video_frame_callback,
             key=f"{self.landmarks_type}_streamer",
             mode=st_webrtc.WebRtcMode.SENDRECV,
             rtc_configuration=st_webrtc.RTCConfiguration(
