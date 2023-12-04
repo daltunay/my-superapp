@@ -59,7 +59,7 @@ def main():
         st.chat_message("human").write(prompt)
         if lakera_activated:
             flag, response = st_ss.setdefault(
-                "language_widget", utils.LakeraWidget()
+                "lakera_widget", utils.LakeraWidget()
             ).flag_prompt(prompt=prompt)
             if flag:
                 st.warning(body="Prompt injection detected", icon="🚨")
