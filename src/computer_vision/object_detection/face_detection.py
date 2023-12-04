@@ -39,7 +39,7 @@ class FaceDetectionApp:
             detection_list=detection_list,
         )
         utils.annotate_time(image=image)
-        return VideoFrame.from_ndarray(image, format="bgr24")
+        return VideoFrame.from_ndarray(image, format="rgb24")
 
     def stream(self) -> None:
         st_webrtc.webrtc_streamer(
