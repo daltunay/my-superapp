@@ -15,12 +15,12 @@ class PoseLandmarkerApp(BaseLandmarkerApp):
     @cached_property
     def landmarker(self) -> mp.solutions.pose.Pose:
         return mp.solutions.pose.Pose(
-            static_image_mode=False,
-            model_complexity=1,
-            smooth_landmarks=False,
-            enable_segmentation=False,
-            min_detection_confidence=0.5,
-            min_tracking_confidence=0.5,
+            # static_image_mode=False,
+            # model_complexity=1,
+            # smooth_landmarks=True,
+            # enable_segmentation=False,
+            # min_detection_confidence=0.5,
+            # min_tracking_confidence=0.5,
         )
 
     @cached_property
