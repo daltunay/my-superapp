@@ -19,4 +19,4 @@ def main():
 
     utils.show_source_code(path="src/computer_vision/landmarks/pose_landmarks/")
 
-    st_ss.setdefault("face_app", PoseLandmarkerApp()).stream()
+    st_ss.setdefault("pose_app", PoseLandmarkerApp()).stream()
