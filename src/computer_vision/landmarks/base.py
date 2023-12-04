@@ -54,10 +54,27 @@ class BaseLandmarkerApp:
 
     @classmethod
     def annotate_time(cls, image: ndarray):
+        text = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
+        text_size = cv2.getTextSize(text, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0]
+        rect_width, rect_height = text_size[0] + 20, text_size[1] + 20
+        cv2.rectangle(
+            img=image,
+            pt1=(0, 0),
+            pt2=(rect_width, rect_height),
+            color=(255, 255, 255),
+            thickness=cv2.FILLED,
+        )
+        cv2.rectangle(
+            img=image,
+            pt1=(0, 0),
+            pt2=(rect_width, rect_height),
+            color=(0, 0, 0),
+            thickness=2,
+        )
         cv2.putText(
             img=image,
-            text=datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3],
-            org=(10, 50),
+            text=text,
+            org=(10, text_size[1] + 10),
             fontFace=cv2.FONT_HERSHEY_SIMPLEX,
             fontScale=1,
             color=(0, 0, 0),
