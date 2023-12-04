@@ -10,7 +10,7 @@ class PoseLandmarkerApp(BaseLandmarkerApp):
     landmarks_type: str = "pose_landmarks"
 
     def __init__(self):
-        pass
+        super().__init__()
 
     @cached_property
     def landmarker(self) -> mp.solutions.pose.Pose:

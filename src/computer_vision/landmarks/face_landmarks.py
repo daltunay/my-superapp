@@ -7,10 +7,10 @@ from src.computer_vision.landmarks import BaseLandmarkerApp
 
 
 class FaceLandmarkerApp(BaseLandmarkerApp):
-    landmarks_type: str = "face_landmarks"
+    landmarks_type: str = "multi_face_landmarks"
 
     def __init__(self):
-        pass
+        super().__init__()
 
     @cached_property
     def landmarker(self) -> mp.solutions.face_mesh.FaceMesh:
