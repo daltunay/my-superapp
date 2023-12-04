@@ -49,7 +49,7 @@ def main():
         for message in chatbot.history:
             st.chat_message(message["role"]).write(message["content"])
     else:
-        st.info("Please select a LLM and upload a PDF file", icon="ℹ️")
+        st.info("Please upload a PDF file for the RAG", icon="ℹ️")
 
     if prompt := st.chat_input(
         placeholder=f"Chat with {chosen_model}!"

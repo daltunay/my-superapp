@@ -63,19 +63,19 @@ large_language_models:
     TAG: 🧠 Generative AI
 
   chatbot.py:
-    NAME: Basic
+    NAME: Basic Chatbot
     ICON: 👋
     DESCRIPTION: A regular chatbot.
     TAG: 🤖 Chatbots
 
   chatbot_rag.py:
-    NAME: RAG
+    NAME: Whatbot with RAG
     ICON: 📄
     DESCRIPTION: A chatbot with RAG (retrieval augmented generation).
     TAG: 🤖 Chatbots
 
   chatbot_tools.py:
-    NAME: Tools
+    NAME: Chatbot with Tools
     ICON: 🛠️
     DESCRIPTION: A chatbot augmented with tools (web access, code interpreter, etc.)
     TAG: 🤖 Chatbots

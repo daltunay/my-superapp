@@ -42,7 +42,7 @@ def main():
         for message in chatbot.history:
             st.chat_message(message["role"]).write(message["content"])
     else:
-        st.info("Please select a LLM", icon="ℹ️")
+        pass
 
     if prompt := st.chat_input(
         placeholder=f"Chat with {chosen_model}!" if chosen_model else "",
