@@ -1,3 +1,4 @@
+import datetime
 import time
 import typing as t
 
@@ -15,7 +16,7 @@ logger = utils.CustomLogger(__file__)
 
 class BaseLandmarkerApp:
     def __init__(self):
-        self.start_time = time.time()
+        pass
 
     def video_frame_callback(self, frame: VideoFrame) -> VideoFrame:
         t = time.time() - self.start_time
@@ -53,10 +54,10 @@ class BaseLandmarkerApp:
         )
 
     @classmethod
-    def annotate_time(cls, image: ndarray, timestamp: float):
+    def annotate_time(cls, image: ndarray):
         cv2.putText(
             img=image,
-            text=f"{timestamp:.3f}s",
+            text=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             org=(10, 60),
             fontFace=cv2.FONT_HERSHEY_SIMPLEX,
             fontScale=1,
