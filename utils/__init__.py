@@ -10,7 +10,7 @@ from utils.pages_config import PageConfigLoader
 from utils.secrets import load_secrets
 from utils.turn import get_ice_servers
 from utils.widgets import LakeraWidget, LanguageWidget
-from utils.annotate_time import annotate_time
+from utils.image_annotation import annotate_time
 
 __all__ = [
     "base64_to_img",
