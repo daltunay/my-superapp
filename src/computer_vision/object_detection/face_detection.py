@@ -60,6 +60,9 @@ class FaceDetectionApp:
         image: ndarray,
         detection_list: t.List[detection_pb2.Detection],
     ) -> None:
+        if not detection_list:
+            return
+
         for detection in detection_list:
             bbox = detection.location_data.relative_bounding_box
             height, width, _ = image.shape
