@@ -8,8 +8,6 @@ from langchain.vectorstores import FAISS
 
 import utils
 
-utils.load_secrets()
-
 
 def get_loader(
     file: str | None = None,
@@ -55,4 +53,5 @@ def main():
 
 
 if __name__ == "__main__":
+    utils.load_secrets()
     main()
