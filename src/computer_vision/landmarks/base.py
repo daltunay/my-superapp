@@ -1,4 +1,3 @@
-import time
 import typing as t
 from datetime import datetime
 
@@ -18,26 +17,22 @@ class BaseLandmarkerApp:
     def __init__(self):
         pass
 
-    def video_frame_callback(self, frame: VideoFrame) -> VideoFrame:
-        t = time.time() - self.start_time
-
-        image = frame.to_ndarray(format="rgb24")
-        self.annotate_time(image=image, timestamp=t)
-
+    def get_landmarks(self, image: ndarray) -> landmark_pb2.NormalizedLandmarkList:
         detection_result = self.landmarker.process(image)
-        landmark_list_raw = getattr(detection_result, self.landmarks_type)
-        landmark_list = (
-            landmark_list_raw[0]
-            if isinstance(landmark_list_raw, list)
-            else landmark_list_raw
-        )
+        landmark_list = getattr(detection_result, self.landmarks_type)
+        return landmark_list[0] if isinstance(landmark_list, list) else landmark_list
 
+    def video_frame_callback(self, frame: VideoFrame) -> VideoFrame:
+        image = frame.to_ndarray(format="rgb24")
+
+        landmark_list = self.get_landmarks(image)
         self.annotate_landmarks(
             image=image,
             connections_list=self.connections_list,
             landmark_list=landmark_list,
             drawing_specs_list=self.drawing_specs_list,
         )
+        self.annotate_time(image=image)
 
         return VideoFrame.from_ndarray(image, format="rgb24")
 
@@ -58,7 +53,7 @@ class BaseLandmarkerApp:
         cv2.putText(
             img=image,
             text=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            org=(10, 60),
+            org=(10, 50),
             fontFace=cv2.FONT_HERSHEY_SIMPLEX,
             fontScale=1,
             color=(0, 0, 0),
