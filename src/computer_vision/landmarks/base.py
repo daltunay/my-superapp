@@ -1,3 +1,4 @@
+import os
 import typing as t
 from datetime import datetime
 
@@ -11,6 +12,8 @@ from numpy import ndarray
 import utils
 
 logger = utils.CustomLogger(__file__)
+
+os.environ["MEDIAPIPE_DISABLE_GPU"] = "1"
 
 
 class BaseLandmarkerApp:
