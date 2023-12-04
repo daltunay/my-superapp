@@ -15,12 +15,12 @@ class PoseLandmarkerApp(BaseLandmarkerApp):
     @cached_property
     def landmarker(self) -> mp.solutions.pose.Pose:
         return mp.solutions.pose.Pose(
-            # static_image_mode=False,
-            # model_complexity=1,
-            # smooth_landmarks=True,
-            # enable_segmentation=False,
-            # min_detection_confidence=0.5,
-            # min_tracking_confidence=0.5,
+            static_image_mode=False,
+            model_complexity=1,
+            smooth_landmarks=True,
+            enable_segmentation=False,
+            min_detection_confidence=0.5,
+            min_tracking_confidence=0.5,
         )
 
     @cached_property
@@ -32,11 +32,8 @@ class PoseLandmarkerApp(BaseLandmarkerApp):
         self,
     ) -> t.List[t.Dict[str, mp.solutions.drawing_utils.DrawingSpec]]:
         return [
-            {
-                "landmark_drawing_spec": style,
-                "connection_drawing_spec": mp.solutions.drawing_utils.DrawingSpec(),
-            }
+            {"landmark_drawing_spec": style, "connection_drawing_spec": None}
             for style in (
-                mp.solutions.drawing_styles.get_default_pose_landmarks_style()
+                mp.solutions.drawing_styles.get_default_pose_landmarks_style(),
             )
         ]
