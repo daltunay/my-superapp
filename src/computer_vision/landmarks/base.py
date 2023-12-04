@@ -52,16 +52,16 @@ class BaseLandmarkerApp:
         image = frame.to_ndarray(format="bgr24")
         self.annotate_time(image=image, timestamp=t)
 
-        detection_result = self.landmarker.process(image)
-        landmark_list_raw = getattr(detection_result, self.landmarks_type)
-        landmark_list = landmark_list_raw[0] if landmark_list_raw else []
+        # detection_result = self.landmarker.process(image)
+        # landmark_list_raw = getattr(detection_result, self.landmarks_type)
+        # landmark_list = landmark_list_raw[0] if landmark_list_raw else []
 
-        self.annotate_landmarks(
-            image=image,
-            connections_list=self.connections_list,
-            landmark_list=landmark_list,
-            drawing_specs_list=self.drawing_specs_list,
-        )
+        # self.annotate_landmarks(
+        #     image=image,
+        #     connections_list=self.connections_list,
+        #     landmark_list=landmark_list,
+        #     drawing_specs_list=self.drawing_specs_list,
+        # )
 
         return VideoFrame.from_ndarray(image, format="bgr24")
 
