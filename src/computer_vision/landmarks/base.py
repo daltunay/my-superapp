@@ -88,7 +88,8 @@ class BaseLandmarkerApp:
         )
         if streamer.state.playing:
             while True:
-                self.queue.get()
+                try: self.queue.get()
+                except: pass
 
     @classmethod
     def normalize_landmark_list(
