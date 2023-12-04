@@ -35,8 +35,7 @@ class BaseLandmarkerApp:
             landmark_list=landmark_list,
             drawing_specs_list=self.drawing_specs_list,
         )
-        self.annotate_time(image=image)
-
+        utils.annotate_time(image=image)
         return VideoFrame.from_ndarray(image, format="rgb24")
 
     def stream(self) -> None:
