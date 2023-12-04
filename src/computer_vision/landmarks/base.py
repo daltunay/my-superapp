@@ -1,6 +1,6 @@
-import datetime
 import time
 import typing as t
+from datetime import datetime
 
 import cv2
 import mediapipe as mp
