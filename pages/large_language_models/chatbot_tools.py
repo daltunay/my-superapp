@@ -38,17 +38,19 @@ def main():
         kwargs={"key": "chatbot_tools"},
     )
 
-    if chosen_model:
+    if chosen_model and chosen_tools:
         chatbot = st_ss.setdefault(
             "chatbot_tools",
             ChatbotTools(**LLM_CONFIG[chosen_model], tool_names=chosen_tools),
         )
         for message in chatbot.history:
             st.chat_message(message["role"]).write(message["content"])
+    else:
+        st.info("Please select a LLM and tools", icon="ℹ️")
 
     if prompt := st.chat_input(
         placeholder=f"Chat with {chosen_model}!" if chosen_model else "",
-        disabled=not chosen_model,
+        disabled=not (chosen_model and chosen_tools),
     ):
         st.chat_message("human").write(prompt)
         if lakera_activated:
