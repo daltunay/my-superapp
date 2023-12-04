@@ -28,23 +28,31 @@ image_generation:
     ICON: 🖼️
     DESCRIPTION: Stable Diffusion model from Stability AI
 
-landmarks_detection:
+object_detection:
   __init__.py:
-    NAME: Landmarks Detection
+    NAME: Object Detection
     ICON: 🎯
-    DESCRIPTION: Detect face and body pose landmarks!
+    DESCRIPTION: Detect objects via your webcam!
     SIDEBAR: radio
     TAG: 👁️ Computer Vision
 
   face_landmarks.py:
-    NAME: Face Landmarks
-    ICON: 👤📍
-    DESCRIPTION: Face landmarker
+    NAME: Face Mesh
+    ICON: 👤
+    DESCRIPTION: Face landmark detection
+    TAG: 📍 Landmarks
 
   pose_landmarks.py:
     NAME: Pose Landmarks
-    ICON: 🤸‍♂️📍
-    DESCRIPTION: Body pose landmarker
+    ICON: 🤸‍♂️
+    DESCRIPTION: Body pose landmark detection
+    TAG: 📍 Landmarks
+
+  face_detection.py:
+    NAME: Face Detection
+    ICON: 👀
+    DESCRIPTION: Detection of one or several faces
+    TAG: 🔍 Detection
 
 large_language_models:
   __init__.py:
@@ -55,16 +63,25 @@ large_language_models:
     TAG: 🧠 Generative AI
 
   chatbot.py:
-    NAME: Chatbot
-    ICON: 🤖
+    NAME: Basic
+    ICON: 👋
     DESCRIPTION: A regular chatbot.
+    TAG: 🤖 Chatbots
 
   chatbot_rag.py:
-    NAME: Chatbot RAG
-    ICON: 🤖📄
+    NAME: RAG
+    ICON: 📄
     DESCRIPTION: A chatbot with RAG (retrieval augmented generation).
+    TAG: 🤖 Chatbots
 
   chatbot_tools.py:
-    NAME: Chatbot Tools
-    ICON: 🤖🛠️
+    NAME: Tools
+    ICON: 🛠️
     DESCRIPTION: A chatbot augmented with tools (web access, code interpreter, etc.)
+    TAG: 🤖 Chatbots
+
+  summarize_web.py:
+    NAME: Webpage summary
+    ICON: 🌐
+    DESCRIPTION: A model to synthetize to text content of a webpage.
+    TAG: 🔄 Other
