@@ -14,11 +14,14 @@ from src.generative_ai.large_language_models.chatbots import Chatbot, ModelArgs
 class ChatbotRAG(Chatbot):
     def __init__(
         self,
+        vector_store: FAISS | None = None,
         embeddings_kwargs: t.Dict | None = None,
         search_kwargs: t.Dict | None = None,
         **model_kwargs: t.Unpack[ModelArgs],
     ) -> None:
         super().__init__(**model_kwargs)
+        if vector_store:
+            self.vector_store = vector_store
         self.embeddings_kwargs = embeddings_kwargs or {}
         self.search_kwargs = search_kwargs or {}
 

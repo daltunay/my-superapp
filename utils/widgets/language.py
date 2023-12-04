@@ -25,7 +25,7 @@ class LanguageWidget:
     @property
     def selected_language(self):
         return st.selectbox(
-            label="Chat language:",
+            label="Language:",
             options=list(self.languages),
             index=list(self.languages).index(
                 st_ss.get(self.selectbox_key, self.default)

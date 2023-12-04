@@ -26,7 +26,7 @@ class LakeraWidget:
     @property
     def lakera_activated(self):
         return st.checkbox(
-            label="LLM prompt injection security",
+            label="Prompt injection security",
             value=st_ss.get(self.checkbox_key, self.default),
             key=self.checkbox_key,
             help="Use Lakera Guard API to defend against LLM prompt injections",

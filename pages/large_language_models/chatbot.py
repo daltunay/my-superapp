@@ -11,6 +11,17 @@ st_ss = st.session_state
 
 
 def main():
+    with st.expander(label="Chat parameters"):
+        col1, col2 = st.columns(2)
+        with col1:
+            selected_language = st_ss.setdefault(
+                "language_widget", utils.LanguageWidget()
+            ).selected_language
+        with col2:
+            lakera_activated = st_ss.setdefault(
+                "lakera_widget", utils.LakeraWidget()
+            ).lakera_activated
+
     chosen_model = st.selectbox(
         label="Large Language Model:",
         placeholder="Choose an option",
@@ -19,15 +30,6 @@ def main():
         on_change=utils.reset_session_state_key,
         kwargs={"key": "chatbot"},
     )
-
-    with st.sidebar:
-        st.header(body="Chat parameters", divider="gray")
-        selected_language = st_ss.setdefault(
-            "language_widget", utils.LanguageWidget()
-        ).selected_language
-        lakera_activated = st_ss.setdefault(
-            "lakera_widget", utils.LakeraWidget()
-        ).lakera_activated
 
     provided_context = st.text_area(
         label="Context:",
@@ -39,8 +41,6 @@ def main():
         chatbot = st_ss.setdefault("chatbot", Chatbot(**LLM_CONFIG[chosen_model]))
         for message in chatbot.history:
             st.chat_message(message["role"]).write(message["content"])
-    else:
-        st.info("Select a model above", icon="ℹ️")
 
     if prompt := st.chat_input(
         placeholder=f"Chat with {chosen_model}!" if chosen_model else "",

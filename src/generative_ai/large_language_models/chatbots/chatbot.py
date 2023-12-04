@@ -24,9 +24,9 @@ class Chatbot:
     BASE_TEMPLATE = """
     Use the following context and chat history to answer the question:
     
-    <context>{context}</context>
-    <chat_history>{chat_history}</chat_history>
-    <question>{question}</question>
+    Context: {context}
+    Chat history: {chat_history}
+    Question: {question}
     
     Your answer (in {language}):
     """
