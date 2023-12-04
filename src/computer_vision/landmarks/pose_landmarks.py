@@ -32,8 +32,7 @@ class PoseLandmarkerApp(BaseLandmarkerApp):
         self,
     ) -> t.List[t.Dict[str, mp.solutions.drawing_utils.DrawingSpec]]:
         return [
-            {"landmark_drawing_spec": style, "connection_drawing_spec": None}
-            for style in (
-                mp.solutions.drawing_styles.get_default_pose_landmarks_style(),
-            )
+            {
+                "landmark_drawing_spec": mp.solutions.drawing_styles.get_default_pose_landmarks_style()
+            }
         ]

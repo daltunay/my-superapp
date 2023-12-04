@@ -35,7 +35,7 @@ class FaceLandmarkerApp(BaseLandmarkerApp):
         self,
     ) -> t.List[t.Dict[str, mp.solutions.drawing_utils.DrawingSpec]]:
         return [
-            {"connection_drawing_spec": style, "landmark_drawing_spec": None}
+            {"connection_drawing_spec": style}
             for style in (
                 mp.solutions.drawing_styles.get_default_face_mesh_tesselation_style(),
                 mp.solutions.drawing_styles.get_default_face_mesh_contours_style(),
