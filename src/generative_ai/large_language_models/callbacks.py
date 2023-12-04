@@ -10,10 +10,16 @@ class StreamingChatCallbackHandler(BaseCallbackHandler):
         self.container = st.empty()
         self.text = ""
 
-    def on_llm_new_token(self, token, *args, **kwargs):
+    def on_llm_new_token(self, token: str, *args, **kwargs):
         self.text += token
-        self.container.markdown(self.text, unsafe_allow_html=True)
+        self.container.markdown(
+            body=self.text,
+            unsafe_allow_html=False,
+        )
 
-    def on_llm_end(self, response, *args, **kwargs):
+    def on_llm_end(self, response: str, *args, **kwargs):
         self.container.empty()
-        self.container.markdown(response.generations[0][0].text, unsafe_allow_html=True)
+        self.container.markdown(
+            body=response.generations[0][0].text,
+            unsafe_allow_html=False,
+        )
