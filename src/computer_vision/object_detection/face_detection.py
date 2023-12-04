@@ -31,7 +31,7 @@ class FaceDetectionApp:
         return self.detector.process(image).detections
 
     def video_frame_callback(self, frame: VideoFrame) -> VideoFrame:
-        image = frame.to_ndarray(format="rgb24")
+        image = frame.to_ndarray(format="bgr24")
 
         detection_list = self.detect_faces(image)
         self.annotate_faces(

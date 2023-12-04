@@ -26,7 +26,7 @@ class BaseLandmarkerApp:
         return landmark_list[0] if isinstance(landmark_list, list) else landmark_list
 
     def video_frame_callback(self, frame: VideoFrame) -> VideoFrame:
-        image = frame.to_ndarray(format="rgb24")
+        image = frame.to_ndarray(format="bgr24")
 
         landmark_list = self.get_landmarks(image)
         self.annotate_landmarks(
