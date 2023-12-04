@@ -56,7 +56,7 @@ class BaseLandmarkerApp:
     def annotate_time(cls, image: ndarray):
         cv2.putText(
             img=image,
-            text=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            text=datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3],
             org=(10, 50),
             fontFace=cv2.FONT_HERSHEY_SIMPLEX,
             fontScale=1,
