@@ -10,7 +10,7 @@ from utils.misc import base64_to_img
 logger = utils.CustomLogger(__file__)
 
 
-@st.cache_data(show_spinner="Generating picture...", max_entries=1)
+@st.cache_data(show_spinner="Generating picture...")
 def stable_diffusion_image(
     prompt: str,
     width: int = 1024,
