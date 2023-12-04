@@ -7,7 +7,7 @@ from src.computer_vision.landmarks import BaseLandmarkerApp
 
 
 class FaceLandmarkerApp(BaseLandmarkerApp):
-    landmarks_type: str = "multi_face_landmarks"
+    landmarks_type = "multi_face_landmarks"
 
     def __init__(self):
         super().__init__()

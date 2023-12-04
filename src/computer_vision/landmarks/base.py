@@ -46,6 +46,7 @@ class BaseLandmarkerApp:
             ),
             media_stream_constraints={"video": True, "audio": False},
             async_processing=True,
+            desired_playing_state=None,
         )
 
     @classmethod
@@ -70,7 +71,7 @@ class BaseLandmarkerApp:
         drawing_specs_list: t.List[t.Dict[str, mp.solutions.drawing_utils.DrawingSpec]],
     ) -> None:
         if not landmark_list:
-            return image
+            return
 
         for connections, drawing_specs in zip(connections_list, drawing_specs_list):
             mp.solutions.drawing_utils.draw_landmarks(

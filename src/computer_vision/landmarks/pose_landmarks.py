@@ -7,7 +7,7 @@ from src.computer_vision.landmarks import BaseLandmarkerApp
 
 
 class PoseLandmarkerApp(BaseLandmarkerApp):
-    landmarks_type: str = "pose_landmarks"
+    landmarks_type = "pose_landmarks"
 
     def __init__(self):
         super().__init__()
