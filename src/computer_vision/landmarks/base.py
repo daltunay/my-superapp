@@ -2,7 +2,6 @@ import os
 import time
 import typing as t
 from functools import cached_property
-from queue import Queue
 
 import cv2
 import mediapipe as mp
@@ -24,7 +23,6 @@ class BaseLandmarkerApp:
     def __init__(self, model_path: str):
         self.model_path = model_path
         self.start_time = time.time()
-        self.queue: "Queue[t.List[ndarray]]" = Queue()
 
     @cached_property
     def landmarker(
@@ -61,8 +59,6 @@ class BaseLandmarkerApp:
             landmark_list_raw = getattr(detection_result, self.landmarks_type)
             landmark_list = landmark_list_raw[0] if landmark_list_raw else []
 
-            self.queue.put(landmark_list)
-
             self.annotate_landmarks(
                 image=image,
                 connections_list=self.connections_list,
@@ -71,7 +67,6 @@ class BaseLandmarkerApp:
             )
         except Exception as e:
             logger.error(e)
-            self.queue.put(None)
 
         return VideoFrame.from_ndarray(image, format="bgr24")
 
@@ -86,10 +81,6 @@ class BaseLandmarkerApp:
             media_stream_constraints={"video": True, "audio": False},
             async_processing=True,
         )
-        if streamer.state.playing:
-            while True:
-                try: self.queue.get()
-                except: pass
 
     @classmethod
     def normalize_landmark_list(
