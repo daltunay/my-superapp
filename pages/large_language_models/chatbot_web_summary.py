@@ -26,9 +26,10 @@ def main():
         kwargs={"key": "chatbot_web_summary"},
     )
 
-    chosen_chain_type = st.multiselect(
+    chosen_chain_type = st.selectbox(
         label="Chain type:",
         options=ChatbotWebSummary.available_chain_types,
+        index=None,
         on_change=utils.reset_session_state_key,
         kwargs={"key": "chatbot_web_summary"},
     )
@@ -38,7 +39,7 @@ def main():
             "chatbot_web_summary", ChatbotWebSummary(**LLM_CONFIG[chosen_model])
         )
     else:
-        pass
+        st.info("Choose a chain type for the LLM", icon="ℹ️")
 
     if input_url := st.text_input(
         label="URL of the page to summarize:",
