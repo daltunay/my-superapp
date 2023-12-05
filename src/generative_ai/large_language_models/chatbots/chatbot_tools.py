@@ -1,8 +1,7 @@
 import typing as t
 from functools import cached_property
 
-from langchain.agents import (AgentExecutor, AgentType, initialize_agent,
-                              load_tools)
+from langchain.agents import AgentExecutor, AgentType, initialize_agent, load_tools
 from langchain.tools import BaseTool
 
 from src.generative_ai.large_language_models.chatbots import Chatbot, ModelArgs
@@ -24,6 +23,17 @@ class ChatbotTools(Chatbot):
     def tools(self) -> t.List[BaseTool]:
         return load_tools(tool_names=self.tool_names)
 
+    @classmethod
+    def update_human_msg_prompt_template(
+        cls, agent: AgentExecutor, text_to_add: str
+    ) -> AgentExecutor:
+        template = agent.agent.llm_chain.prompt.messages[2].prompt.template
+        part1, part2 = template.split("\n\nUSER'S INPUT")
+        part1 += text_to_add
+        updated_template = "\n\nUSER'S INPUT".join([part1, part2])
+        agent.agent.llm_chain.prompt.messages[2].prompt.template = updated_template
+        return agent
+
     @cached_property
     def chain(self) -> AgentExecutor:
         agent = initialize_agent(
@@ -43,8 +53,14 @@ class ChatbotTools(Chatbot):
             handle_parsing_errors=True,
             return_intermediate_steps=False,
         )
-        agent.agent.llm_chain.prompt += "Answer in {language}. "
-        agent.agent.llm_chain.prompt += "The final answer must come in JSON format."
+        agent = self.update_human_msg_prompt_template(
+            agent=agent,
+            text_to_add="\nThe final answer must come in {language}.",
+        )
+        agent = self.update_human_msg_prompt_template(
+            agent=agent,
+            text_to_add="\nThe final answer must come in JSON format.",
+        )
         return agent
 
     def ask(
