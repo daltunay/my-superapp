@@ -9,7 +9,7 @@ from src.generative_ai.large_language_models.chatbots import Chatbot, ModelArgs
 
 
 class ChatbotTools(Chatbot):
-    available_tools = ["google-search", "wikipedia"]
+    available_tools = ["google-search", "arxiv", "wikipedia", "stackexchange", "human"]
 
     def __init__(
         self,

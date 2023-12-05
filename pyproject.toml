@@ -26,9 +26,11 @@ faiss-cpu = "^1.7.4"
 transformers = "^4.35.2"
 pypdf = "^3.17.1"
 google-api-python-client = "^2.108.0"
-wikipedia = "^1.4.0"
 unstructured = "^0.11.2"
 validators = "^0.22.0"
+arxiv = "^2.0.0"
+wikipedia = "^1.4.0"
+stackapi = "^0.3.0"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.1.3"
