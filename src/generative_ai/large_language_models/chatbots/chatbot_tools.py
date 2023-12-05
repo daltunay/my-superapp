@@ -25,13 +25,19 @@ class ChatbotTools(Chatbot):
 
     @classmethod
     def update_human_msg_prompt_template(
-        cls, agent: AgentExecutor, text_to_add: str
+        cls,
+        agent: AgentExecutor,
+        text_to_add: str,
+        input_variable_to_add: str | None = None,
     ) -> AgentExecutor:
         template = agent.agent.llm_chain.prompt.messages[2].prompt.template
         part1, part2 = template.split("\n\nUSER'S INPUT")
         part1 += text_to_add
         updated_template = "\n\nUSER'S INPUT".join([part1, part2])
         agent.agent.llm_chain.prompt.messages[2].prompt.template = updated_template
+        agent.agent.llm_chain.prompt.messages[2].prompt.input_variables.append(
+            input_variable_to_add
+        )
         return agent
 
     @cached_property
@@ -56,6 +62,7 @@ class ChatbotTools(Chatbot):
         agent = self.update_human_msg_prompt_template(
             agent=agent,
             text_to_add="\nThe final answer must come in {language}.",
+            input_variable_to_add="language",
         )
         agent = self.update_human_msg_prompt_template(
             agent=agent,
