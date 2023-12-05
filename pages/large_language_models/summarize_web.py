@@ -1,9 +1,9 @@
 import streamlit as st
+import validators
 
 import utils
 from pages.large_language_models import LLM_CONFIG
 from src.generative_ai.large_language_models import ChatbotSummary
-import validators
 
 loader = utils.PageConfigLoader(__file__)
 loader.set_page_config(globals())

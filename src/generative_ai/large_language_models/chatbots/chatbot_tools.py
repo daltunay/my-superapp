@@ -1,7 +1,8 @@
 import typing as t
 from functools import cached_property
 
-from langchain.agents import AgentExecutor, AgentType, initialize_agent, load_tools
+from langchain.agents import (AgentExecutor, AgentType, initialize_agent,
+                              load_tools)
 from langchain.tools import BaseTool
 
 from src.generative_ai.large_language_models.chatbots import Chatbot, ModelArgs

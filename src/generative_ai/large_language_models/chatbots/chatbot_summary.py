@@ -1,13 +1,14 @@
 import typing as t
 from functools import cached_property
 
-from src.generative_ai.large_language_models.chatbots import Chatbot, ModelArgs
-
-from langchain.document_loaders import UnstructuredURLLoader
-from langchain.docstore.document import Document
-from unstructured.cleaners.core import remove_punctuation, clean, clean_extra_whitespace
-from langchain.chains.summarize import load_summarize_chain
 from langchain.chains.combine_documents.base import BaseCombineDocumentsChain
+from langchain.chains.summarize import load_summarize_chain
+from langchain.docstore.document import Document
+from langchain.document_loaders import UnstructuredURLLoader
+from unstructured.cleaners.core import (clean, clean_extra_whitespace,
+                                        remove_punctuation)
+
+from src.generative_ai.large_language_models.chatbots import Chatbot, ModelArgs
 
 
 class ChatbotSummary(Chatbot):
