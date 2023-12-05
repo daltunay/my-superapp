@@ -48,7 +48,8 @@ class ChatbotTools(Chatbot):
             llm=self.llm,
             memory=self.memory,
             verbose=True,
-            agent=AgentType.CHAT_CONVERSATIONAL_REACT_DESCRIPTION,
+            # agent=AgentType.CHAT_CONVERSATIONAL_REACT_DESCRIPTION,
+            agent=AgentType.CONVERSATIONAL_REACT_DESCRIPTION,
             agent_kwargs={
                 "input_variables": [
                     "input",
@@ -61,11 +62,11 @@ class ChatbotTools(Chatbot):
             handle_parsing_errors=True,
             return_intermediate_steps=False,
         )
-        agent = self.update_human_msg_prompt_template(
-            agent=agent,
-            text_to_add="\nThe final answer must come in {language}, in the format of a markdown code snippet of a json blob with a single action.",
-            input_variable_to_add="language",
-        )
+        # agent = self.update_human_msg_prompt_template(
+        #     agent=agent,
+        #     text_to_add="\nThe final answer must come in {language}, in the format of a markdown code snippet of a json blob with a single action.",
+        #     input_variable_to_add="language",
+        # )
         return agent
 
     def ask(
