@@ -67,7 +67,7 @@ def main():
                 st.warning(body="Prompt injection detected", icon="🚨")
                 st.expander(label="LOGS").json(response)
         with st.chat_message("ai"):
-            chatbot.ask(
+            st.write(chatbot.ask(
                 query=prompt,
                 language=selected_language,
-            )
+            ))
