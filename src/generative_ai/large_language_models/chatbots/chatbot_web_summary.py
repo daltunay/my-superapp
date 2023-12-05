@@ -11,7 +11,7 @@ from unstructured.cleaners.core import (clean, clean_extra_whitespace,
 from src.generative_ai.large_language_models.chatbots import Chatbot, ModelArgs
 
 
-class ChatbotSummary(Chatbot):
+class ChatbotWebSummary(Chatbot):
     def __init__(
         self,
         **model_kwargs: t.Unpack[ModelArgs],

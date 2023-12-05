@@ -3,7 +3,7 @@ import validators
 
 import utils
 from pages.large_language_models import LLM_CONFIG
-from src.generative_ai.large_language_models import ChatbotSummary
+from src.generative_ai.large_language_models import ChatbotWebSummary
 
 loader = utils.PageConfigLoader(__file__)
 loader.set_page_config(globals())
@@ -23,12 +23,12 @@ def main():
         options=LLM_CONFIG.keys(),
         index=0,
         on_change=utils.reset_session_state_key,
-        kwargs={"key": "chatbot_summary"},
+        kwargs={"key": "chatbot_web_summary"},
     )
 
     if chosen_model:
         chatbot = st_ss.setdefault(
-            "chatbot_summary", ChatbotSummary(**LLM_CONFIG[chosen_model])
+            "chatbot_web_summary", ChatbotWebSummary(**LLM_CONFIG[chosen_model])
         )
     else:
         pass
