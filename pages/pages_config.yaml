@@ -3,36 +3,11 @@ __init__.py:
   ICON: "🏠"
   DESCRIPTION: "Welcome to my app!"
 
-action_recognition:
+landmarks:
   __init__.py:
-    NAME: Action Recognition
-    ICON: 🏋️
-    DESCRIPTION: Perform action recognition using a classifier!
-    TAG: 👁️ Computer Vision
-
-image_generation:
-  __init__.py:
-    NAME: Image Generation
-    ICON: 🎨
-    DESCRIPTION: Generate pictures with AI!
-    SIDEBAR: radio
-    TAG: 🧠 Generative AI
-
-  dall_e.py:
-    NAME: DALL·E
-    ICON: 🖼️
-    DESCRIPTION: DALL·E model from OpenAI
-
-  stable_diffusion.py:
-    NAME: Stable Diffusion
-    ICON: 🖼️
-    DESCRIPTION: Stable Diffusion model from Stability AI
-
-object_detection:
-  __init__.py:
-    NAME: Object Detection
-    ICON: 🎯
-    DESCRIPTION: Detect objects via your webcam!
+    NAME: Landmarks
+    ICON: 📍
+    DESCRIPTION: Perform landmark detection using Mediapipe!
     SIDEBAR: radio
     TAG: 👁️ Computer Vision
 
@@ -48,11 +23,39 @@ object_detection:
     DESCRIPTION: Body pose landmark detection
     TAG: 📍 Landmarks
 
+image_generation:
+  __init__.py:
+    NAME: Image Generation
+    ICON: 🎨
+    DESCRIPTION: Generate pictures with AI!
+    SIDEBAR: radio
+    TAG: 🧠 Generative AI
+
+  dall_e.py:
+    NAME: DALL·E
+    ICON: 🖼️
+    DESCRIPTION: DALL·E model from OpenAI
+    TAG: 🎨 Image Generation
+
+  stable_diffusion.py:
+    NAME: Stable Diffusion
+    ICON: 🖼️
+    DESCRIPTION: Stable Diffusion model from Stability AI
+    TAG: 🎨 Image Generation
+
+object_detection:
+  __init__.py:
+    NAME: Object Detection
+    ICON: 🔍
+    DESCRIPTION: Detect objects via your webcam!
+    SIDEBAR: radio
+    TAG: 👁️ Computer Vision
+
   face_detection.py:
     NAME: Face Detection
     ICON: 👀
     DESCRIPTION: Detection of one or several faces
-    TAG: 🔍 Detection
+    TAG: 🔍 Object Detection
 
 large_language_models:
   __init__.py:
