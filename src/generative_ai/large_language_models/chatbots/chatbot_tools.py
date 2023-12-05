@@ -1,8 +1,7 @@
 import typing as t
 from functools import cached_property
 
-from langchain.agents import (AgentExecutor, AgentType, initialize_agent,
-                              load_tools)
+from langchain.agents import AgentExecutor, AgentType, initialize_agent, load_tools
 from langchain.tools import BaseTool
 
 from src.generative_ai.large_language_models.chatbots import Chatbot, ModelArgs
@@ -49,7 +48,7 @@ class ChatbotTools(Chatbot):
             llm=self.llm,
             memory=self.memory,
             verbose=True,
-            agent=AgentType.CONVERSATIONAL_REACT_DESCRIPTION,
+            agent=AgentType.CHAT_CONVERSATIONAL_REACT_DESCRIPTION,
             agent_kwargs={
                 "input_variables": [
                     "input",
