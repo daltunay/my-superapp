@@ -5,8 +5,7 @@ from langchain.chains.combine_documents.base import BaseCombineDocumentsChain
 from langchain.chains.summarize import load_summarize_chain
 from langchain.docstore.document import Document
 from langchain.document_loaders import UnstructuredURLLoader
-from unstructured.cleaners.core import (clean, clean_extra_whitespace,
-                                        remove_punctuation)
+from unstructured.cleaners.core import clean, clean_extra_whitespace, remove_punctuation
 
 from src.generative_ai.large_language_models.chatbots import Chatbot, ModelArgs
 
@@ -39,7 +38,7 @@ class ChatbotSummary(Chatbot):
 
     @cached_property
     def chain(self) -> BaseCombineDocumentsChain:
-        return load_summarize_chain(self.llm, chain_type="stuff", verbose=True)
+        return load_summarize_chain(self.llm, chain_type="map_reduce", verbose=True)
 
     def summarize(self, url: str) -> str:
         document = self.url_to_doc(url)
