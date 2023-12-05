@@ -35,9 +35,10 @@ class ChatbotTools(Chatbot):
         part1 += text_to_add
         updated_template = "\n\nUSER'S INPUT".join([part1, part2])
         agent.agent.llm_chain.prompt.messages[2].prompt.template = updated_template
-        agent.agent.llm_chain.prompt.messages[2].prompt.input_variables.append(
-            input_variable_to_add
-        )
+        if input_variable_to_add:
+            agent.agent.llm_chain.prompt.messages[2].prompt.input_variables.append(
+                input_variable_to_add
+            )
         return agent
 
     @cached_property
