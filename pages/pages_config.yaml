@@ -80,7 +80,7 @@ large_language_models:
     DESCRIPTION: A chatbot augmented with tools (web access, code interpreter, etc.)
     TAG: 🤖 Chatbots
 
-  summarize_web.py:
+  chatbot_web_summary.py:
     NAME: Webpage summary
     ICON: 🌐
     DESCRIPTION: A model to synthetize to text content of a webpage.
