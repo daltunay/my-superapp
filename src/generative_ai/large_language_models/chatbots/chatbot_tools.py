@@ -71,5 +71,5 @@ class ChatbotTools(Chatbot):
         return self.chain.run(
             input=query,
             language=language or "the input language",
-            callbacks=self.callbacks[1],
+            callbacks=[self.callbacks[1]],
         )
