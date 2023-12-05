@@ -48,6 +48,7 @@ class Chatbot:
         elif self.model_provider == "together":
             return Together(
                 model=f"{self.model_owner}/{self.model_string}",
+                max_tokens=1024,
             )
 
     @cached_property
