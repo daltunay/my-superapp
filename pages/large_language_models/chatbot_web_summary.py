@@ -43,7 +43,7 @@ def main():
 
     if input_url := st.text_input(
         label="URL of the page to summarize:",
-        disabled=not chosen_model,
+        disabled=not (chosen_model and chosen_chain_type),
     ):
         if validators.url(input_url):
             st.chat_message("human").write(input_url)
