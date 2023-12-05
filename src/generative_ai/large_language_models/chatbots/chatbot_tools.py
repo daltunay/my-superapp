@@ -2,6 +2,7 @@ import typing as t
 from functools import cached_property
 
 from langchain.agents import AgentExecutor, AgentType, initialize_agent, load_tools
+from langchain.callbacks.base import BaseCallbackHandler
 from langchain.tools import BaseTool
 
 from src.generative_ai.large_language_models.chatbots import Chatbot, ModelArgs
@@ -18,6 +19,10 @@ class ChatbotTools(Chatbot):
         super().__init__(**model_kwargs)
         self.tool_names = tool_names or []
         self.memory.input_key = "input"
+
+    @property
+    def callbacks(self) -> t.List[BaseCallbackHandler]:
+        return [super().callbacks[1]]
 
     @cached_property
     def tools(self) -> t.List[BaseTool]:
@@ -71,5 +76,5 @@ class ChatbotTools(Chatbot):
         return self.chain.run(
             input=query,
             language=language or "the input language",
-            callbacks=[self.callbacks[1]],
+            callbacks=self.callbacks,
         )
