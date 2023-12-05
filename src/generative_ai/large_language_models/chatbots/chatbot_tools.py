@@ -24,22 +24,17 @@ class ChatbotTools(Chatbot):
         return load_tools(tool_names=self.tool_names)
 
     @classmethod
-    def update_human_msg_prompt_template(
+    def update_agent_prompt_template(
         cls,
         agent: AgentExecutor,
-        text_to_add: str,
-        input_variable_to_add: str | None = None,
-    ) -> AgentExecutor:
-        template = agent.agent.llm_chain.prompt.messages[2].prompt.template
-        part1, part2 = template.split("\n\nUSER'S INPUT")
-        part1 += text_to_add
-        updated_template = "\n\nUSER'S INPUT".join([part1, part2])
-        agent.agent.llm_chain.prompt.messages[2].prompt.template = updated_template
-        if input_variable_to_add:
-            agent.agent.llm_chain.prompt.messages[2].prompt.input_variables.append(
-                input_variable_to_add
-            )
-            agent.agent.llm_chain.prompt.input_variables.append(input_variable_to_add)
+        text: str,
+        input_variable: str | None = None,
+    ):
+        template = agent.agent.llm_chain.prompt.template
+        newline_index = agent.agent.llm_chain.prompt.template.find("\n\n")
+        agent.agent.llm_chain.prompt.template = text + template[newline_index:]
+        if input_variable:
+            agent.agent.llm_chain.prompt.input_variables.append(input_variable)
         return agent
 
     @cached_property
@@ -61,10 +56,10 @@ class ChatbotTools(Chatbot):
             handle_parsing_errors=True,
             return_intermediate_steps=False,
         )
-        agent = self.update_human_msg_prompt_template(
+        agent = self.update_agent_prompt_template(
             agent=agent,
-            text_to_add="\nThe final answer must come in {language}, in the format of a markdown code snippet of a json blob with a single action.",
-            input_variable_to_add="language",
+            text="Assistant is a large language model, speaking in {language}.",
+            input_variable="language",
         )
         return agent
 
