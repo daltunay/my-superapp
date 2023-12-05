@@ -64,6 +64,7 @@ class FaceDetectionApp:
             return
 
         for detection in detection_list:
+            score = detection.score[0]
             bbox = detection.location_data.relative_bounding_box
             height, width, _ = image.shape
             xmin, ymin = int(bbox.xmin * width), int(bbox.ymin * height)
@@ -76,4 +77,13 @@ class FaceDetectionApp:
                 pt2=(xmax, ymax),
                 color=(0, 255, 0),
                 thickness=3,
+            )
+            cv2.putText(
+                img=image,
+                text=f"Score: {score:.3f}",
+                org=(xmin, ymin - 10),
+                fontFace=cv2.FONT_HERSHEY_SIMPLEX,
+                fontScale=0.5,
+                color=(0, 255, 0),
+                thickness=2,
             )
