@@ -1,13 +1,13 @@
 __init__.py:
-  NAME: "Home"
-  ICON: "🏠"
-  DESCRIPTION: "Welcome to my app!"
+  NAME: Home
+  ICON: 🏠
+  DESCRIPTION: Welcome to my app!
 
 landmarks:
   __init__.py:
     NAME: Landmarks
     ICON: 📍
-    DESCRIPTION: Perform landmark detection using Mediapipe!
+    DESCRIPTION: Perform live landmark detection using Mediapipe!
     SIDEBAR: radio
     TAG: 👁️ Computer Vision
 
@@ -22,6 +22,20 @@ landmarks:
     ICON: 🤸‍♂️
     DESCRIPTION: Body pose landmark detection
     TAG: 📍 Landmarks
+
+object_detection:
+  __init__.py:
+    NAME: Object Detection
+    ICON: 🔍
+    DESCRIPTION: Detect objects via your webcam!
+    SIDEBAR: radio
+    TAG: 👁️ Computer Vision
+
+  face_detection.py:
+    NAME: Face Detection
+    ICON: 👀
+    DESCRIPTION: Detection of one or several faces
+    TAG: 🔍 Object Detection
 
 image_generation:
   __init__.py:
@@ -42,20 +56,6 @@ image_generation:
     ICON: 🖼️
     DESCRIPTION: Stable Diffusion model from Stability AI
     TAG: 🎨 Image Generation
-
-object_detection:
-  __init__.py:
-    NAME: Object Detection
-    ICON: 🔍
-    DESCRIPTION: Detect objects via your webcam!
-    SIDEBAR: radio
-    TAG: 👁️ Computer Vision
-
-  face_detection.py:
-    NAME: Face Detection
-    ICON: 👀
-    DESCRIPTION: Detection of one or several faces
-    TAG: 🔍 Object Detection
 
 large_language_models:
   __init__.py:
