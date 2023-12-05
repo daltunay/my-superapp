@@ -68,7 +68,7 @@ class ChatbotTools(Chatbot):
         )
         agent = self.update_human_msg_prompt_template(
             agent=agent,
-            text_to_add="\nThe final answer must come in JSON format.",
+            text_to_add="\nThe final answer must come in a markdown code snippet of a json blob with a single action.",
         )
         return agent
 
