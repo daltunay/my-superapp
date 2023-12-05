@@ -69,7 +69,7 @@ large_language_models:
     TAG: 🤖 Chatbots
 
   chatbot_rag.py:
-    NAME: Whatbot with RAG
+    NAME: Chatbot with RAG
     ICON: 📄
     DESCRIPTION: A chatbot with RAG (retrieval augmented generation).
     TAG: 🤖 Chatbots
