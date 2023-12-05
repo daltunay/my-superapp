@@ -12,11 +12,6 @@ st_ss = st.session_state
 
 
 def main():
-    st.caption(
-        body="Using Google's Mediapipe module, this app performs landmark detection for the body pose.",
-        help="https://developers.google.com/mediapipe/solutions/vision/pose_landmarker",
-    )
-
-    utils.show_source_code(path="src/computer_vision/landmarks/pose_landmarks/")
+    utils.show_source_code("src/computer_vision/landmarks/pose_landmarks.py")
 
     st_ss.setdefault("pose_app", PoseLandmarkerApp()).stream()

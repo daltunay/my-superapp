@@ -11,6 +11,7 @@ st_ss = st.session_state
 
 
 def main():
+    utils.show_source_code("src/generative_ai/large_language_models/chatbots/chatbot.py")
     with st.expander(label="Chat parameters"):
         col1, col2 = st.columns(2)
         with col1:

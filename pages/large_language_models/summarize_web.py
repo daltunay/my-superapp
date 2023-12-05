@@ -14,6 +14,9 @@ st_ss = st.session_state
 
 
 def main():
+    utils.show_source_code(
+        path="src/generative_ai/large_language_models/chatbots/chatbot_web.py"
+    )
     chosen_model = st.selectbox(
         label="Large Language Model:",
         placeholder="Choose an option",

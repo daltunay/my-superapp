@@ -10,13 +10,7 @@ logger = utils.CustomLogger(__file__)
 
 
 def main():
-    st.caption(
-        body="Using OpenAI DALL·E, this app performs image creation based on a user prompt.",
-        help="[DALL·E](https://openai.com/dall-e-2)",
-        unsafe_allow_html=True,
-    )
-
-    utils.show_source_code(path="src/generative_ai/image_generation/dall_e.py")
+    utils.show_source_code("src/generative_ai/image_generation/dall_e.py")
 
     submitted = False
     with st.form(key="dall_e_form"):

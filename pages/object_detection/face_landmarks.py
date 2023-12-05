@@ -12,11 +12,6 @@ st_ss = st.session_state
 
 
 def main():
-    st.caption(
-        body="Using Google's Mediapipe module, this app performs landmark detection for the face.",
-        help="https://developers.google.com/mediapipe/solutions/vision/face_landmarker",
-    )
-
-    utils.show_source_code(path="src/computer_vision/landmarks/face_landmarks/")
+    utils.show_source_code("src/computer_vision/landmarks/face_landmarks.py")
 
     st_ss.setdefault("face_app", FaceLandmarkerApp()).stream()
