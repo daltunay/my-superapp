@@ -34,7 +34,7 @@ def main():
         placeholder=f"Summarize URL with {chosen_model}!" if chosen_model else "",
         disabled=not chosen_model,
     ):
-        if valid_url := validators.url(input_url):
+        if validators.url(input_url):
             st.chat_message("human").write(input_url)
             with st.chat_message("ai"):
                 chatbot.summarize(url=input_url)
