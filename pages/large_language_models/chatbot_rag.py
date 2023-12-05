@@ -2,8 +2,7 @@ import streamlit as st
 
 import utils
 from pages.large_language_models import LLM_CONFIG
-from src.generative_ai.large_language_models import (ChatbotRAG,
-                                                     get_vector_store)
+from src.generative_ai.large_language_models import ChatbotRAG, get_vector_store
 
 loader = utils.PageConfigLoader(__file__)
 loader.set_page_config(globals())
@@ -40,6 +39,8 @@ def main():
         type="pdf",
         accept_multiple_files=False,
         help="https://python.langchain.com/docs/use_cases/question_answering/#what-is-rag",
+        on_change=utils.reset_session_state_key,
+        kwargs={"key": "chatbot_rag"},
     ):
         with open(uploaded_file.name, "wb") as f:
             f.write(uploaded_file.getbuffer())
