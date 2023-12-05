@@ -80,10 +80,10 @@ class FaceDetectionApp:
             )
             cv2.putText(
                 img=image,
-                text=f"Score: {score:.3f}",
+                text=f"score: {score:.3f}",
                 org=(xmin, ymin - 10),
                 fontFace=cv2.FONT_HERSHEY_SIMPLEX,
                 fontScale=0.5,
                 color=(0, 255, 0),
-                thickness=2,
+                thickness=1,
             )
