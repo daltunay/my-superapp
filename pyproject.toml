@@ -28,6 +28,7 @@ google-api-python-client = "^2.108.0"
 wikipedia = "^1.4.0"
 unstructured = "^0.11.2"
 validators = "^0.22.0"
+transformers = "^4.35.2"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.1.3"
