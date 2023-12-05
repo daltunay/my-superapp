@@ -26,7 +26,14 @@ def main():
         kwargs={"key": "chatbot_web_summary"},
     )
 
-    if chosen_model:
+    chosen_chain_type = st.multiselect(
+        label="Chain type:",
+        options=ChatbotWebSummary.available_chain_types,
+        on_change=utils.reset_session_state_key,
+        kwargs={"key": "chatbot_web_summary"},
+    )
+
+    if chosen_model and chosen_chain_type:
         chatbot = st_ss.setdefault(
             "chatbot_web_summary", ChatbotWebSummary(**LLM_CONFIG[chosen_model])
         )
