@@ -47,7 +47,7 @@ class ChatbotTools(Chatbot):
         agent = initialize_agent(
             llm=self.llm,
             memory=self.memory,
-            verbose=True,
+            verbose=False,
             # agent=AgentType.CHAT_CONVERSATIONAL_REACT_DESCRIPTION,
             agent=AgentType.CONVERSATIONAL_REACT_DESCRIPTION,
             agent_kwargs={
