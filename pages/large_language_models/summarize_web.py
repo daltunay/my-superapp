@@ -24,7 +24,7 @@ def main():
 
     if chosen_model:
         chatbot = st_ss.setdefault(
-            "chatbot", ChatbotSummary(**LLM_CONFIG[chosen_model])
+            "chatbot_summary", ChatbotSummary(**LLM_CONFIG[chosen_model])
         )
     else:
         pass
