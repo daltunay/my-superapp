@@ -10,9 +10,8 @@ from langchain.llms import Together
 from langchain.memory import ConversationBufferMemory
 from langchain.prompts import PromptTemplate
 
-from src.generative_ai.large_language_models.callbacks import (
-    StreamingChatCallbackHandler,
-)
+from src.generative_ai.large_language_models.callbacks import \
+    StreamingChatCallbackHandler
 
 
 class ModelArgs(t.TypedDict):
