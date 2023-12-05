@@ -31,7 +31,7 @@ def main():
         kwargs={"key": "chatbot"},
     )
 
-    provided_context = st.text_area(
+    provided_context = st.text_input(
         label="Context:",
         value="",
         help="This context will be passed to the chatbot.",

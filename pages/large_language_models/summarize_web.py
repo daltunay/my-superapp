@@ -30,8 +30,8 @@ def main():
     else:
         pass
 
-    if input_url := st.chat_input(
-        placeholder=f"Summarize URL with {chosen_model}!" if chosen_model else "",
+    if input_url := st.text_input(
+        label="URL",
         disabled=not chosen_model,
     ):
         if validators.url(input_url):
