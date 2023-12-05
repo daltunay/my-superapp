@@ -49,7 +49,7 @@ class ChatbotTools(Chatbot):
             llm=self.llm,
             memory=self.memory,
             verbose=True,
-            agent=AgentType.CHAT_CONVERSATIONAL_REACT_DESCRIPTION,
+            agent=AgentType.CONVERSATIONAL_REACT_DESCRIPTION,
             agent_kwargs={
                 "input_variables": [
                     "input",
