@@ -39,6 +39,7 @@ class ChatbotTools(Chatbot):
             agent.agent.llm_chain.prompt.messages[2].prompt.input_variables.append(
                 input_variable_to_add
             )
+            agent.agent.llm_chain.prompt.input_variables.append(input_variable_to_add)
         return agent
 
     @cached_property
@@ -53,7 +54,7 @@ class ChatbotTools(Chatbot):
                     "input",
                     "chat_history",
                     "agent_scratchpad",
-                    # "language",
+                    "language",
                 ]
             },
             tools=self.tools,
