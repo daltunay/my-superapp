@@ -53,7 +53,7 @@ class ChatbotTools(Chatbot):
                     "input",
                     "chat_history",
                     "agent_scratchpad",
-                    "language",
+                    # "language",
                 ]
             },
             tools=self.tools,
