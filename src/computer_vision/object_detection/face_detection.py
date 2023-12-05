@@ -85,5 +85,5 @@ class FaceDetectionApp:
                 fontFace=cv2.FONT_HERSHEY_SIMPLEX,
                 fontScale=0.5,
                 color=(0, 255, 0),
-                thickness=1,
+                thickness=2,
             )

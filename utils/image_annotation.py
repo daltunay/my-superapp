@@ -9,7 +9,7 @@ def annotate_time(image: ndarray) -> None:
         "text": text,
         "fontFace": cv2.FONT_HERSHEY_SIMPLEX,
         "fontScale": .5,
-        "thickness": 2,
+        "thickness": 1,
     }
     text_size = cv2.getTextSize(**text_args)[0]
     rect_width, rect_height = text_size[0] + 20, text_size[1] + 20
