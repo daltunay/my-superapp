@@ -49,7 +49,9 @@ def main():
         st.info("Choose tools for the LLM", icon="ℹ️")
 
     if prompt := st.chat_input(
-        placeholder=f"Chat with {chosen_model}!" if chosen_model else "",
+        placeholder=f"Chat with {chosen_model}!"
+        if (chosen_model and chosen_tools)
+        else "",
         disabled=not (chosen_model and chosen_tools),
     ):
         st.chat_message("human").write(prompt)
