@@ -48,7 +48,7 @@ class BaseLandmarkerApp:
             ),
             media_stream_constraints={"video": True, "audio": False},
             async_processing=True,
-            desired_playing_state=None,
+            desired_playing_state=True,
         )
 
     @classmethod
