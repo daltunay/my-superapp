@@ -31,7 +31,7 @@ def main():
         pass
 
     if input_url := st.text_input(
-        label="URL",
+        label="URL of the page to summarize:",
         disabled=not chosen_model,
     ):
         if validators.url(input_url):
