@@ -23,20 +23,19 @@ class MultiObjectsDetectionApp:
     def detect_objects(self, image: ndarray) -> t.Any:
         return self.detector.predict(
             source=image,
-            stream=False,
-            conf=0.5,
-            line_width=1,
+            stream=True,
             show=False,
             show_labels=True,
             show_conf=True,
+            verbose=False,
         )
 
     def video_frame_callback(self, frame: VideoFrame) -> VideoFrame:
         image = frame.to_ndarray(format="bgr24")
 
         detections = self.detect_objects(image)
-        image = self.annotate_detections(detections=detections)
-        utils.annotate_time(image=image)
+        image = self.annotate_detections(detections)
+        utils.annotate_time(image)
         return VideoFrame.from_ndarray(image, format="bgr24")
 
     def stream(self) -> None:
