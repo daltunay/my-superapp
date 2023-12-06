@@ -17,7 +17,7 @@ class MultiObjectsDetectionApp:
         pass
 
     @cached_property
-    def detector(self):
+    def detector(self) -> YOLO:
         return YOLO(model="yolov8n.pt", task=None)
 
     def detect_objects(self, image: ndarray) -> t.Any:
