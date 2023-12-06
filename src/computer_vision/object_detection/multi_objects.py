@@ -21,6 +21,7 @@ class MultiObjectsDetectionApp:
         return YOLO(model="yolov8n.pt", task=None)
 
     def detect_objects(self, image: ndarray) -> Results:
+        logger.info("run `detect_objects`")
         return self.detector.predict(
             source=image,
             stream=True,
@@ -31,6 +32,7 @@ class MultiObjectsDetectionApp:
         )
 
     def video_frame_callback(self, frame: VideoFrame) -> VideoFrame:
+        logger.info("run `video_frame_callback`")
         image = frame.to_ndarray(format="bgr24")
 
         detections = self.detect_objects(image)
@@ -39,6 +41,7 @@ class MultiObjectsDetectionApp:
         return VideoFrame.from_ndarray(image, format="bgr24")
 
     def stream(self) -> None:
+        logger.info("run `stream`")
         st_webrtc.webrtc_streamer(
             video_frame_callback=self.video_frame_callback,
             key="multi_objects_streamer",
@@ -53,4 +56,5 @@ class MultiObjectsDetectionApp:
 
     @classmethod
     def annotate_detections(cls, detections: Results) -> ndarray:
+        logger.info("run `annotate_detections`")
         return list(detections)[0].plot()[:, :, ::-1]
