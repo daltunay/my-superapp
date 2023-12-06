@@ -16,12 +16,11 @@ class MultiObjectsDetectionApp:
     def __init__(self):
         pass
 
-    # @cached_property
-    @property
+    @cached_property
     def detector(self) -> YOLO:
         return YOLO(model="yolov8n.pt", task=None)
 
-    def detect_objects(self, image: ndarray) -> t.Any:
+    def detect_objects(self, image: ndarray) -> Results:
         return self.detector.predict(
             source=image,
             stream=True,
@@ -42,7 +41,7 @@ class MultiObjectsDetectionApp:
     def stream(self) -> None:
         st_webrtc.webrtc_streamer(
             video_frame_callback=self.video_frame_callback,
-            key="face_streamer",
+            key="multi_objects_streamer",
             mode=st_webrtc.WebRtcMode.SENDRECV,
             rtc_configuration=st_webrtc.RTCConfiguration(
                 {"iceServers": utils.get_ice_servers(), "iceTransportPolicy": "relay"}
