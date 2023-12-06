@@ -12,7 +12,7 @@ import utils
 logger = utils.CustomLogger(__file__)
 
 
-class FaceDetectionApp:
+class MultiObjectsDetectionApp:
     def __init__(self):
         pass
 
