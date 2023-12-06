@@ -16,7 +16,8 @@ class MultiObjectsDetectionApp:
     def __init__(self):
         pass
 
-    @cached_property
+    # @cached_property
+    @property
     def detector(self) -> YOLO:
         return YOLO(model="yolov8n.pt", task=None)
 
