@@ -59,5 +59,6 @@ class MultiObjectsDetectionApp:
     @classmethod
     def annotate_detections(cls, detections: Results) -> ndarray:
         logger.info("run `annotate_detections`")
-        logger.info(type(detections))
+        logger.info(type(detections.plot()))
+        logger.info(type(detections.plot()[:, :, ::-1]))
         return detections.plot()[:, :, ::-1]
