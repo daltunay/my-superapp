@@ -1,8 +1,7 @@
 import streamlit as st
 
 import utils
-from src.computer_vision.object_detection.face_detection import \
-    FaceDetectionApp
+from src.computer_vision.object_detection import FaceDetectionApp
 
 loader = utils.PageConfigLoader(__file__)
 loader.set_page_config(globals())

@@ -1,7 +1,7 @@
 import streamlit as st
 
 import utils
-from src.computer_vision.object_detection.multi_objects import MultiObjectsDetectionApp
+from src.computer_vision.object_detection import MultiObjectsDetectionApp
 
 loader = utils.PageConfigLoader(__file__)
 loader.set_page_config(globals())
