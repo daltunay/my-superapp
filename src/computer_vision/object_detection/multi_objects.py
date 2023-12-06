@@ -31,7 +31,7 @@ class MultiObjectsDetectionApp:
         )
 
     def video_frame_callback(self, frame: VideoFrame) -> VideoFrame:
-        image = frame.to_ndarray(format="rgb24")
+        image = frame.to_ndarray(format="bgr24")
 
         detections = self.detect_objects(image)
         image = self.annotate_detections(detections)
