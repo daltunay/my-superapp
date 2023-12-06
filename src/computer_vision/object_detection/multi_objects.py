@@ -22,14 +22,16 @@ class MultiObjectsDetectionApp:
 
     def detect_objects(self, image: ndarray) -> Results:
         logger.info("run `detect_objects`")
-        return self.detector.predict(
-            source=image,
-            stream=True,
-            show=False,
-            show_labels=True,
-            show_conf=True,
-            verbose=False,
-        )
+        return list(
+            self.detector.predict(
+                source=image,
+                stream=True,
+                show=False,
+                show_labels=True,
+                show_conf=True,
+                verbose=False,
+            )
+        )[0]
 
     def video_frame_callback(self, frame: VideoFrame) -> VideoFrame:
         logger.info("run `video_frame_callback`")
@@ -57,9 +59,4 @@ class MultiObjectsDetectionApp:
     @classmethod
     def annotate_detections(cls, detections: Results) -> ndarray:
         logger.info("run `annotate_detections`")
-        logger.info("type(detections)", type(detections))
-        logger.info("type(list(detections))", type(list(detections)))
-        logger.info("len(list(detections))", len(list(detections)))
-        logger.info("type(list(detections)[0])", type(list(detections)[0]))
-        logger.info("type(list(detections)[0].plot())", type(list(detections)[0].plot()))
-        return list(detections)[0].plot()[:, :, ::-1]
+        return detections.plot()[:, :, ::-1]
