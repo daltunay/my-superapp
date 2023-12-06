@@ -1,12 +1,12 @@
 import typing as t
 from functools import cached_property
 
-import cv2
 import streamlit_webrtc as st_webrtc
 from av import VideoFrame
 from numpy import ndarray
 from ultralytics import YOLO
 from ultralytics.engine.results import Results
+
 import utils
 
 logger = utils.CustomLogger(__file__)
