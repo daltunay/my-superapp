@@ -23,7 +23,7 @@ class MultiObjectsDetectionApp:
     def detect_objects(self, image: ndarray) -> Results:
         return self.detector.predict(
             source=image,
-            stream=True,
+            stream=False,
             show=False,
             show_labels=True,
             show_conf=True,
