@@ -3,6 +3,52 @@ __init__.py:
   ICON: 🏠
   DESCRIPTION: Welcome to my app!
 
+statistical_tests:
+  __init__.py:
+    NAME: Statistical Tests
+    ICON: 🔢
+    DESCRIPTION: Perform several statistical tests!
+    SIDEBAR: radio
+    TAG: 📚 Statistics
+
+  ab_test.py:
+    NAME: A/B
+    ICON: 🆎
+    DESCRIPTION: Perform A/B test!
+    TAG: 🔢 Statistical Tests
+
+  chi2_test.py:
+    NAME: Chi-squared
+    ICON: 🆇
+    DESCRIPTION: Perform chi-squared test!
+    TAG: 🔢 Statistical Tests
+
+  t-test.py:
+    NAME: T-test
+    ICON: 🆃
+    DESCRIPTION: Perform t-test!
+    TAG: 🔢 Statistical Tests
+
+dimensionality_reduction:
+  __init__.py:
+    NAME: Dimensionality Reduction
+    ICON: 🔽
+    DESCRIPTION: Reduce dimensionality for high-D data!
+    SIDEBAR: radio
+    TAG: 📚 Statistics
+
+  pca.py:
+    NAME: PCA
+    ICON: ⭕
+    DESCRIPTION: Principal Component Analysis
+    TAG: 🔽 Dimensionality Reduction
+
+  t-sne.py:
+    NAME: t-SNE
+    ICON: 📊
+    DESCRIPTION: t-distributed Stochastic Neighbor Embedding
+    TAG: 🔽 Dimensionality Reduction
+
 landmarks:
   __init__.py:
     NAME: Landmarks
@@ -36,6 +82,12 @@ object_detection:
     ICON: 👀
     DESCRIPTION: Detection of one or several faces
     TAG: 🔍 Object Detection
+  
+  multi_objects.py:
+    NAME: Multi-Object Detection
+    ICON: 📦
+    DESCRIPTION: Detection 80+ different objects
+    TAG: 🔍 Object Detection
 
 image_generation:
   __init__.py:
@@ -61,7 +113,7 @@ large_language_models:
   __init__.py:
     NAME: Large Language Models
     ICON: 💬
-    DESCRIPTION: Chat with large language models!
+    DESCRIPTION: Interact with large language models!
     SIDEBAR: radio
     TAG: 🧠 Generative AI
 
