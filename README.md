@@ -59,7 +59,7 @@ The _daltunay_ application can be run using either Poetry or Docker.
 To run the application using Poetry:
 
 ```bash
-poetry run streamlit run ./src/daltunay/Home.py
+poetry run streamlit run app.py
 ```
 
 ### Using Docker

@@ -12,4 +12,4 @@ EXPOSE 8501
 
 ENTRYPOINT ["streamlit", "run"]
 
-CMD ["./src/daltunay/Home.py"]
+CMD ["app.py"]
