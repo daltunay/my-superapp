@@ -1,4 +1,3 @@
-import typing as t
 from functools import cached_property
 
 import streamlit_webrtc as st_webrtc

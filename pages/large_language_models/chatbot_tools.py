@@ -14,7 +14,7 @@ def main():
     utils.show_source_code(
         "src/generative_ai/large_language_models/chatbots/chatbot_tools.py"
     )
-    with st.expander(label="Chat parameters"):
+    with st.expander(label="Chat parameters", expanded=True):
         col1, col2 = st.columns(2)
         with col1:
             selected_language = st_ss.setdefault(

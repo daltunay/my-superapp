@@ -2,6 +2,8 @@ __init__.py:
   NAME: Home
   ICON: 🏠
   DESCRIPTION: Welcome to my app!
+  SIDEBAR: radio
+  TAG:
 
 statistical_tests:
   __init__.py:
@@ -14,20 +16,26 @@ statistical_tests:
   ab_test.py:
     NAME: A/B
     ICON: 🆎
-    DESCRIPTION: Perform A/B test!
-    TAG: 🔢 Statistical Tests
+    DESCRIPTION: |
+      Perform A/B tests!
+      > numpy, scipy
+    TAG:
 
   chi2_test.py:
     NAME: Chi-squared
     ICON: 🆇
-    DESCRIPTION: Perform chi-squared test!
-    TAG: 🔢 Statistical Tests
+    DESCRIPTION: |
+      Perform chi-squared tests!
+      > numpy, scipy
+    TAG:
 
   t-test.py:
     NAME: T-test
     ICON: 🆃
-    DESCRIPTION: Perform t-test!
-    TAG: 🔢 Statistical Tests
+    DESCRIPTION: |
+      Perform T-tests!
+      > numpy, scipy
+    TAG:
 
 dimensionality_reduction:
   __init__.py:
@@ -40,18 +48,30 @@ dimensionality_reduction:
   pca.py:
     NAME: PCA
     ICON: ⭕
-    DESCRIPTION: Principal Component Analysis
-    TAG: 🔽 Dimensionality Reduction
+    DESCRIPTION: |
+      Perform Principal Component Analysis!
+      > pandas, scikit-learn, plotly
+    TAG:
 
   t-sne.py:
     NAME: t-SNE
     ICON: 📊
-    DESCRIPTION: t-distributed Stochastic Neighbor Embedding
-    TAG: 🔽 Dimensionality Reduction
+    DESCRIPTION: |
+      Perform t-distributed Stochastic Neighbor Embedding!
+      > pandas, scikit-learn, plotly
+    TAG:
+
+  umap.py:
+    NAME: UMAP
+    ICON: 🗺️
+    DESCRIPTION: |
+      Perform Uniform Manifold Approximation and Projection!
+      >
+    TAG:
 
 landmarks:
   __init__.py:
-    NAME: Landmarks
+    NAME: Landmarks Detection
     ICON: 📍
     DESCRIPTION: Perform live landmark detection using Mediapipe!
     SIDEBAR: radio
@@ -60,34 +80,42 @@ landmarks:
   face_landmarks.py:
     NAME: Face Mesh
     ICON: 👤
-    DESCRIPTION: Face landmark detection
-    TAG: 📍 Landmarks
+    DESCRIPTION: |
+      Detect face landmarks using Mediapipe!
+      > OpenCV, Mediapipe, WebRTC
+    TAG:
 
   pose_landmarks.py:
     NAME: Pose Landmarks
     ICON: 🤸‍♂️
-    DESCRIPTION: Body pose landmark detection
-    TAG: 📍 Landmarks
+    DESCRIPTION: |
+      Detect body pose landmarks using Mediapipe!
+      > OpenCV, Mediapipe, WebRTC
+    TAG:
 
 object_detection:
   __init__.py:
     NAME: Object Detection
     ICON: 🔍
-    DESCRIPTION: Detect objects via your webcam!
+    DESCRIPTION: Perform live object detection using your webcam!
     SIDEBAR: radio
     TAG: 👁️ Computer Vision
 
   face_detection.py:
     NAME: Face Detection
     ICON: 👀
-    DESCRIPTION: Detection of one or several faces
-    TAG: 🔍 Object Detection
-  
+    DESCRIPTION: |
+      Detect one or several faces using Mediapipe!
+      > OpenCV, Mediapipe, WebRTC
+    TAG:
+
   multi_objects.py:
     NAME: Multi-Object Detection
     ICON: 📦
-    DESCRIPTION: Detection 80+ different objects
-    TAG: 🔍 Object Detection
+    DESCRIPTION: |
+      Detect 80 unique labels using YOLOv8!
+      > OpenCV, ultralytics, WebRTC
+    TAG:
 
 image_generation:
   __init__.py:
@@ -101,13 +129,13 @@ image_generation:
     NAME: DALL·E
     ICON: 🖼️
     DESCRIPTION: DALL·E model from OpenAI
-    TAG: 🎨 Image Generation
+    TAG:
 
   stable_diffusion.py:
     NAME: Stable Diffusion
     ICON: 🖼️
     DESCRIPTION: Stable Diffusion model from Stability AI
-    TAG: 🎨 Image Generation
+    TAG:
 
 large_language_models:
   __init__.py:
@@ -140,3 +168,63 @@ large_language_models:
     ICON: 🌐
     DESCRIPTION: A model to synthetize to text content of a webpage.
     TAG: 🔄 Other
+
+classification:
+  __init__.py:
+    NAME: Classification
+    ICON: 🎯
+    DESCRIPTION: Perform several types of classification!
+    SIDEBAR: radio
+    TAG: ⚙️ Machine Learning
+
+  single_class.py:
+    NAME: Single Class
+    ICON: 👆
+    DESCRIPTION: |
+      Perform single-class (binary) classification!
+      >
+    TAG: 👆 Single Class
+
+  multi_class.py:
+    NAME: Multi Class
+    ICON: 🖐️
+    DESCRIPTION: |
+      Perform multi-class (single label) classification!
+      >
+    TAG: 🖐️ Multi Class
+
+  multi_label.py:
+    NAME: Multi Label
+    ICON: 🖐️
+    DESCRIPTION: |
+      Perform multi-label classification!
+      >
+    TAG: 🖐️ Multi Class
+
+regression:
+  __init__.py:
+    NAME: Regression
+    ICON: 📈
+    DESCRIPTION: Perform several types of regression!
+    SIDEBAR: radio
+    TAG: ⚙️ Machine Learning
+
+  linear.py:
+    NAME: Linear
+    ICON: 📏
+    DESCRIPTION: Use a linear regression model!
+    TAG:
+
+  logistic.py:
+    NAME: Logistic
+    ICON: ⓔ
+    DESCRIPTION: Use a logistic regression model!
+    TAG:
+
+clustering:
+  __init__.py:
+    NAME: Clustering
+    ICON: 🕸️
+    DESCRIPTION: Perform different types of clustering!
+    SIDEBAR: radio
+    TAG: ⚙️ Machine Learning
