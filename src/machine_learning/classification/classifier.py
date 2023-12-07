@@ -133,4 +133,4 @@ class ClassificationManager:
             target_names=mapping.values(),
             zero_division=0.0,
         )
-        return pd.DataFrame(report).transpose()
+        return pd.DataFrame(report).astype(float).round(3).transpose()
