@@ -1,8 +1,9 @@
+import typing as t
+
+import pandas as pd
+import streamlit as st
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
-import typing as t
-import streamlit as st
-import pandas as pd
 
 
 class DatasetParams(t.TypedDict):

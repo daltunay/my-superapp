@@ -1,8 +1,9 @@
-from xgboost import XGBClassifier
-import streamlit as st
-import pandas as pd
 import typing as t
+
+import pandas as pd
+import streamlit as st
 from sklearn.metrics import classification_report
+from xgboost import XGBClassifier
 
 
 def model_hash_func(model: XGBClassifier) -> t.Dict[str, t.Any]:
