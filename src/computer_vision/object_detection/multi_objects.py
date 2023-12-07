@@ -35,7 +35,7 @@ class MultiObjectsDetectionApp:
 
         detections = self.detect_objects(image)
         image = self.annotate_detections(detections)
-        # utils.annotate_time(image)
+        utils.annotate_time(image)
         return VideoFrame.from_ndarray(image, format="rgb24")
 
     def stream(self) -> None:
@@ -53,4 +53,4 @@ class MultiObjectsDetectionApp:
 
     @classmethod
     def annotate_detections(cls, detections: Results) -> ndarray:
-        return list(detections)[0].plot()[:, :, ::-1]
+        return list(detections)[0].plot()
