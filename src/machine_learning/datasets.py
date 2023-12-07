@@ -18,7 +18,7 @@ class Dataset:
         self.X: t.Tuple[pd.DataFrame, pd.DataFrame] | None = None
         self.y: t.Tuple[pd.Series, pd.Series] | None = None
         self.label_mapping: t.Dict[int, str] | None = None
-        self.descr: str | None = None
+        self.description: str | None = None
 
     @property
     def params(self) -> t.Dict[str, t.Any]:
