@@ -1,3 +1,3 @@
-from src.machine_learning.datasets import get_dataset
+from src.machine_learning.datasets import Dataset
 
-__all__ = ["get_dataset"]
+__all__ = ["Dataset"]

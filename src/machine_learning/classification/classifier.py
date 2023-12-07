@@ -9,12 +9,13 @@ def model_hash_func(model: XGBClassifier) -> t.Dict[str, t.Any]:
     return {key: val for key, val in model.__dict__.items() if key != "_Booster"}
 
 
-class ClassificationManager:
+class Classifier:
     def __init__(self) -> None:
-        pass
+        self.model: XGBClassifier | None = None
+        self.report: pd.DataFrame | None = None
 
-    @classmethod
-    def get_params(cls):
+    @property
+    def params(self) -> t.Dict[str, t.Any]:
         columns = st.columns(3)
         return {
             "max_depth": columns[0].slider(
@@ -105,32 +106,46 @@ class ClassificationManager:
         }
 
     @classmethod
-    @st.cache_data(show_spinner=False)
-    def get_model(_cls, **params):
+    @st.cache_data(show_spinner=True)
+    def get_model(_cls, **params) -> XGBClassifier:
         return XGBClassifier(**params)
 
+    def set_model(self):
+        self.model = self.get_model(**self.params)
+
     @classmethod
-    @st.cache_data(show_spinner=False, hash_funcs={XGBClassifier: model_hash_func})
+    @st.cache_data(show_spinner=True, hash_funcs={XGBClassifier: model_hash_func})
     def fit_model(
         _cls, model: XGBClassifier, X_train: pd.DataFrame, y_train: pd.Series
     ) -> XGBClassifier:
         return model.fit(X_train, y_train)
 
+    def fit(self, X_train: pd.DataFrame, y_train: pd.Series):
+        self.model = self.fit_model(self.model, X_train, y_train)
+
     @classmethod
-    @st.cache_data(show_spinner=False, hash_funcs={XGBClassifier: model_hash_func})
+    @st.cache_data(show_spinner=True, hash_funcs={XGBClassifier: model_hash_func})
     def evaluate_model(
         _cls,
         model: XGBClassifier,
         X_test: pd.DataFrame,
         y_test: pd.Series,
-        mapping: t.Dict[int, str],
+        label_mapping: t.Dict[int, str],
     ) -> pd.DataFrame:
         y_pred = model.predict(X_test)
         report = classification_report(
             y_true=y_test,
             y_pred=y_pred,
             output_dict=True,
-            target_names=mapping.values(),
+            target_names=label_mapping.values(),
             zero_division=0.0,
         )
         return pd.DataFrame(report).astype(float).round(3).transpose()
+
+    def evaluate(
+        self,
+        X_test: pd.DataFrame,
+        y_test: pd.Series,
+        label_mapping: t.Dict[int, str],
+    ):
+        self.report = self.evaluate_model(self.model, X_test, y_test, label_mapping)
