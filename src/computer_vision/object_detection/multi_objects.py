@@ -23,7 +23,7 @@ class MultiObjectsDetectionApp:
     def detect_objects(self, image: ndarray) -> Results:
         return self.detector.predict(
             source=image,
-            stream=True,
+            stream=False,
             show=False,
             show_labels=True,
             show_conf=True,
@@ -53,4 +53,4 @@ class MultiObjectsDetectionApp:
 
     @classmethod
     def annotate_detections(cls, detections: Results) -> ndarray:
-        return list(detections)[0].plot()
+        return detections[0].plot()
