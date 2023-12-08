@@ -173,7 +173,7 @@ classification:
   __init__.py:
     NAME: Classification
     ICON: 🎯
-    DESCRIPTION: Perform several types of classification on toy data!
+    DESCRIPTION: Perform several types of classification!
     SIDEBAR: radio
     TAG: ⚙️ Machine Learning
 
@@ -189,7 +189,7 @@ regression:
   __init__.py:
     NAME: Regression
     ICON: 📈
-    DESCRIPTION: Perform several types of regression on toy data!
+    DESCRIPTION: Perform several types of regression!
     SIDEBAR: radio
     TAG: ⚙️ Machine Learning
 
