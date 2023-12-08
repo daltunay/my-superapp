@@ -183,7 +183,7 @@ classification:
     DESCRIPTION: |
       Perform single-class (binary) classification!
       >
-    TAG: 👆 Single Class
+    TAG:
 
   multi_class.py:
     NAME: Multi Class
@@ -191,15 +191,7 @@ classification:
     DESCRIPTION: |
       Perform multi-class (single label) classification!
       >
-    TAG: 🖐️ Multi Class
-
-  multi_label.py:
-    NAME: Multi Label
-    ICON: 🖐️
-    DESCRIPTION: |
-      Perform multi-label classification!
-      >
-    TAG: 🖐️ Multi Class
+    TAG:
 
 regression:
   __init__.py:
