@@ -1,5 +1,6 @@
-from scipy import stats
 import typing as t
+
+from scipy import stats
 
 
 class ABTesting:
@@ -17,13 +18,13 @@ class ABTesting:
         self.b_visitors = b_visitors
         self.confidence = confidence
 
-    def calculate_conversion_rate(self, conversions: int, visitors: int) -> float:
-        return 0 if visitors == 0 else conversions / visitors
+    def conversion_rate(self, conversions: int, visitors: int) -> float:
+        return conversions / visitors
 
-    def calculate_standard_deviation(self, rate: float, visitors: int) -> float:
+    def standard_deviation(self, rate: float, visitors: int) -> float:
         return (rate * (1 - rate) / visitors) ** 0.5
 
-    def calculate_confidence_interval(
+    def confidence_interval(
         self, rate_a: float, rate_b: float
     ) -> t.Tuple[float, float]:
         alpha = 1 - self.confidence / 100
@@ -42,12 +43,12 @@ class ABTesting:
 
     def perform_ab_test(self) -> t.Dict[str, t.Any]:
         # Conversion rates
-        rate_a = self.calculate_conversion_rate(self.a_conversions, self.a_visitors)
-        rate_b = self.calculate_conversion_rate(self.b_conversions, self.b_visitors)
+        rate_a = self.conversion_rate(self.a_conversions, self.a_visitors)
+        rate_b = self.conversion_rate(self.b_conversions, self.b_visitors)
 
         # Conduct A/B test using independent two-sample t-test
-        std_a = self.calculate_standard_deviation(rate_a, self.a_visitors)
-        std_b = self.calculate_standard_deviation(rate_b, self.b_visitors)
+        std_a = self.standard_deviation(rate_a, self.a_visitors)
+        std_b = self.standard_deviation(rate_b, self.b_visitors)
 
         _, p_value = stats.ttest_ind_from_stats(
             mean1=rate_a,
@@ -59,7 +60,7 @@ class ABTesting:
         )
 
         # Calculate confidence interval
-        confidence_interval = self.calculate_confidence_interval(rate_a, rate_b)
+        confidence_interval = self.confidence_interval(rate_a, rate_b)
 
         # Determine if the difference is statistically significant
         alpha = 1 - self.confidence / 100
