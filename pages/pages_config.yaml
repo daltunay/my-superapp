@@ -73,7 +73,7 @@ landmarks:
   __init__.py:
     NAME: Landmarks Detection
     ICON: 📍
-    DESCRIPTION: Perform live landmark detection using Mediapipe!
+    DESCRIPTION: Perform live landmark detection using your webcam!
     SIDEBAR: radio
     TAG: 👁️ Computer Vision
 
