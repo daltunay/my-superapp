@@ -8,7 +8,8 @@ loader.set_page_config(globals())
 
 
 def main():
-    a_col, b_col = st.columns(2)
+    container = st.container(border=True)
+    a_col, b_col = container.columns(2, gap="large")
     with a_col:
         st.subheader("Group A")
         a_visitors = st.number_input(
@@ -39,7 +40,7 @@ def main():
             value=35,
             step=1,
         )
-    confidence = st.slider(
+    confidence = container.slider(
         "Confidence level (%)",
         min_value=1,
         max_value=99,
