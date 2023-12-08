@@ -41,8 +41,8 @@ class Classifier:
             "n_estimators": columns[0].slider(
                 label="`n_estimators`",
                 min_value=10,
-                max_value=200,
-                value=100,
+                max_value=100,
+                value=50,
                 step=10,
                 help="Number of gradient boosted trees. "
                 "Equivalent to number of boosting rounds.",
