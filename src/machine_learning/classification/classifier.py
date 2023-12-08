@@ -141,7 +141,7 @@ class Classifier:
             target_names=label_mapping.values(),
             zero_division=0.0,
         )
-        return pd.DataFrame(report).astype(float).round(3).transpose()
+        return pd.DataFrame(report).astype(float).round(4).transpose()
 
     def evaluate(
         self,
