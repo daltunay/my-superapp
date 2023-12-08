@@ -1,9 +1,15 @@
 from scipy import stats
+import typing as t
 
 
 class ABTesting:
     def __init__(
-        self, a_conversions, a_visitors, b_conversions, b_visitors, confidence
+        self,
+        a_conversions: int,
+        a_visitors: int,
+        b_conversions: int,
+        b_visitors: int,
+        confidence: float,
     ):
         self.a_conversions = a_conversions
         self.a_visitors = a_visitors
@@ -11,17 +17,37 @@ class ABTesting:
         self.b_visitors = b_visitors
         self.confidence = confidence
 
-    def calculate_conversion_rate(self, conversions, visitors):
+    def calculate_conversion_rate(self, conversions: int, visitors: int) -> float:
         return 0 if visitors == 0 else conversions / visitors
 
-    def perform_ab_test(self):
+    def calculate_standard_deviation(self, rate: float, visitors: int) -> float:
+        return (rate * (1 - rate) / visitors) ** 0.5
+
+    def calculate_confidence_interval(
+        self, rate_a: float, rate_b: float
+    ) -> t.Tuple[float, float]:
+        alpha = 1 - self.confidence / 100
+        interval = (
+            stats.norm.ppf(1 - alpha / 2)
+            * (
+                (rate_a * (1 - rate_a) / self.a_visitors)
+                + (rate_b * (1 - rate_b) / self.b_visitors)
+            )
+            ** 0.5
+        )
+        return rate_b - rate_a - interval, rate_b - rate_a + interval
+
+    def is_statistically_significant(self, p_value: float, alpha: float) -> bool:
+        return p_value < alpha
+
+    def perform_ab_test(self) -> t.Dict[str, t.Any]:
         # Conversion rates
         rate_a = self.calculate_conversion_rate(self.a_conversions, self.a_visitors)
         rate_b = self.calculate_conversion_rate(self.b_conversions, self.b_visitors)
 
         # Conduct A/B test using independent two-sample t-test
-        std_a = (rate_a * (1 - rate_a) / self.a_visitors) ** 0.5
-        std_b = (rate_b * (1 - rate_b) / self.b_visitors) ** 0.5
+        std_a = self.calculate_standard_deviation(rate_a, self.a_visitors)
+        std_b = self.calculate_standard_deviation(rate_b, self.b_visitors)
 
         _, p_value = stats.ttest_ind_from_stats(
             mean1=rate_a,
@@ -33,27 +59,18 @@ class ABTesting:
         )
 
         # Calculate confidence interval
-        alpha = 1 - self.confidence / 100
-        interval = (
-            stats.norm.ppf(1 - alpha / 2)
-            * (
-                (rate_a * (1 - rate_a) / self.a_visitors)
-                + (rate_b * (1 - rate_b) / self.b_visitors)
-            )
-            ** 0.5
-        )
+        confidence_interval = self.calculate_confidence_interval(rate_a, rate_b)
 
         # Determine if the difference is statistically significant
-        if p_value < alpha:
-            result = "Statistically significant difference"
-        else:
-            result = "No statistically significant difference"
+        alpha = 1 - self.confidence / 100
+        result = (
+            "Statistically significant difference"
+            if self.is_statistically_significant(p_value, alpha)
+            else "No statistically significant difference"
+        )
 
         return {
             "p_value": p_value,
-            "confidence_interval": (
-                rate_b - rate_a - interval,
-                rate_b - rate_a + interval,
-            ),
+            "confidence_interval": confidence_interval,
             "result": result,
         }
