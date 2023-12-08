@@ -173,23 +173,15 @@ classification:
   __init__.py:
     NAME: Classification
     ICON: 🎯
-    DESCRIPTION: Perform several types of classification!
+    DESCRIPTION: Perform several types of classification on toy data!
     SIDEBAR: radio
     TAG: ⚙️ Machine Learning
 
-  single_class.py:
-    NAME: Single Class
-    ICON: 👆
+  xgboost.py:
+    NAME: Gradient Boosting
+    ICON: 🌲
     DESCRIPTION: |
-      Perform single-class (binary) classification!
-      >
-    TAG:
-
-  multi_class.py:
-    NAME: Multi Class
-    ICON: 🖐️
-    DESCRIPTION: |
-      Perform multi-class (single label) classification!
+      Use gradient boosting for binary & multi-class classification!
       >
     TAG:
 
@@ -197,20 +189,16 @@ regression:
   __init__.py:
     NAME: Regression
     ICON: 📈
-    DESCRIPTION: Perform several types of regression!
+    DESCRIPTION: Perform several types of regression on toy data!
     SIDEBAR: radio
     TAG: ⚙️ Machine Learning
 
-  linear.py:
-    NAME: Linear
-    ICON: 📏
-    DESCRIPTION: Use a linear regression model!
-    TAG:
-
-  logistic.py:
-    NAME: Logistic
-    ICON: ⓔ
-    DESCRIPTION: Use a logistic regression model!
+  xgboost.py:
+    NAME: Gradient Boosting
+    ICON: 🌲
+    DESCRIPTION: |
+      Use gradient boosting for regression!
+      >
     TAG:
 
 clustering:

@@ -6,15 +6,21 @@ import pandas as pd
 import sklearn.metrics
 import streamlit as st
 from matplotlib.figure import Figure
-from xgboost import XGBClassifier
+from xgboost import XGBClassifier, XGBRegressor
 
 
-class ClassificationManager:
-    def __init__(self) -> None:
+def xgb_hash_func(model: XGBClassifier | XGBRegressor):
+    return {key: val for key, val in vars(model).items() if key != "_Booster"}
+
+
+class XGBoostManager:
+    def __init__(self, task: t.Literal["classification", "regression"]) -> None:
+        self.task = task
         self.model: XGBClassifier | None = None
         self.current_params: t.Dict[str, float | int] | None = None
         self.classification_report: pd.DataFrame | None = None
         self.confusion_matrix: pd.DataFrame | None = None
+        self.metrics_report: pd.DataFrame | None = None
 
     @property
     def params(self) -> t.Dict[str, float | int]:
@@ -109,24 +115,27 @@ class ClassificationManager:
 
     @staticmethod
     @st.cache_resource(show_spinner=True)
-    def _get_model(label_mapping: t.Dict[int, str], **params) -> XGBClassifier:
-        return XGBClassifier(**params)
+    def _get_model(
+        task: t.Literal["classification", "regression"],
+        label_mapping: t.Dict[int, str] | None = None,
+        **params
+    ) -> XGBClassifier:
+        if task == "classification":
+            return XGBClassifier(**params)
+        elif task == "regression":
+            return XGBRegressor(**params)
 
-    def set_model(self, label_mapping: t.Dict[int, str]) -> None:
-        self.model = self._get_model(label_mapping, **self.params)
+    def set_model(self, label_mapping: t.Dict[int, str] | None = None) -> None:
+        self.model = self._get_model(self.task, label_mapping, **self.params)
 
     @staticmethod
     @st.cache_resource(
         show_spinner=True,
-        hash_funcs={
-            XGBClassifier: lambda model: {
-                key: val for key, val in vars(model).items() if key != "_Booster"
-            }
-        },
+        hash_funcs={XGBClassifier: xgb_hash_func, XGBRegressor: xgb_hash_func},
     )
     def _fit_model(
-        model: XGBClassifier, X_train: pd.DataFrame, y_train: pd.Series
-    ) -> XGBClassifier:
+        model: XGBClassifier | XGBRegressor, X_train: pd.DataFrame, y_train: pd.Series
+    ) -> XGBClassifier | XGBRegressor:
         return model.fit(X_train, y_train)
 
     def fit(self, X_train: pd.DataFrame, y_train: pd.Series):
@@ -159,22 +168,26 @@ class ClassificationManager:
             sklearn.metrics.confusion_matrix(y_true=y_true, y_pred=y_pred)
         )
 
-    def evaluate(
-        self,
-        X_test: pd.DataFrame,
-        y_test: pd.Series,
-        target_names: t.List[str],
-    ):
-        y_pred = self.model.predict(X_test)
-        self.classification_report = self._classification_report(
-            y_true=y_test,
-            y_pred=y_pred,
-            target_names=target_names,
+    @staticmethod
+    @st.cache_data(show_spinner=True)
+    def _metrics_report(y_true: pd.Series, y_pred: pd.Series):
+        mean_absolute_error = sklearn.metrics.mean_absolute_error(y_true, y_pred)
+        mean_squared_error = sklearn.metrics.mean_squared_error(y_true, y_pred)
+        r2_score = sklearn.metrics.r2_score(y_true, y_pred)
+        explained_variance_score = sklearn.metrics.explained_variance_score(
+            y_true, y_pred
         )
-        self.confusion_matrix = self._confusion_matrix(
-            y_true=y_test,
-            y_pred=y_pred,
-        )
+        median_absolute_error = sklearn.metrics.median_absolute_error(y_true, y_pred)
+        return pd.DataFrame(
+            {
+                "Mean Absolute Error": [mean_absolute_error],
+                "Mean Squared Error": [mean_squared_error],
+                "R^2 Score": [r2_score],
+                "Explained Variance Score": [explained_variance_score],
+                "Median Absolute Error": [median_absolute_error],
+            },
+            index=["Value"],
+        ).transpose()
 
     @staticmethod
     @st.cache_data(show_spinner=True)
@@ -194,3 +207,26 @@ class ClassificationManager:
         fig, ax = plt.subplots()
         confusion_matrix_display.plot(ax=ax)
         return fig
+
+    def evaluate(
+        self,
+        X_test: pd.DataFrame,
+        y_test: pd.Series,
+        target_names: t.List[str] | None = None,
+    ):
+        y_pred = self.model.predict(X_test)
+        if self.task == "classification":
+            self.classification_report = self._classification_report(
+                y_true=y_test,
+                y_pred=y_pred,
+                target_names=target_names,
+            )
+            self.confusion_matrix = self._confusion_matrix(
+                y_true=y_test,
+                y_pred=y_pred,
+            )
+        elif self.task == "regression":
+            self.metrics_report = self._metrics_report(
+                y_true=y_test,
+                y_pred=y_pred,
+            )

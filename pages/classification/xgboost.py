@@ -1,7 +1,7 @@
 import streamlit as st
 
 import utils
-from src.machine_learning.classification import ClassificationManager
+from src.machine_learning import XGBoostManager
 from src.machine_learning.datasets import Dataset
 
 loader = utils.PageConfigLoader(__file__)
@@ -14,7 +14,7 @@ st_ss = st.session_state
 
 def main():
     utils.tabs_config()
-    utils.show_source_code("src/machine_learning/classification/classifier.py")
+    utils.show_source_code("src/machine_learning/xgboost_manager.py")
 
     st.header("Dataset", divider="gray")
     dataset = Dataset(type="classification")
@@ -40,7 +40,7 @@ def main():
         "Classification model: `XGBClassifier` from `xgboost` "
         "([official documentation](https://xgboost.readthedocs.io/en/stable/python/python_api.html#xgboost.XGBClassifier))"
     )
-    classification_manager = ClassificationManager()
+    classification_manager = XGBoostManager(task="classification")
 
     st.subheader("Hyperparameters")
     classification_manager.set_model(label_mapping=label_mapping)

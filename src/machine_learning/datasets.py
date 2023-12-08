@@ -27,7 +27,9 @@ class Dataset:
         return {
             "source": columns[0].selectbox(
                 label="source",
-                options=["iris", "digits", "breast_cancer"],
+                options=["iris", "digits", "breast_cancer"]
+                if self.type == "classification"
+                else ["diabetes"],
                 help="The scikit-learn toy dataset to use.",
             ),
             "test_size": columns[1].slider(
@@ -47,7 +49,9 @@ class Dataset:
                 label="stratify",
                 value=False,
                 help="Whether to stratify the dataset or not. "
-                "Stratifying means keeping the same target distribution in the initial, train and test datasets.",
+                "Stratifying means keeping the same label distribution in the initial, train and test datasets. "
+                "Available for classification only.",
+                disabled=self.type == "regression",
             ),
         }
 
@@ -67,7 +71,9 @@ class Dataset:
         return {
             "X": (X_train, X_test),
             "y": (y_train, y_test),
-            "label_mapping": dict(enumerate(raw_dataset.target_names)),
+            "label_mapping": dict(enumerate(raw_dataset.target_names))
+            if "target_names" in raw_dataset
+            else None,
             "description": raw_dataset.DESCR,
         }
 
