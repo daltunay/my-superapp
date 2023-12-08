@@ -11,9 +11,9 @@ logger = utils.CustomLogger(__file__)
 
 st_ss = st.session_state
 
-utils.tabs_config()
 
 def main():
+    utils.tabs_config()
     utils.show_source_code("src/machine_learning/classification/classifier.py")
 
     st.header("Dataset", divider="gray")
