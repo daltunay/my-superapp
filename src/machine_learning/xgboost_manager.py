@@ -172,19 +172,18 @@ class XGBoostManager:
     @st.cache_data(show_spinner=True)
     def _metrics_report(y_true: pd.Series, y_pred: pd.Series):
         mean_absolute_error = sklearn.metrics.mean_absolute_error(y_true, y_pred)
-        mean_squared_error = sklearn.metrics.mean_squared_error(y_true, y_pred)
-        r2_score = sklearn.metrics.r2_score(y_true, y_pred)
-        explained_variance_score = sklearn.metrics.explained_variance_score(
-            y_true, y_pred
-        )
         median_absolute_error = sklearn.metrics.median_absolute_error(y_true, y_pred)
+        mean_squared_error = sklearn.metrics.mean_squared_error(y_true, y_pred)
+        r2 = sklearn.metrics.r2_score(y_true, y_pred)
+        explained_variance = sklearn.metrics.explained_variance_score(y_true, y_pred)
         return pd.DataFrame(
             {
                 "Mean Absolute Error": [mean_absolute_error],
-                "Mean Squared Error": [mean_squared_error],
-                "R^2 Score": [r2_score],
-                "Explained Variance Score": [explained_variance_score],
                 "Median Absolute Error": [median_absolute_error],
+                "Mean Squared Error": [mean_squared_error],
+                "Root Mean Squared Error": [mean_squared_error**0.5],
+                "R^2": [r2],
+                "Explained Variance": [explained_variance],
             },
             index=["Value"],
         ).transpose()
