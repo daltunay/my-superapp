@@ -1,22 +1,23 @@
 import typing as t
 
+import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
+import sklearn.metrics
 import streamlit as st
-from sklearn.metrics import classification_report
 from xgboost import XGBClassifier
 
 
-def model_hash_func(model: XGBClassifier) -> t.Dict[str, t.Any]:
-    return {key: val for key, val in model.__dict__.items() if key != "_Booster"}
-
-
-class Classifier:
+class ClassificationManager:
     def __init__(self) -> None:
         self.model: XGBClassifier | None = None
-        self.report: pd.DataFrame | None = None
+        self.current_params: t.Dict[str, float | int] | None = None
+        self.fitted: bool = False
+        self.classification_report: pd.DataFrame | None = None
+        self.confusion_matrix: pd.DataFrame | None = None
 
     @property
-    def params(self) -> t.Dict[str, t.Any]:
+    def params(self) -> t.Dict[str, float | int]:
         columns = st.columns(3)
         return {
             "max_depth": columns[0].slider(
@@ -106,47 +107,91 @@ class Classifier:
             ),
         }
 
-    @classmethod
-    @st.cache_data(show_spinner=True)
-    def get_model(_cls, **params) -> XGBClassifier:
+    @staticmethod
+    @st.cache_resource(show_spinner=True)
+    def _get_model(**params) -> XGBClassifier:
         return XGBClassifier(**params)
 
     def set_model(self):
-        self.model = self.get_model(**self.params)
+        self.model = self._get_model(**self.params)
 
-    @classmethod
-    @st.cache_data(show_spinner=True, hash_funcs={XGBClassifier: model_hash_func})
-    def fit_model(
-        _cls, model: XGBClassifier, X_train: pd.DataFrame, y_train: pd.Series
+    @staticmethod
+    @st.cache_resource(
+        show_spinner=True,
+        hash_funcs={
+            XGBClassifier: lambda model: {
+                key: val for key, val in model.__dict__.items() if key != "_Booster"
+            }
+        },
+    )
+    def _fit_model(
+        model: XGBClassifier, X_train: pd.DataFrame, y_train: pd.Series
     ) -> XGBClassifier:
         return model.fit(X_train, y_train)
 
     def fit(self, X_train: pd.DataFrame, y_train: pd.Series):
-        self.model = self.fit_model(self.model, X_train, y_train)
+        self.model = self._fit_model(self.model, X_train, y_train)
+        self.fitted = True
 
-    @classmethod
-    @st.cache_data(show_spinner=True, hash_funcs={XGBClassifier: model_hash_func})
-    def evaluate_model(
-        _cls,
-        model: XGBClassifier,
-        X_test: pd.DataFrame,
-        y_test: pd.Series,
-        label_mapping: t.Dict[int, str],
-    ) -> pd.DataFrame:
-        y_pred = model.predict(X_test)
-        report = classification_report(
-            y_true=y_test,
-            y_pred=y_pred,
-            output_dict=True,
-            target_names=label_mapping.values(),
-            zero_division=0.0,
+    @staticmethod
+    @st.cache_data(show_spinner=True)
+    def _classification_report(
+        y_true: pd.Series, y_pred: pd.Series, target_names: t.List[str]
+    ):
+        return (
+            pd.DataFrame(
+                sklearn.metrics.classification_report(
+                    y_true=y_true,
+                    y_pred=y_pred,
+                    target_names=target_names,
+                    output_dict=True,
+                    zero_division=np.nan,
+                )
+            )
+            .astype(float)
+            .round(4)
+            .transpose()
         )
-        return pd.DataFrame(report).astype(float).round(4).transpose()
+
+    @staticmethod
+    @st.cache_data(show_spinner=True)
+    def _confusion_matrix(y_true: pd.Series, y_pred: pd.Series):
+        return pd.DataFrame(
+            sklearn.metrics.confusion_matrix(y_true=y_true, y_pred=y_pred)
+        )
 
     def evaluate(
         self,
         X_test: pd.DataFrame,
         y_test: pd.Series,
-        label_mapping: t.Dict[int, str],
+        target_names: t.List[str],
     ):
-        self.report = self.evaluate_model(self.model, X_test, y_test, label_mapping)
+        y_pred = self.model.predict(X_test)
+        self.classification_report = self._classification_report(
+            y_true=y_test,
+            y_pred=y_pred,
+            target_names=target_names,
+        )
+        self.confusion_matrix = self._confusion_matrix(
+            y_true=y_test,
+            y_pred=y_pred,
+        )
+
+    @staticmethod
+    @st.cache_data(show_spinner=True)
+    def _confusion_matrix_display(
+        confusion_matrix: pd.DataFrame, display_labels: t.List[str]
+    ) -> sklearn.metrics.ConfusionMatrixDisplay:
+        return sklearn.metrics.ConfusionMatrixDisplay(
+            confusion_matrix=confusion_matrix,
+            display_labels=display_labels,
+        )
+
+    def confusion_matrix_display(self, display_labels: t.List[str]):
+        confusion_matrix_display = self._confusion_matrix_display(
+            confusion_matrix=self.confusion_matrix.to_numpy(),
+            display_labels=display_labels,
+        )
+        fig, ax = plt.subplots()
+        confusion_matrix_display.plot(ax=ax)
+        return fig

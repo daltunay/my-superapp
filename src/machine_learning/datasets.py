@@ -51,9 +51,9 @@ class Dataset:
             ),
         }
 
-    @classmethod
+    @staticmethod
     @st.cache_data(show_spinner=False)
-    def get_dataset(_cls, **params: t.Unpack[DatasetParams]) -> t.Dict[str, t.Any]:
+    def get_dataset(**params: t.Unpack[DatasetParams]) -> t.Dict[str, t.Any]:
         raw_dataset = getattr(datasets, f"load_{params['source']}")(as_frame=True)
         X, y = raw_dataset.data, raw_dataset.target
         X_train, X_test, y_train, y_test = train_test_split(

@@ -1,3 +1,4 @@
-from src.machine_learning.classification.classifier import Classifier
+from src.machine_learning.classification.classifier import \
+    ClassificationManager
 
-__all__ = ["Classifier"]
+__all__ = ["ClassificationManager"]
