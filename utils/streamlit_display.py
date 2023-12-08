@@ -1,6 +1,7 @@
-import streamlit as st
-import pandas as pd
 import typing as t
+
+import pandas as pd
+import streamlit as st
 
 
 def tabs_config():

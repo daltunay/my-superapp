@@ -27,7 +27,7 @@ class Dataset:
         return {
             "source": columns[0].selectbox(
                 label="source",
-                options=["iris", "digits"],
+                options=["iris", "digits", "breast_cancer"],
                 help="The scikit-learn toy dataset to use.",
             ),
             "test_size": columns[1].slider(

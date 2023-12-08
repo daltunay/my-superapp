@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 import sklearn.metrics
 import streamlit as st
+from matplotlib.figure import Figure
 from xgboost import XGBClassifier
 
 
@@ -12,7 +13,6 @@ class ClassificationManager:
     def __init__(self) -> None:
         self.model: XGBClassifier | None = None
         self.current_params: t.Dict[str, float | int] | None = None
-        self.fitted: bool = False
         self.classification_report: pd.DataFrame | None = None
         self.confusion_matrix: pd.DataFrame | None = None
 
@@ -131,7 +131,6 @@ class ClassificationManager:
 
     def fit(self, X_train: pd.DataFrame, y_train: pd.Series):
         self.model = self._fit_model(self.model, X_train, y_train)
-        self.fitted = True
 
     @staticmethod
     @st.cache_data(show_spinner=True)
@@ -187,7 +186,7 @@ class ClassificationManager:
             display_labels=display_labels,
         )
 
-    def confusion_matrix_display(self, display_labels: t.List[str]):
+    def confusion_matrix_display(self, display_labels: t.List[str]) -> Figure:
         confusion_matrix_display = self._confusion_matrix_display(
             confusion_matrix=self.confusion_matrix.to_numpy(),
             display_labels=display_labels,
