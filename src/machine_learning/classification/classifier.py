@@ -109,10 +109,10 @@ class ClassificationManager:
 
     @staticmethod
     @st.cache_resource(show_spinner=True)
-    def _get_model(label_mapping: t.Dict[str, int], **params) -> XGBClassifier:
+    def _get_model(label_mapping: t.Dict[int, str], **params) -> XGBClassifier:
         return XGBClassifier(**params)
 
-    def set_model(self, label_mapping: t.Dict[str, int]) -> None:
+    def set_model(self, label_mapping: t.Dict[int, str]) -> None:
         self.model = self._get_model(label_mapping, **self.params)
 
     @staticmethod
