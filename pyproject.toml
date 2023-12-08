@@ -34,6 +34,7 @@ wikipedia = "^1.4.0"
 stackapi = "^0.3.0"
 scikit-learn = "^1.3.2"
 xgboost = "^2.0.2"
+scipy = "^1.11.4"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.1.3"
