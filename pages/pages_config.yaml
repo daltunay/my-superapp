@@ -182,7 +182,7 @@ classification:
     ICON: 🌲
     DESCRIPTION: |
       Use gradient boosting for binary & multi-class classification!
-      >
+      > XGBoost, scikit-learn, matplotlib
     TAG:
 
 regression:
@@ -198,7 +198,7 @@ regression:
     ICON: 🌲
     DESCRIPTION: |
       Use gradient boosting for regression!
-      >
+      > XGBoost, scikit-learn
     TAG:
 
 clustering:
