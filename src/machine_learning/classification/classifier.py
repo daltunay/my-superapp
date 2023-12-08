@@ -120,7 +120,7 @@ class ClassificationManager:
         show_spinner=True,
         hash_funcs={
             XGBClassifier: lambda model: {
-                key: val for key, val in model.__dict__.items() if key != "_Booster"
+                key: val for key, val in vars(model).items() if key != "_Booster"
             }
         },
     )
