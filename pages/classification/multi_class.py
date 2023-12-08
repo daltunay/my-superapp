@@ -29,37 +29,17 @@ def main():
     label_mapping = dataset.label_mapping
 
     st.subheader("Visualize data")
-    train_tab, test_tab = st.tabs(
-        tabs=["Train".center(1, "\u2001"), "Test".center(1, "\u2001")]
-    )
+    train_tab, test_tab = st.tabs(tabs=["Train", "Test"])
     with train_tab:
-        col1, col2 = st.columns([0.8, 0.2])
-        with col1:
-            st.markdown(
-                "<h3 style='text-align: center;'>X_train</h3>", unsafe_allow_html=True
-            )
-            st.dataframe(data=X_train, use_container_width=True)
-        with col2:
-            st.markdown(
-                "<h3 style='text-align: center;'>y_train</h3>", unsafe_allow_html=True
-            )
-            st.dataframe(data=y_train.map(label_mapping), use_container_width=True)
-
+        utils.display_tab_content("train", X_train, y_train, label_mapping)
     with test_tab:
-        col1, col2 = st.columns([0.8, 0.2])
-        with col1:
-            st.markdown(
-                "<h3 style='text-align: center;'>X_test</h3>", unsafe_allow_html=True
-            )
-            st.dataframe(data=X_test, use_container_width=True)
-        with col2:
-            st.markdown(
-                "<h3 style='text-align: center;'>y_test</h3>", unsafe_allow_html=True
-            )
-            st.dataframe(data=y_test.map(label_mapping), use_container_width=True)
+        utils.display_tab_content("test", X_test, y_test, label_mapping)
 
     st.header("Classification", divider="gray")
-    st.markdown("Classification model: `XGBClassifier` from `xgboost`")
+    st.markdown(
+        "Classification model: `XGBClassifier` from `xgboost` "
+        "([official documentation](https://xgboost.readthedocs.io/en/stable/python/python_api.html#xgboost.XGBClassifier))"
+    )
     classification_manager = ClassificationManager()
 
     st.subheader("Hyperparameters")
