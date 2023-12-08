@@ -63,7 +63,7 @@ def main():
     classification_manager = ClassificationManager()
 
     st.subheader("Hyperparameters")
-    classification_manager.set_model()
+    classification_manager.set_model(label_mapping=label_mapping)
 
     st.subheader("Evaluation")
     classification_manager.fit(X_train, y_train)
