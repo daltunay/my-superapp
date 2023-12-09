@@ -14,7 +14,7 @@ statistical_tests:
     TAG: 📚 Statistics
 
   ab_test.py:
-    NAME: A/B
+    NAME: A/B Test
     ICON: 🆎
     DESCRIPTION: |
       Perform A/B tests!
@@ -22,7 +22,7 @@ statistical_tests:
     TAG:
 
   chi2_test.py:
-    NAME: Chi-squared
+    NAME: Chi-squared Test
     ICON: 🆇
     DESCRIPTION: |
       Perform chi-squared tests!

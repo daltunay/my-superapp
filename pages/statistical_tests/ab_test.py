@@ -9,8 +9,9 @@ loader.set_page_config(globals())
 
 def main():
     container = st.container(border=True)
-    a_col, b_col = container.columns(2, gap="large")
-    with a_col:
+    container.header("Test data")
+    a_col, b_col = container.columns(2, gap="small")
+    with a_col.container(border=True):
         st.subheader("Group A")
         a_visitors = st.number_input(
             "Total visitors for Group A",
@@ -25,7 +26,7 @@ def main():
             value=50,
             step=1,
         )
-    with b_col:
+    with b_col.container(border=True):
         st.subheader("Group B")
         b_visitors = st.number_input(
             "Total visitors for Group B",
@@ -40,12 +41,26 @@ def main():
             value=35,
             step=1,
         )
-    confidence = container.slider(
-        "Confidence level (%)",
-        min_value=1,
-        max_value=99,
-        value=95,
-        step=1,
+
+    container.header("Settings")
+    confidence_col, alpha_col = container.container(border=True).columns(2)
+    _ = confidence_col.columns([0.1, 1, 0.1])[1].select_slider(
+        "Confidence level",
+        options=[0.9, 0.95, 0.99],
+        value=0.95,
+        key="ab_test.confidence",
+        format_func=lambda x: f"{100*x}%",
+        on_change=utils.update_slider_callback,
+        kwargs={"updated": "ab_test.confidence", "to_update": "ab_test.alpha"},
+    )
+    alpha = alpha_col.columns([0.1, 1, 0.1])[1].select_slider(
+        "Alpha value",
+        options=[0.01, 0.05, 0.1],
+        value=0.05,
+        key="ab_test.alpha",
+        format_func=lambda x: f"{100*x}%",
+        on_change=utils.update_slider_callback,
+        kwargs={"updated": "ab_test.alpha", "to_update": "ab_test.confidence"},
     )
 
     ab_testing = ABTesting(
@@ -53,12 +68,9 @@ def main():
         a_visitors,
         b_conversions,
         b_visitors,
-        confidence,
+        alpha,
     )
 
     result = ab_testing.perform_ab_test()
 
-    st.subheader("Results:")
-    st.write(f"P-value: {result['p_value']:.4f}")
-    st.write(f"Confidence Interval: {result['confidence_interval']}")
-    st.write(f"Significant: {result['significant']}")
+    st.json(result)

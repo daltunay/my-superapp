@@ -8,11 +8,11 @@ class ABTesting:
         a_visitors: int,
         b_conversions: int,
         b_visitors: int,
-        confidence: float,
+        alpha: float,
     ):
         self.a_conversions, self.a_visitors = a_conversions, a_visitors
         self.b_conversions, self.b_visitors = b_conversions, b_visitors
-        self.confidence = confidence
+        self.alpha = alpha
 
     def conversion_rate(self, conversions: int, visitors: int) -> float:
         return conversions / visitors
@@ -23,9 +23,8 @@ class ABTesting:
     def confidence_interval(
         self, rate_a: float, rate_b: float, std_a: float, std_b: float
     ) -> tuple[float, float]:
-        alpha = 1 - self.confidence / 100
         interval = (
-            stats.norm.ppf(1 - alpha / 2)
+            stats.norm.ppf(1 - self.alpha / 2)
             * ((std_a**2 / self.a_visitors) + (std_b**2 / self.b_visitors)) ** 0.5
         )
         return rate_b - rate_a - interval, rate_b - rate_a + interval
@@ -51,11 +50,10 @@ class ABTesting:
 
         confidence_interval = self.confidence_interval(rate_a, rate_b, std_a, std_b)
 
-        alpha = 1 - self.confidence / 100
-        significant = self.is_statistically_significant(p_value, alpha)
+        is_significant = self.is_statistically_significant(p_value, self.alpha)
 
         return {
             "p_value": p_value,
             "confidence_interval": confidence_interval,
-            "significant": significant,
+            "is_significant": is_significant,
         }

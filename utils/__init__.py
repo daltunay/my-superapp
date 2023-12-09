@@ -1,3 +1,4 @@
+from utils.callbacks import update_slider_callback
 from utils.image_annotation import annotate_time
 from utils.logging import CustomLogger
 from utils.misc import (base64_to_img, generate_logo_link,
@@ -23,4 +24,5 @@ __all__ = [
     "annotate_time",
     "tabs_config",
     "display_tab_content",
+    "update_slider_callback",
 ]
