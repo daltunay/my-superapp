@@ -15,6 +15,7 @@ def main():
         st.subheader("Group A")
         a_visitors = st.number_input(
             "Visitors",
+            key="ab_test.a_visitors",
             min_value=1,
             value=1000,
             step=1,
@@ -22,6 +23,7 @@ def main():
         conversion_col, rate_col = st.columns(2)
         a_conversions = conversion_col.number_input(
             "Conversions",
+            key="ab_test.a_conversions",
             min_value=0,
             max_value=a_visitors,
             value=50,
@@ -29,6 +31,7 @@ def main():
         )
         a_rate = rate_col.number_input(
             "Conversion rate",
+            key="ab_test.a_rate",
             min_value=0.0,
             max_value=1.0,
             value=a_conversions / a_visitors,
@@ -39,6 +42,7 @@ def main():
         st.subheader("Group B")
         b_visitors = st.number_input(
             "Visitors",
+            key="ab_test.b_visitors",
             min_value=1,
             value=200,
             step=1,
@@ -46,6 +50,7 @@ def main():
         conversion_col, rate_col = st.columns(2)
         b_conversions = conversion_col.number_input(
             "Conversions",
+            key="ab_test.b_conversions",
             min_value=0,
             max_value=b_visitors,
             value=35,
@@ -53,6 +58,7 @@ def main():
         )
         b_rate = rate_col.number_input(
             "Conversion rate",
+            key="ab_test.b_rate",
             min_value=0.0,
             max_value=1.0,
             value=b_conversions / b_visitors,
