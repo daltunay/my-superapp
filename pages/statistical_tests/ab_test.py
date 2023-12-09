@@ -14,32 +14,50 @@ def main():
     with a_col.container(border=True):
         st.subheader("Group A")
         a_visitors = st.number_input(
-            "Total visitors for Group A",
+            "Visitors",
             min_value=1,
             value=1000,
             step=1,
         )
-        a_conversions = st.number_input(
-            "Conversions for Group A",
+        conversion_col, rate_col = st.columns(2)
+        a_conversions = conversion_col.number_input(
+            "Conversions",
             min_value=0,
             max_value=a_visitors,
             value=50,
             step=1,
         )
+        a_rate = rate_col.number_input(
+            "Conversion rate",
+            min_value=0.0,
+            max_value=1.0,
+            value=a_conversions / a_visitors,
+            step=0.01,
+            disabled=True,
+        )
     with b_col.container(border=True):
         st.subheader("Group B")
         b_visitors = st.number_input(
-            "Total visitors for Group B",
+            "Visitors",
             min_value=1,
             value=200,
             step=1,
         )
-        b_conversions = st.number_input(
-            "Conversions for Group B",
+        conversion_col, rate_col = st.columns(2)
+        b_conversions = conversion_col.number_input(
+            "Conversions",
             min_value=0,
             max_value=b_visitors,
             value=35,
             step=1,
+        )
+        b_rate = rate_col.number_input(
+            "Conversion rate",
+            min_value=0.0,
+            max_value=1.0,
+            value=b_conversions / b_visitors,
+            step=0.01,
+            disabled=True,
         )
 
     container.header("Settings")
@@ -63,14 +81,7 @@ def main():
         kwargs={"updated": "ab_test.alpha", "to_update": "ab_test.confidence"},
     )
 
-    ab_testing = ABTesting(
-        a_conversions,
-        a_visitors,
-        b_conversions,
-        b_visitors,
-        alpha,
-    )
-
+    ab_testing = ABTesting(a_visitors, a_rate, b_visitors, b_rate, alpha)
     result = ab_testing.perform_ab_test()
 
     st.json(result)

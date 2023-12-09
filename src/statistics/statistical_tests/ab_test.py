@@ -4,55 +4,54 @@ from scipy import stats
 class ABTesting:
     def __init__(
         self,
-        a_conversions: int,
         a_visitors: int,
-        b_conversions: int,
+        a_rate: float,
         b_visitors: int,
+        b_rate: float,
         alpha: float,
     ):
-        self.a_conversions, self.a_visitors = a_conversions, a_visitors
-        self.b_conversions, self.b_visitors = b_conversions, b_visitors
+        self.a_visitors, self.a_rate = a_visitors, a_rate
+        self.b_visitors, self.b_rate = b_visitors, b_rate
         self.alpha = alpha
 
-    def conversion_rate(self, conversions: int, visitors: int) -> float:
-        return conversions / visitors
-
-    def standard_deviation(self, rate: float, visitors: int) -> float:
+    @staticmethod
+    def compute_standard_deviation(rate: float, visitors: int) -> float:
         return (rate * (1 - rate) / visitors) ** 0.5
 
     def confidence_interval(
-        self, rate_a: float, rate_b: float, std_a: float, std_b: float
+        self, a_rate: float, b_rate: float, std_a: float, std_b: float
     ) -> tuple[float, float]:
         interval = (
             stats.norm.ppf(1 - self.alpha / 2)
             * ((std_a**2 / self.a_visitors) + (std_b**2 / self.b_visitors)) ** 0.5
         )
-        return rate_b - rate_a - interval, rate_b - rate_a + interval
+        return b_rate - a_rate - interval, b_rate - a_rate + interval
 
-    def is_statistically_significant(self, p_value: float, alpha: float) -> bool:
+    @staticmethod
+    def is_statistically_significant(p_value: float, alpha: float) -> bool:
         return p_value < alpha
 
     def perform_ab_test(self) -> dict[str, any]:
-        rate_a = self.conversion_rate(self.a_conversions, self.a_visitors)
-        rate_b = self.conversion_rate(self.b_conversions, self.b_visitors)
+        std_a = self.compute_standard_deviation(self.a_rate, self.a_visitors)
+        std_b = self.compute_standard_deviation(self.b_rate, self.b_visitors)
 
-        std_a = self.standard_deviation(rate_a, self.a_visitors)
-        std_b = self.standard_deviation(rate_b, self.b_visitors)
-
-        _, p_value = stats.ttest_ind_from_stats(
-            mean1=rate_a,
+        t_statistic, p_value = stats.ttest_ind_from_stats(
+            mean1=self.a_rate,
             std1=std_a,
             nobs1=self.a_visitors,
-            mean2=rate_b,
+            mean2=self.b_rate,
             std2=std_b,
             nobs2=self.b_visitors,
         )
 
-        confidence_interval = self.confidence_interval(rate_a, rate_b, std_a, std_b)
+        confidence_interval = self.confidence_interval(
+            self.a_rate, self.b_rate, std_a, std_b
+        )
 
         is_significant = self.is_statistically_significant(p_value, self.alpha)
 
         return {
+            "t_statistic": t_statistic,
             "p_value": p_value,
             "confidence_interval": confidence_interval,
             "is_significant": is_significant,
