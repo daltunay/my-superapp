@@ -31,9 +31,11 @@ def main():
     st.subheader("Visualize data")
     train_tab, test_tab = st.tabs(tabs=["Train", "Test"])
     with train_tab:
-        utils.display_tab_content("train", X_train, y_train, label_mapping)
+        with st.container(border=True):
+            utils.display_tab_content("train", X_train, y_train, label_mapping)
     with test_tab:
-        utils.display_tab_content("test", X_test, y_test, label_mapping)
+        with st.container(border=True):
+            utils.display_tab_content("test", X_test, y_test, label_mapping)
 
     st.header("Classification", divider="gray")
     st.markdown(
