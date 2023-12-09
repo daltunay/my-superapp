@@ -61,4 +61,4 @@ def main():
     st.subheader("Results:")
     st.write(f"P-value: {result['p_value']:.4f}")
     st.write(f"Confidence Interval: {result['confidence_interval']}")
-    st.write(f"Conclusion: {result['result']}")
+    st.write(f"Significant: {result['significant']}")
