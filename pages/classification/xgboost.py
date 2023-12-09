@@ -43,7 +43,8 @@ def main():
     classification_manager = XGBoostManager(task="classification")
 
     st.subheader("Hyperparameters")
-    classification_manager.set_model(label_mapping=label_mapping)
+    with st.container(border=True):
+        classification_manager.set_model(label_mapping=label_mapping)
 
     st.subheader("Evaluation")
     classification_manager.fit(X_train, y_train)

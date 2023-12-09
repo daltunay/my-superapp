@@ -30,9 +30,11 @@ def main():
     st.subheader("Visualize data")
     train_tab, test_tab = st.tabs(tabs=["Train", "Test"])
     with train_tab:
-        utils.display_tab_content("train", X_train, y_train)
+        with st.container(border=True):
+            utils.display_tab_content("train", X_train, y_train)
     with test_tab:
-        utils.display_tab_content("test", X_test, y_test)
+        with st.container(border=True):
+            utils.display_tab_content("test", X_test, y_test)
 
     st.header("Regression", divider="gray")
     st.markdown(
@@ -42,7 +44,8 @@ def main():
     regression_manager = XGBoostManager(task="regression")
 
     st.subheader("Hyperparameters")
-    regression_manager.set_model()
+    with st.container(border=True):
+        regression_manager.set_model()
 
     st.subheader("Evaluation")
     regression_manager.fit(X_train, y_train)
