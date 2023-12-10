@@ -1,5 +1,5 @@
-import streamlit as st
 import pandas as pd
+import streamlit as st
 
 import utils
 from src.statistics.statistical_tests import Chi2Testing

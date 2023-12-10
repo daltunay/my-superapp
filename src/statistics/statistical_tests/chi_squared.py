@@ -1,7 +1,8 @@
 import typing as t
+
+import pandas as pd
 import streamlit as st
 from scipy.stats import chi2_contingency
-import pandas as pd
 
 
 class Chi2Testing:
