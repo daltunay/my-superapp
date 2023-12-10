@@ -1,12 +1,13 @@
 import typing as t
 import streamlit as st
 from scipy.stats import chi2_contingency
+import pandas as pd
 
 
 class Chi2Testing:
     def __init__(
         self,
-        observed: t.List[t.List[int]],
+        observed: pd.DataFrame,
         alpha: float,
     ):
         self.observed = observed
@@ -15,7 +16,7 @@ class Chi2Testing:
     @staticmethod
     @st.cache_data(show_spinner=False)
     def chi2_test(
-        observed: t.List[t.List[int]],
+        observed: pd.DataFrame,
     ) -> t.Tuple[float, float, int, t.List[t.List[float]]]:
         chi2, p_value, dof, expected = chi2_contingency(observed)
         return chi2, p_value, dof, expected
