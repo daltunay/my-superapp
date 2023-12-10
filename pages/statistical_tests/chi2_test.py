@@ -24,19 +24,19 @@ def main():
         "Confidence level",
         options=[0.9, 0.95, 0.99],
         value=0.95,
-        key="ab_test.confidence",
+        key="chi2_test.confidence",
         format_func=lambda x: f"{100*x}%",
         on_change=utils.update_slider_callback,
-        kwargs={"updated": "ab_test.confidence", "to_update": "ab_test.alpha"},
+        kwargs={"updated": "chi2_test.confidence", "to_update": "chi2_test.alpha"},
     )
     alpha = alpha_col.columns([0.15, 1, 0.15])[1].select_slider(
         "Alpha value",
         options=[0.01, 0.05, 0.1],
         value=0.05,
-        key="ab_test.alpha",
+        key="chi2_test.alpha",
         format_func=lambda x: f"{100*x}%",
         on_change=utils.update_slider_callback,
-        kwargs={"updated": "ab_test.alpha", "to_update": "ab_test.confidence"},
+        kwargs={"updated": "chi2_test.alpha", "to_update": "chi2_test.confidence"},
     )
 
     chi2_testing = Chi2Testing(observed, alpha)
