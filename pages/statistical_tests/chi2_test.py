@@ -15,7 +15,15 @@ def main():
         index=["Group A", "Group B"],
         columns=["Category 1", "Category 2"],
     )
-    observed = st.data_editor(data=observed_template, use_container_width=True)
+    observed = st.data_editor(
+        data=observed_template,
+        column_config={
+            "Category 1": st.column_config.NumberColumn("Category 1"),
+            "Category 2": st.column_config.NumberColumn("Category 2"),
+        },
+        disabled=False,
+        use_container_width=True,
+    )
 
     st.header("Settings", divider="gray")
     settings_container = st.container(border=True)
