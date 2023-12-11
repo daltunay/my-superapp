@@ -14,7 +14,10 @@ class DatasetParams(t.TypedDict):
 
 
 class Dataset:
-    def __init__(self, type: t.Literal["classification", "regression"]):
+    def __init__(
+        self,
+        type: t.Literal["classification", "regression"] | None = None,
+    ):
         self.type = type
         self.X: t.Tuple[pd.DataFrame, pd.DataFrame] | None = None
         self.y: t.Tuple[pd.Series, pd.Series] | None = None
@@ -29,7 +32,9 @@ class Dataset:
                 label="source",
                 options=["iris", "digits", "breast_cancer"]
                 if self.type == "classification"
-                else ["diabetes"],
+                else ["diabetes"]
+                if self.type == "regression"
+                else ["iris", "digits", "breast_cancer", "diabetes"],
                 help="The scikit-learn toy dataset to use.",
             ),
             "test_size": columns[1].slider(
@@ -39,12 +44,16 @@ class Dataset:
                 value=0.2,
                 step=0.05,
                 help="The proportion of the dataset to include in the test split",
-            ),
+            )
+            if self.type != None
+            else None,
             "shuffle": columns[2].checkbox(
                 label="shuffle",
                 value=True,
                 help="Whether to shuffle the dataset or not.",
-            ),
+            )
+            if self.type != None
+            else None,
             "stratify": columns[2].checkbox(
                 label="stratify",
                 value=False,
@@ -52,25 +61,32 @@ class Dataset:
                 "Stratifying means keeping the same label distribution in the initial, train and test datasets. "
                 "Available for classification only.",
                 disabled=self.type == "regression",
-            ),
+            )
+            if self.type != None
+            else None,
         }
 
     @staticmethod
     @st.cache_data(show_spinner=False)
-    def get_dataset(**params: t.Unpack[DatasetParams]) -> t.Dict[str, t.Any]:
+    def get_dataset(
+        split: bool = False, **params: t.Unpack[DatasetParams]
+    ) -> t.Dict[str, t.Any]:
         raw_dataset = getattr(datasets, f"load_{params['source']}")(as_frame=True)
         X, y = raw_dataset.data, raw_dataset.target
-        X_train, X_test, y_train, y_test = train_test_split(
-            X,
-            y,
-            test_size=params["test_size"],
-            shuffle=params["shuffle"],
-            stratify=y if params["stratify"] else None,
-            random_state=0,
-        )
+        if split:
+            X_train, X_test, y_train, y_test = train_test_split(
+                X,
+                y,
+                test_size=params["test_size"],
+                shuffle=params["shuffle"],
+                stratify=y if params["stratify"] else None,
+                random_state=0,
+            )
+            X = X_train, X_test
+            y = y_train, y_test
         return {
-            "X": (X_train, X_test),
-            "y": (y_train, y_test),
+            "X": X,
+            "y": y,
             "label_mapping": dict(enumerate(raw_dataset.target_names))
             if "target_names" in raw_dataset
             else None,

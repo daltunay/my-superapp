@@ -18,7 +18,7 @@ def main():
 
     st.header("Dataset", divider="gray")
     dataset = Dataset(type="classification")
-    raw_dataset_dict = Dataset.get_dataset(**dataset.params)
+    raw_dataset_dict = Dataset.get_dataset(**dataset.params, split=True)
     dataset.set(raw_dataset_dict)
 
     with st.expander(label="Dataset description"):

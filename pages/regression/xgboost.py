@@ -18,7 +18,7 @@ def main():
 
     st.header("Dataset", divider="gray")
     dataset = Dataset(type="regression")
-    raw_dataset_dict = Dataset.get_dataset(**dataset.params)
+    raw_dataset_dict = Dataset.get_dataset(**dataset.params, split=True)
     dataset.set(raw_dataset_dict)
 
     with st.expander(label="Dataset description"):
@@ -26,15 +26,16 @@ def main():
 
     X_train, X_test = dataset.X
     y_train, y_test = dataset.y
+    label_mapping = dataset.label_mapping
 
     st.subheader("Visualize data")
     train_tab, test_tab = st.tabs(tabs=["Train", "Test"])
     with train_tab:
         with st.container(border=True):
-            utils.display_tab_content("train", X_train, y_train)
+            utils.display_tab_content("train", X_train, y_train, label_mapping)
     with test_tab:
         with st.container(border=True):
-            utils.display_tab_content("test", X_test, y_test)
+            utils.display_tab_content("test", X_test, y_test, label_mapping)
 
     st.header("Regression", divider="gray")
     st.markdown(

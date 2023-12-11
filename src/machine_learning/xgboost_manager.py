@@ -17,7 +17,6 @@ class XGBoostManager:
     def __init__(self, task: t.Literal["classification", "regression"]) -> None:
         self.task = task
         self.model: XGBClassifier | None = None
-        self.current_params: t.Dict[str, float | int] | None = None
         self.classification_report: pd.DataFrame | None = None
         self.confusion_matrix: pd.DataFrame | None = None
         self.metrics_report: pd.DataFrame | None = None
