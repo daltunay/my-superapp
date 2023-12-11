@@ -72,4 +72,10 @@ def main():
 
     st.header("Results", divider="gray")
     result = chi2_testing.perform_chi2_test()
-    st.json(result)
+
+    if result["is_significant"]:
+        st.success("The difference is significant", icon="✅")
+    else:
+        st.error("The difference is not significant", icon="❌")
+
+    st.expander(label="Test details").json(result)

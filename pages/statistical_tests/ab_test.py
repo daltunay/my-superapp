@@ -54,4 +54,10 @@ def main():
 
     st.header("Results", divider="gray")
     result = ab_testing.perform_ab_test()
-    st.json(result)
+
+    if result["is_significant"]:
+        st.success("The difference is significant", icon="✅")
+    else:
+        st.error("The difference is not significant", icon="❌")
+
+    st.expander(label="Test details").json(result)
