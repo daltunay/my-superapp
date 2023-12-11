@@ -29,14 +29,6 @@ statistical_tests:
       > numpy, scipy
     TAG:
 
-  t-test.py:
-    NAME: T-test
-    ICON: 🆃
-    DESCRIPTION: |
-      Perform T-tests!
-      > numpy, scipy
-    TAG:
-
 dimensionality_reduction:
   __init__.py:
     NAME: Dimensionality Reduction
