@@ -52,7 +52,9 @@ def main():
     regression_manager.fit(X_train, y_train)
     regression_manager.evaluate(X_test, y_test)
     st.markdown("Metrics Report")
-    st.dataframe(data=regression_manager.metrics_report, use_container_width=True)
+    st.columns([0.5, 1, 0.5])[1].dataframe(
+        data=regression_manager.metrics_report.round(2), use_container_width=True
+    )
     st.subheader("Explainability")
     st.markdown("SHAP force plot")
     utils.st_shap(plot=regression_manager.shap_force_plot(X_test), height=400)

@@ -54,11 +54,11 @@ def main():
         X_test, y_test, target_names=list(label_mapping.values())
     )
     st.markdown("Classification Report")
-    st.dataframe(
+    st.columns(3)[1].dataframe(
         data=classification_manager.classification_report, use_container_width=True
     )
     st.markdown("Confusion Matrix")
-    st.pyplot(
+    st.columns([0.1, 1, 0.1])[1].pyplot(
         fig=classification_manager.confusion_matrix_display(
             display_labels=list(label_mapping.values())
         )
