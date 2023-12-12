@@ -41,10 +41,10 @@ def main():
             disabled=False,
             use_container_width=True,
         )
+        st.info("Click on any cell to change its content.", icon="💡")
     with col_sum:
         total_col = observed.drop("group", axis=1).sum(axis=1).to_frame(name="Total")
         st.dataframe(total_col, hide_index=True, use_container_width=True)
-    st.info("Click on any cell to change its content.", icon="💡")
 
     st.header("Settings", divider="gray")
     settings_container = st.container(border=True)
