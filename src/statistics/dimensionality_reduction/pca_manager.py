@@ -13,6 +13,7 @@ class PCAManager:
         self.max_n_components = max_n_components
         self.normalize: bool | None = None
         self.model: PCA | None = None
+        self.target_col: pd.Series | None = None
 
     @property
     def params(self) -> t.Dict[str, int]:

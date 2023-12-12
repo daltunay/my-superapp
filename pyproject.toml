@@ -36,6 +36,7 @@ xgboost = "^2.0.2"
 scipy = "^1.11.4"
 streamlit = "^1.29.0"
 plotly = "^5.18.0"
+umap-learn = "^0.5.5"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.1.3"
