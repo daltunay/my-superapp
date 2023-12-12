@@ -23,7 +23,7 @@ class PCAManager:
                 label="Number of Components",
                 min_value=1,
                 max_value=self.max_n_components,
-                value=2,
+                value=3,
                 step=1,
                 help="Number of principal components to compute.",
             ),

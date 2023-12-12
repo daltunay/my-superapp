@@ -21,7 +21,7 @@ class TSNEManager:
                 label="Number of Components",
                 min_value=1,
                 max_value=self.max_n_components,
-                value=2,
+                value=3,
                 step=1,
                 help="Number of components to compute.",
             ),
