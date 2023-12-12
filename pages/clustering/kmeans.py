@@ -1,8 +1,8 @@
 import streamlit as st
 
 import utils
-from src.machine_learning.datasets import Dataset
 from src.machine_learning.clustering import KMeansManager
+from src.machine_learning.datasets import Dataset
 
 loader = utils.PageConfigLoader(__file__)
 loader.set_page_config(globals())

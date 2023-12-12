@@ -3,11 +3,11 @@ import typing as t
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import shap
 import sklearn.metrics
 import streamlit as st
 from matplotlib.figure import Figure
 from xgboost import XGBClassifier, XGBRegressor
-import shap
 
 
 def xgb_hash_func(model: XGBClassifier | XGBRegressor):

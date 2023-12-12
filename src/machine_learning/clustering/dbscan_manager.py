@@ -1,7 +1,7 @@
-from sklearn.cluster import DBSCAN
 import pandas as pd
-import streamlit as st
 import plotly.express as px
+import streamlit as st
+from sklearn.cluster import DBSCAN
 
 
 class DBScanManager:
