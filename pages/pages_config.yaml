@@ -18,7 +18,7 @@ statistical_tests:
     ICON: 🆎
     DESCRIPTION: |
       Perform A/B tests!
-      > numpy, scipy
+      > pandas, numpy, scipy
     TAG:
 
   chi2_test.py:
@@ -26,7 +26,7 @@ statistical_tests:
     ICON: 🆇
     DESCRIPTION: |
       Perform chi-squared tests!
-      > numpy, scipy
+      > pandas, numpy, scipy
     TAG:
 
 dimensionality_reduction:
@@ -182,7 +182,7 @@ classification:
     ICON: 🌲
     DESCRIPTION: |
       Use gradient boosting for binary & multi-class classification!
-      > XGBoost, scikit-learn, matplotlib, SHAP
+      > pandas, XGBoost, scikit-learn, SHAP, plotly
     TAG:
 
 regression:
@@ -198,7 +198,7 @@ regression:
     ICON: 🌲
     DESCRIPTION: |
       Use gradient boosting for regression!
-      > XGBoost, scikit-learn, SHAP
+      > pandas, XGBoost, scikit-learn, SHAP, plotly
     TAG:
 
 clustering:
@@ -208,3 +208,11 @@ clustering:
     DESCRIPTION: Perform different types of clustering!
     SIDEBAR: radio
     TAG: ⚙️ Machine Learning
+
+  kmeans.py:
+    NAME: K-Means
+    ICON: K
+    DESCRIPTION: |
+      Perform a K-Means clustering!
+      > pandas, scikit-learn, plotly
+    TAG:
