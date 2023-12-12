@@ -51,8 +51,8 @@ class BaseLandmarkerApp:
             desired_playing_state=None,
         )
 
-    @classmethod
-    def annotate_time(cls, image: ndarray) -> None:
+    @staticmethod
+    def annotate_time(image: ndarray) -> None:
         text = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
         text_args = {
             "text": text,
@@ -84,9 +84,8 @@ class BaseLandmarkerApp:
             **text_args,
         )
 
-    @classmethod
+    @staticmethod
     def annotate_landmarks(
-        cls,
         image: ndarray,
         connections_list: t.List[t.FrozenSet[t.Tuple[int, int]]],
         landmark_list: landmark_pb2.NormalizedLandmarkList,

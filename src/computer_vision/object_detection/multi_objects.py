@@ -50,6 +50,6 @@ class MultiObjectsDetectionApp:
             desired_playing_state=None,
         )
 
-    @classmethod
-    def annotate_detections(cls, detections: Results) -> ndarray:
+    @staticmethod
+    def annotate_detections(detections: Results) -> ndarray:
         return detections[0].plot()

@@ -54,9 +54,8 @@ class FaceDetectionApp:
             desired_playing_state=None,
         )
 
-    @classmethod
+    @staticmethod
     def annotate_faces(
-        cls,
         image: ndarray,
         detection_list: t.List[detection_pb2.Detection],
     ) -> None:

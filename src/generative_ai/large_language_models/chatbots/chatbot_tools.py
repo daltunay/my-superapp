@@ -28,9 +28,8 @@ class ChatbotTools(Chatbot):
     def tools(self) -> t.List[BaseTool]:
         return load_tools(tool_names=self.tool_names)
 
-    @classmethod
+    @staticmethod
     def update_agent_prompt_template(
-        cls,
         agent: AgentExecutor,
         text: str,
         input_variable: str | None = None,
