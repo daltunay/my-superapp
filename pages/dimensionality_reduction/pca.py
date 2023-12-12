@@ -45,20 +45,14 @@ def main():
     st.subheader("Explained variance plot", divider="gray")
     st.plotly_chart(pca_manager.explained_variance_plot(), use_container_width=True)
 
-    st.subheader("Scatter 2D plot", divider="gray")
+    st.subheader("Scatter 2D + Loadings plot", divider="gray")
     try:
-        st.plotly_chart(pca_manager.scatter_2d_plot(), use_container_width=True)
+        st.plotly_chart(pca_manager.loadings_plot(), use_container_width=True)
     except ValueError:
         st.error("Number of principal components not sufficient for the plot")
 
     st.subheader("Scatter 3D plot", divider="gray")
     try:
         st.plotly_chart(pca_manager.scatter_3d_plot(), use_container_width=True)
-    except ValueError:
-        st.error("Number of principal components not sufficient for the plot")
-
-    st.subheader("Loadings plot", divider="gray")
-    try:
-        st.plotly_chart(pca_manager.loadings_plot(), use_container_width=True)
     except ValueError:
         st.error("Number of principal components not sufficient for the plot")
