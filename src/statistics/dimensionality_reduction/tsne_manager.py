@@ -56,7 +56,7 @@ class TSNEManager:
         self.model = self._get_model(params)
 
     @st.cache_resource(
-        show_spinner=False,
+        show_spinner=True,
         hash_funcs={
             TSNE: lambda model: (
                 model.n_components,

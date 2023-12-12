@@ -40,7 +40,7 @@ class DBScanManager:
 
     @staticmethod
     @st.cache_resource(
-        show_spinner=False,
+        show_spinner=True,
         hash_funcs={DBSCAN: lambda model: (model.eps, model.min_samples)},
     )
     def _perform_clustering(model: DBSCAN, data: pd.DataFrame) -> pd.DataFrame:

@@ -44,7 +44,7 @@ class PCAManager:
         self.model.normalize = params["normalize"]
 
     @st.cache_resource(
-        show_spinner=False,
+        show_spinner=True,
         hash_funcs={PCA: lambda model: (model.n_components, model.normalize)},
     )
     def _compute_pca(

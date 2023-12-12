@@ -56,7 +56,7 @@ class UMAPManager:
         self.model = self._get_model(params)
 
     @st.cache_resource(
-        show_spinner=False,
+        show_spinner=True,
         hash_funcs={
             UMAP: lambda model: (model.n_components, model.n_neighbors, model.min_dist)
         },

@@ -37,7 +37,7 @@ class KMeansManager:
 
     @staticmethod
     @st.cache_resource(
-        show_spinner=False,
+        show_spinner=True,
         hash_funcs={KMeans: lambda model: model.n_clusters},
     )
     def _perform_clustering(model: KMeans, data: pd.DataFrame) -> pd.DataFrame:
