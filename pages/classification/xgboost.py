@@ -63,3 +63,6 @@ def main():
             display_labels=list(label_mapping.values())
         )
     )
+    st.subheader("Explainability")
+    st.markdown("SHAP force plot")
+    utils.st_shap(plot=classification_manager.shap_force_plot(X_test), height=400)

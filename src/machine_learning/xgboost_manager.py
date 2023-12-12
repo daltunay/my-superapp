@@ -7,6 +7,7 @@ import sklearn.metrics
 import streamlit as st
 from matplotlib.figure import Figure
 from xgboost import XGBClassifier, XGBRegressor
+import shap
 
 
 def xgb_hash_func(model: XGBClassifier | XGBRegressor):
@@ -228,3 +229,23 @@ class XGBoostManager:
                 y_true=y_test,
                 y_pred=y_pred,
             )
+
+    @staticmethod
+    @st.cache_data(
+        show_spinner=True,
+        hash_funcs={XGBClassifier: xgb_hash_func, XGBRegressor: xgb_hash_func},
+    )
+    def _shap_values(model: XGBClassifier | XGBRegressor, X_test: pd.DataFrame):
+        explainer = shap.TreeExplainer(model)
+        shap_values = explainer.shap_values(X_test)
+        return explainer, shap_values
+
+    def shap_force_plot(self, X_test: pd.DataFrame):
+        explainer, shap_values = self._shap_values(self.model, X_test)
+        base_value = explainer.expected_value
+        if isinstance(self.model, XGBClassifier):
+            base_value = base_value[0]
+            shap_values = shap_values[0]
+        return shap.force_plot(
+            base_value=base_value, shap_values=shap_values, features=X_test
+        )

@@ -625,6 +625,17 @@ files = [
 colorama = {version = "*", markers = "platform_system == \"Windows\""}
 
 [[package]]
+name = "cloudpickle"
+version = "3.0.0"
+description = "Pickler class to extend the standard pickle.Pickler functionality"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "cloudpickle-3.0.0-py3-none-any.whl", hash = "sha256:246ee7d0c295602a036e86369c77fecda4ab17b506496730f2f576d9016fd9c7"},
+    {file = "cloudpickle-3.0.0.tar.gz", hash = "sha256:996d9a482c6fb4f33c1a35335cf8afd065d2a56e973270364840712d9131a882"},
+]
+
+[[package]]
 name = "colorama"
 version = "0.4.6"
 description = "Cross-platform colored terminal text."
@@ -4559,6 +4570,57 @@ files = [
 ]
 
 [[package]]
+name = "shap"
+version = "0.44.0"
+description = "A unified approach to explain the output of any machine learning model."
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "shap-0.44.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:896a9e5cf932c34f2932a753313217ca62f8d6bf65d76719752c83328cc408f6"},
+    {file = "shap-0.44.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:0d5da8d45c43de7c425c26e7efc11cc31858c2fc9ba39178a8630d1e5b564b77"},
+    {file = "shap-0.44.0-cp310-cp310-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:2e6f02592ca36096be9f886dc1ea4aff4357ca0c7fe0d0493ecb304c67c14064"},
+    {file = "shap-0.44.0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:dc385c024d12402c8c667b7ce86689da169252e0e1f27ad013b9f6b276aee241"},
+    {file = "shap-0.44.0-cp310-cp310-musllinux_1_1_x86_64.whl", hash = "sha256:77d20d7e2571051e3ef12e325387c169f59561fbbfcd9ec18cd113b012c27cb1"},
+    {file = "shap-0.44.0-cp310-cp310-win_amd64.whl", hash = "sha256:bedbd076ac7f0e6055c481fd588772740febc4d8d1218364c39696016e731fc2"},
+    {file = "shap-0.44.0-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:b0dab61c0a2fa52d2e846a8270df2742cb6b4c45e64c32af008733aaeb5a5b3b"},
+    {file = "shap-0.44.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:e3ffa926188b9d9138426e41c98146fce4baf1c64af2c6da6a1f85eae5ec4148"},
+    {file = "shap-0.44.0-cp311-cp311-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:f574af8dbb00598e8ee1340dfa172a1546c73f950f06deab3bc866e8e4bb25bc"},
+    {file = "shap-0.44.0-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:34fb9e0a19877b37cd1965757d750636631ee067888703728d7ecd8ad809302b"},
+    {file = "shap-0.44.0-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:252228cfecb8b73e1d43698fae8f081a1febcb0110b6455cde70eded1e56733d"},
+    {file = "shap-0.44.0-cp311-cp311-win_amd64.whl", hash = "sha256:38d884d21ada459eef656939402c02d67a50ea77fee4ef53df6453e3c3dca1bc"},
+    {file = "shap-0.44.0-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:65b012be193ddc47f33f08c4b2193eb2d6f616e2ffa747f85d272616117fce19"},
+    {file = "shap-0.44.0-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:5fac74f0181e7dce27b21442b177baac7f579e32cdc5fa4b95fe98adfb5febc0"},
+    {file = "shap-0.44.0-cp38-cp38-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e1c9186d591b489805d4f9141ceb7d4e5ad5bbdf522fe8262ce9d1999a111523"},
+    {file = "shap-0.44.0-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:618253d1634082cac40fed79b9b673340ed4562c5645eae8a8c718f26617a13b"},
+    {file = "shap-0.44.0-cp38-cp38-win_amd64.whl", hash = "sha256:5e70e0db17d2a4bd7a95db139b3424b059891b03690357ce6e3800105a50e6d5"},
+    {file = "shap-0.44.0-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:65c4f541eaffbdaf52c1f09a819b17a3635fcf80b3c12b5680262465a7bd1829"},
+    {file = "shap-0.44.0-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:2b43239491f0f30c4be15a08b6d4d5e83d5ed36278f2af80a7a81bbf43fefb61"},
+    {file = "shap-0.44.0-cp39-cp39-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:246677bd5dacf48de74b7d4064928da95f989b1579ea4039a884fc6442c3908f"},
+    {file = "shap-0.44.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:5cc6a111efb70e7fb42ea156db1a457ea55c60347d288e5128682957c8fa8818"},
+    {file = "shap-0.44.0-cp39-cp39-musllinux_1_1_x86_64.whl", hash = "sha256:eaf8e10df11aff5db6832d13de860d8c2819bb336f5b8512b2df62d428f31ed5"},
+    {file = "shap-0.44.0-cp39-cp39-win_amd64.whl", hash = "sha256:8b97c0cb911b0c30e1247d820795736dfe2ff5cb60342538e735591c3b2430b8"},
+    {file = "shap-0.44.0.tar.gz", hash = "sha256:8f5f0401df83c8b2b566f41872f1bd8bc05bba43aab9e82bfb2047e9b2a0471c"},
+]
+
+[package.dependencies]
+cloudpickle = "*"
+numba = "*"
+numpy = "*"
+packaging = ">20.9"
+pandas = "*"
+scikit-learn = "*"
+scipy = "*"
+slicer = "0.0.7"
+tqdm = ">=4.27.0"
+
+[package.extras]
+docs = ["ipython", "matplotlib", "myst-parser (==2.0.0)", "nbsphinx (==0.9.3)", "numpydoc", "requests", "sphinx (==7.2.6)", "sphinx-github-changelog (==1.2.1)", "sphinx-rtd-theme (==2.0.0)"]
+others = ["lime"]
+plots = ["ipython", "matplotlib"]
+test = ["catboost", "gpboost", "lightgbm", "ngboost", "opencv-python", "protobuf (==3.20.3)", "pyod", "pyspark", "pytest", "pytest-cov", "pytest-mpl", "sentencepiece", "tensorflow", "torch", "torchvision", "transformers", "xgboost"]
+test-core = ["pytest", "pytest-cov", "pytest-mpl"]
+
+[[package]]
 name = "six"
 version = "1.16.0"
 description = "Python 2 and 3 compatibility utilities"
@@ -4567,6 +4629,17 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
 files = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
     {file = "six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"},
+]
+
+[[package]]
+name = "slicer"
+version = "0.0.7"
+description = "A small package for big slicing."
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "slicer-0.0.7-py3-none-any.whl", hash = "sha256:0b94faa5251c0f23782c03f7b7eedda91d80144059645f452c4bc80fab875976"},
+    {file = "slicer-0.0.7.tar.gz", hash = "sha256:f5d5f7b45f98d155b9c0ba6554fa9770c6b26d5793a3e77a1030fb56910ebeec"},
 ]
 
 [[package]]
@@ -5941,4 +6014,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.11"
-content-hash = "2b4d242a2b18a66274e458f145227b8684f680d7834162511af74e76a94f0cbd"
+content-hash = "b7d8f17c4cf6f954e20bcfd118b996af6fabd7d603f0e03377d5cd4f1ba2e77d"
