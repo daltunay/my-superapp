@@ -211,7 +211,7 @@ clustering:
 
   kmeans.py:
     NAME: K-Means
-    ICON: K
+    ICON: 🇰
     DESCRIPTION: |
       Perform a K-Means clustering!
       > pandas, scikit-learn, plotly
