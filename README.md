@@ -1,6 +1,6 @@
-# daltunay
 
-Access live deployed app here: **https://daltunay.streamlit.app/**
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://daltunay.streamlit.app)
+
 
 ## Prerequisites
 
@@ -36,18 +36,22 @@ The application uses several APIs to function properly.
 You can specifiy the API keys in `.streamlit/secrets.toml`: 
 
 ```toml
-[openai_api]
-key="<OPENAI_API_KEY>"
+[twilio]
+TWILIO_ACCOUNT_SID = < ... >
+TWILIO_AUTH_TOKEN = < ... >
 
-[together_api]
-key="<TOGETHER_API_KEY>"
+[openai]
+OPENAI_API_KEY = < ... >
 
-[lakera_api]
-key="<LAKERA_GUARD_API_KEY>"
+[together]
+TOGETHER_API_KEY = < ... >
 
-[google_api]
-key = "<GOOGLE_API_KEY>"
-cse_id = "<GOOGLE_CSE_ID>"
+[lakera_guard]
+LAKERA_GUARD_API_KEY = < ... >
+
+[google]
+GOOGLE_API_KEY = < ... >
+GOOGLE_CSE_ID = < ... >
 ```
 
 

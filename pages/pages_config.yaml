@@ -2,7 +2,8 @@ __init__.py:
   NAME: Home
   ICON: 🏠
   DESCRIPTION: |
-    Welcome to my superapp, a comprehensive toolset for data science and machine learning 🚀
+    Welcome to my superapp, a comprehensive toolset for data science and machine learning 🚀  
+    [![source code](https://img.shields.io/badge/source_code-gray?logo=github)](https://github.com/daltunay/my-superapp/)
 
     Technologies used:
     - **Programming language**: Python
