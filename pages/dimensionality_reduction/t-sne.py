@@ -14,7 +14,7 @@ st_ss = st.session_state
 
 def main():
     utils.tabs_config()
-    # utils.show_source_code("src/machine_learning/xgboost_manager.py")
+    utils.show_source_code("src/statistics/dimensionality_rediction/tsne_manager.py")
 
     st.header("Dataset", divider="gray")
     dataset = Dataset(type=None)
