@@ -1,7 +1,22 @@
 __init__.py:
   NAME: Home
   ICON: 🏠
-  DESCRIPTION: Welcome to my superapp!
+  DESCRIPTION: |
+    Welcome to my superapp, a comprehensive toolset for data science and machine learning 🚀
+
+    Technologies used:
+    - **Programming language**: Python
+    - **Libraries**: pandas, numpy, scikit-learn, OpenCV, Mediapipe, plotly, XGBoost, SHAP, LangChain, OpenAI, Together, FAISS, ultralytics, umap
+    - **Deployment**: Docker, Streamlit
+
+    Feel free to provide feedback and make this superapp even more powerful!
+
+
+    > _Made by Daniel Altunay_
+    [![LinkedIn URL](https://img.icons8.com/?id=13930&format=png)](https://linkedin.com/in/daltunay)
+    [![GitHub URL](https://img.icons8.com/?id=AZOZNnY73haj&format=png)](https://github.com/daltunay)
+
+    ---
   SIDEBAR: radio
   TAG:
 
@@ -216,7 +231,7 @@ clustering:
       Perform a K-Means clustering!
       > pandas, scikit-learn, plotly
     TAG:
-  
+
   dbscan.py:
     NAME: DBSCAN
     ICON: 🇩

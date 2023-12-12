@@ -5,6 +5,6 @@ import utils
 
 utils.load_secrets()
 
-st.set_page_config(page_title="daltunay", page_icon="🧠", layout="centered")
+st.set_page_config(page_title="daltunay", page_icon="🚀", layout="centered")
 
 st_superapp.run()
