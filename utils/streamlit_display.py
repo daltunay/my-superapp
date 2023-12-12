@@ -41,7 +41,7 @@ def display_tab_content(
             data=y_data.map(label_mapping or (lambda x: x)), use_container_width=True
         )
 
-    describe_container = st.expander("Description").container()
+    describe_container = st.expander("Data statistics").container()
     col1, col2 = describe_container.columns([0.65, 0.35], gap="medium")
     with col1:
         st.dataframe(X_data.describe(), use_container_width=True)
