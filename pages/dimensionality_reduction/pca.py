@@ -1,8 +1,8 @@
 import streamlit as st
 
 import utils
-from src.statistics.dimensionality_reduction import PCAManager
 from src.machine_learning.datasets import Dataset
+from src.statistics.dimensionality_reduction import PCAManager
 
 loader = utils.PageConfigLoader(__file__)
 loader.set_page_config(globals())

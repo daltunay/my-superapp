@@ -1,10 +1,11 @@
 import typing as t
+
+import numpy as np
 import pandas as pd
 import plotly.express as px
-from sklearn.decomposition import PCA
 import plotly.graph_objects as go
 import streamlit as st
-import numpy as np
+from sklearn.decomposition import PCA
 
 
 class PCAManager:

@@ -45,14 +45,14 @@ class Dataset:
                 step=0.05,
                 help="The proportion of the dataset to include in the test split",
             )
-            if self.type != None
+            if self.type is not None
             else None,
             "shuffle": columns[2].checkbox(
                 label="shuffle",
                 value=True,
                 help="Whether to shuffle the dataset or not.",
             )
-            if self.type != None
+            if self.type is not None
             else None,
             "stratify": columns[2].checkbox(
                 label="stratify",
@@ -62,7 +62,7 @@ class Dataset:
                 "Available for classification only.",
                 disabled=self.type == "regression",
             )
-            if self.type != None
+            if self.type is not None
             else None,
         }
 
