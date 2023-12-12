@@ -219,7 +219,7 @@ clustering:
   
   dbscan.py:
     NAME: DBSCAN
-    ICON: 🇰
+    ICON: 🇩
     DESCRIPTION: |
       Perform a DBSCAN clustering!
       > pandas, scikit-learn, plotly
