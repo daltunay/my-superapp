@@ -25,16 +25,13 @@ def display_tab_content(
     y_data: pd.DataFrame,
     label_mapping: t.Dict[int, str] | None = None,
 ):
-    col1, col2 = st.columns([0.65, 0.35], gap="medium")
+    data_container = st.container()
+    col1, col2 = data_container.columns([0.65, 0.35], gap="medium")
     with col1:
         st.markdown(
             f"<h3 style='text-align: center;'>X_{label}</h3>", unsafe_allow_html=True
         )
         st.dataframe(data=X_data, use_container_width=True)
-        st.markdown(
-            "<h6 style='text-align: center;'>describe</h6>", unsafe_allow_html=True
-        )
-        st.dataframe(X_data.describe(), use_container_width=True)
 
     with col2:
         st.markdown(
@@ -44,11 +41,12 @@ def display_tab_content(
             data=y_data.map(label_mapping or (lambda x: x)), use_container_width=True
         )
 
+    describe_container = st.expander("Description").container()
+    col1, col2 = describe_container.columns([0.65, 0.35], gap="medium")
+    with col1:
+        st.dataframe(X_data.describe(), use_container_width=True)
+    with col2:
         if label_mapping:
-            st.markdown(
-                "<h6 style='text-align: center;'>value counts</h6>",
-                unsafe_allow_html=True,
-            )
             st.dataframe(
                 pd.concat(
                     [
@@ -61,8 +59,4 @@ def display_tab_content(
                 ).round(3)
             )
         else:
-            st.markdown(
-                "<h6 style='text-align: center;'>describe</h6>",
-                unsafe_allow_html=True,
-            )
             st.dataframe(y_data.describe(), use_container_width=True)
