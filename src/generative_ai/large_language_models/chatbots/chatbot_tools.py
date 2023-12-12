@@ -1,8 +1,7 @@
 import typing as t
 from functools import cached_property
 
-from langchain.agents import (AgentExecutor, AgentType, initialize_agent,
-                              load_tools)
+from langchain.agents import AgentExecutor, AgentType, initialize_agent, load_tools
 from langchain.callbacks.base import BaseCallbackHandler
 from langchain.tools import BaseTool
 
@@ -21,9 +20,9 @@ class ChatbotTools(Chatbot):
         self.tool_names = tool_names or []
         self.memory.input_key = "input"
 
-    @property
-    def callbacks(self) -> t.List[BaseCallbackHandler]:
-        return [super().callbacks[1]]
+    # @property
+    # def callbacks(self) -> t.List[BaseCallbackHandler]:
+    #     return [super().callbacks[1]]
 
     @cached_property
     def tools(self) -> t.List[BaseTool]:
