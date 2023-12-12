@@ -38,6 +38,9 @@ def main():
         umap_manager.set_model()
 
     umap_manager.fit(data=X, target_col=y)
+    
+    st.subheader("Scatter matrix plot", divider="gray")
+    st.plotly_chart(umap_manager.scatter_matrix_plot(), use_container_width=True)
 
     st.subheader("Scatter 2D plot", divider="gray")
     try:

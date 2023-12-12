@@ -39,6 +39,9 @@ def main():
 
     tsne_manager.fit(data=X, target_col=y)
 
+    st.subheader("Scatter matrix plot", divider="gray")
+    st.plotly_chart(tsne_manager.scatter_matrix_plot(), use_container_width=True)
+
     st.subheader("Scatter 2D plot", divider="gray")
     try:
         st.plotly_chart(tsne_manager.scatter_2d_plot(), use_container_width=True)

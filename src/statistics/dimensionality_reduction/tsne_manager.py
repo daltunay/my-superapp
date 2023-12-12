@@ -73,6 +73,9 @@ class TSNEManager:
     def fit(self, data: pd.DataFrame, target_col: pd.Series):
         self.embedded_data_df = self._compute_tsne(model=self.model, data=data)
         self.target_col = target_col
+    
+    def scatter_matrix_plot(self) -> None:
+        return px.scatter_matrix(self.embedded_data_df, color=self.target_col)
 
     def scatter_2d_plot(self) -> None:
         return px.scatter(self.embedded_data_df, x="D1", y="D2", color=self.target_col)
