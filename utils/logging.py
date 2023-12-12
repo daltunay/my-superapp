@@ -9,7 +9,7 @@ class CustomLogger:
     method_names = ["debug", "info", "warning", "error", "critical"]
 
     def __init__(self, file: str, level: str = "info"):
-        self.file = file.split("my-app")[1] if "my-app" in file else file
+        self.file = file.split("my-superapp")[1] if "my-superapp" in file else file
         self.level = getattr(logging, level.upper())
         self.cache_methods(methods_to_cache=self.method_names)
 

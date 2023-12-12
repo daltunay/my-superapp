@@ -14,7 +14,7 @@ def generate_logo_link(url: str, img_url: str) -> str:
 def show_source_code(path: str):
     st.markdown(
         "[![source code](https://img.shields.io/badge/source_code-gray?logo=github)]"
-        f"(https://github.com/daltunay/my-app/tree/main/{path})"
+        f"(https://github.com/daltunay/my-superapp/tree/main/{path})"
     )
 
 

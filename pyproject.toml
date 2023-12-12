@@ -1,11 +1,11 @@
 [tool.poetry]
-name = "my-app"
+name = "my-superapp"
 version = "0.0.0"
 description = "My personal web app!"
 authors = ["Daniel Altunay <daniel.altunay@gmail.com>"]
 readme = "README.md"
 homepage = "https://daltunay.streamlit.app/"
-repository = "https://github.com/daltunay/my-app"
+repository = "https://github.com/daltunay/my-superapp"
 packages = [{ include = "src" }, { include = "utils" }, { include = "pages" }]
 
 [tool.poetry.dependencies]

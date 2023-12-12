@@ -21,7 +21,7 @@ class PageConfigLoader:
 
     @cached_property
     def page_config(self) -> t.Dict:
-        path_keys = self.file.split("my-app/pages/")[1].split("/")
+        path_keys = self.file.split("my-superapp/pages/")[1].split("/")
         section = self.pages_config
 
         for path_key in path_keys:
