@@ -2,6 +2,7 @@ import typing as t
 import pandas as pd
 import plotly.express as px
 from sklearn.decomposition import PCA
+import plotly.graph_objects as go
 import streamlit as st
 import numpy as np
 
@@ -47,7 +48,9 @@ class PCAManager:
     def _compute_pca(
         _self, model: PCA, data: pd.DataFrame
     ) -> t.Tuple[pd.DataFrame, PCA]:
-        data_normalized = (data - data.mean()) / data.std() if model.normalize else data
+        data_normalized = (
+            (data - data.mean()) / (data.std() + 1e-5) if model.normalize else data
+        )
         components = model.fit_transform(data_normalized)
 
         return pd.DataFrame(
@@ -63,11 +66,24 @@ class PCAManager:
 
     def explained_variance_plot(self) -> None:
         exp_var_cumul = np.cumsum(self.model.explained_variance_ratio_)
-        return px.area(
-            x=range(1, exp_var_cumul.shape[0] + 1),
+        x_ticks = list(range(1, exp_var_cumul.shape[0] + 1))
+        fig = px.bar(
+            x=x_ticks,
             y=exp_var_cumul,
             labels={"x": "# Components", "y": "Explained Variance"},
         )
+        fig.update_xaxes(tickvals=x_ticks, ticktext=list(map(str, x_ticks)))
+        fig.add_trace(
+            go.Scatter(
+                x=x_ticks,
+                y=exp_var_cumul,
+                mode="lines+markers",
+                line=dict(color="red", width=3),
+                marker=dict(size=10),
+                showlegend=False,
+            )
+        )
+        return fig
 
     def scatter_2d_plot(self) -> None:
         return px.scatter(self.components_df, x="PC1", y="PC2", color=self.target_col)
