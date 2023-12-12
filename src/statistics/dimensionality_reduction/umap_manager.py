@@ -69,14 +69,27 @@ class UMAPManager:
     def fit(self, data: pd.DataFrame, target_col: pd.Series):
         self.embedded_data_df = self._compute_umap(model=self.model, data=data)
         self.target_col = target_col
-    
+
     def scatter_matrix_plot(self) -> None:
-        return px.scatter_matrix(self.embedded_data_df, color=self.target_col)
+        return px.scatter_matrix(
+            self.embedded_data_df, color=self.target_col, labels={"color": "target"}
+        )
 
     def scatter_2d_plot(self) -> None:
-        return px.scatter(self.embedded_data_df, x="D1", y="D2", color=self.target_col)
+        return px.scatter(
+            self.embedded_data_df,
+            x="D1",
+            y="D2",
+            color=self.target_col,
+            labels={"color": "target"},
+        )
 
     def scatter_3d_plot(self) -> None:
         return px.scatter_3d(
-            self.embedded_data_df, x="D1", y="D2", z="D3", color=self.target_col
+            self.embedded_data_df,
+            x="D1",
+            y="D2",
+            z="D3",
+            color=self.target_col,
+            labels={"color": "target"},
         )

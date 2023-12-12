@@ -64,7 +64,9 @@ class PCAManager:
         self.target_col = target_col
 
     def scatter_matrix_plot(self) -> None:
-        return px.scatter_matrix(self.components_df, color=self.target_col)
+        return px.scatter_matrix(
+            self.components_df, color=self.target_col, labels={"color": "target"}
+        )
 
     def explained_variance_plot(self) -> None:
         exp_var_cumul = np.cumsum(self.model.explained_variance_ratio_)
@@ -88,17 +90,34 @@ class PCAManager:
         return fig
 
     def scatter_2d_plot(self) -> None:
-        return px.scatter(self.components_df, x="PC1", y="PC2", color=self.target_col)
+        return px.scatter(
+            self.components_df,
+            x="PC1",
+            y="PC2",
+            color=self.target_col,
+            labels={"color": "target"},
+        )
 
     def scatter_3d_plot(self) -> None:
         return px.scatter_3d(
-            self.components_df, x="PC1", y="PC2", z="PC3", color=self.target_col
+            self.components_df,
+            x="PC1",
+            y="PC2",
+            z="PC3",
+            color=self.target_col,
+            labels={"color": "target"},
         )
 
     def loadings_plot(self) -> None:
         loadings = self.model.components_.T * np.sqrt(self.model.explained_variance_)
 
-        fig = px.scatter(self.components_df, x="PC1", y="PC2", color=self.target_col)
+        fig = px.scatter(
+            self.components_df,
+            x="PC1",
+            y="PC2",
+            color=self.target_col,
+            labels={"color": "target"},
+        )
 
         for i, feature in enumerate(self.components_df.columns):
             fig.add_annotation(
