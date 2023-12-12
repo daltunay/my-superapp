@@ -216,3 +216,11 @@ clustering:
       Perform a K-Means clustering!
       > pandas, scikit-learn, plotly
     TAG:
+  
+  dbscan.py:
+    NAME: DBSCAN
+    ICON: 🇰
+    DESCRIPTION: |
+      Perform a DBSCAN clustering!
+      > pandas, scikit-learn, plotly
+    TAG:
