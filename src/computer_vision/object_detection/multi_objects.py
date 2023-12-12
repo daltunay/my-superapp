@@ -5,7 +5,7 @@ from av import VideoFrame
 from numpy import ndarray
 from ultralytics import YOLO
 from ultralytics.engine.results import Results
-import streamlit as st
+
 import utils
 
 logger = utils.CustomLogger(__file__)
@@ -15,13 +15,12 @@ class MultiObjectsDetectionApp:
     def __init__(self):
         pass
 
-    @staticmethod
-    @st.cache_resource(show_spinner="Downloading YOLOv8 model...")
-    def detector() -> YOLO:
+    @cached_property
+    def detector(self) -> YOLO:
         return YOLO(model="yolov8n.pt", task=None)
 
     def detect_objects(self, image: ndarray) -> Results:
-        return self.detector().predict(
+        return self.detector.predict(
             source=image,
             stream=False,
             show=False,
