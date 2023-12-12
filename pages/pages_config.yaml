@@ -1,7 +1,7 @@
 __init__.py:
   NAME: Home
   ICON: 🏠
-  DESCRIPTION: Welcome to my app!
+  DESCRIPTION: Welcome to my superapp!
   SIDEBAR: radio
   TAG:
 
@@ -58,7 +58,7 @@ dimensionality_reduction:
     ICON: 🗺️
     DESCRIPTION: |
       Perform Uniform Manifold Approximation and Projection!
-      >
+      > pandas, scikit-learn, umap, plotly
     TAG:
 
 landmarks:
@@ -140,25 +140,33 @@ large_language_models:
   chatbot.py:
     NAME: Basic Chatbot
     ICON: 👋
-    DESCRIPTION: A regular chatbot.
+    DESCRIPTION: |
+      A regular chatbot.
+      > LangChain, OpenAI, Together
     TAG: 🤖 Chatbots
 
   chatbot_rag.py:
     NAME: Chatbot with RAG
     ICON: 📄
-    DESCRIPTION: A chatbot with RAG (retrieval augmented generation).
+    DESCRIPTION: |
+      A chatbot with RAG (retrieval augmented generation).
+      > LangChain, OpenAI, Together, FAISS
     TAG: 🤖 Chatbots
 
   chatbot_tools.py:
     NAME: Chatbot with Tools
     ICON: 🛠️
-    DESCRIPTION: A chatbot augmented with tools (web access, code interpreter, etc.)
+    DESCRIPTION: |
+      A chatbot augmented with tools (web access, code interpreter, etc.)
+      > LangChain (Agents), OpenAI, Together
     TAG: 🤖 Chatbots
 
   chatbot_web_summary.py:
     NAME: Webpage summary
     ICON: 🌐
-    DESCRIPTION: A model to synthetize to text content of a webpage.
+    DESCRIPTION: |
+      A model to synthetize to text content of a webpage.
+      > LangChain, OpenAI, Together, unstructured
     TAG: 🔄 Other
 
 classification:
@@ -174,7 +182,7 @@ classification:
     ICON: 🌲
     DESCRIPTION: |
       Use gradient boosting for binary & multi-class classification!
-      > XGBoost, scikit-learn, matplotlib
+      > XGBoost, scikit-learn, matplotlib, SHAP
     TAG:
 
 regression:
@@ -190,7 +198,7 @@ regression:
     ICON: 🌲
     DESCRIPTION: |
       Use gradient boosting for regression!
-      > XGBoost, scikit-learn
+      > XGBoost, scikit-learn, SHAP
     TAG:
 
 clustering:
