@@ -19,7 +19,7 @@ pip install poetry
 
 ```bash
 git clone https://github.com/daltunay/my-superapp.git
-cd daltunay
+cd my-superapp
 ```
 
 2. Set up the project dependencies using Poetry:
@@ -56,7 +56,7 @@ GOOGLE_CSE_ID = "<...>"
 
 
 ## Running the Application
-The _daltunay_ application can be run using either Poetry or Docker.
+The _my-superapp_ application can be run using either Poetry or Docker.
 
 ### Using Poetry
 
@@ -71,13 +71,13 @@ poetry run streamlit run app.py
 1. Build the Docker image:
 
 ```bash
-docker build -t daltunay .
+docker build -t my-superapp .
 ```
 
 2. Run the application as a Docker container:
 
 ```bash
-docker run -p 8501:8501 daltunay
+docker run -p 8501:8501 my-superapp
 ```
 
 Alternatively, you can just run the following:
