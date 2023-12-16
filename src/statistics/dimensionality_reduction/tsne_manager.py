@@ -35,10 +35,10 @@ class TSNEManager:
             ),
             "learning_rate": columns[2].slider(
                 label="Learning Rate",
-                min_value=10,
-                max_value=1000,
-                value=200,
-                step=10,
+                min_value=10.0,
+                max_value=500.0,
+                value=200.0,
+                step=50.0,
                 help="Step size for each iteration in optimizing the cost function.",
             ),
         }

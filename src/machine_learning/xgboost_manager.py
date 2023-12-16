@@ -29,26 +29,24 @@ class XGBoostManager:
             "max_depth": columns[0].slider(
                 label="`max_depth`",
                 min_value=1,
-                max_value=10,
+                max_value=5,
                 value=3,
                 step=1,
                 help="Maximum depth of a tree. "
                 "Increasing this value will make the model more complex and more likely to overfit. "
                 "0 indicates no limit on depth.",
             ),
-            "learning_rate": columns[0].slider(
+            "learning_rate": columns[0].select_slider(
                 label="`learning_rate`",
-                min_value=0.01,
-                max_value=1.0,
-                value=0.1,
-                step=0.01,
+                options=[0.01, 0.05, 0.1, 0.25, 0.5, 1.0],
+                value=0.01,
                 help="Step size shrinkage used in update to prevents overfitting. "
                 "After each boosting step, we can directly get the weights of new features, and `learning_rate` shrinks the feature weights to make the boosting process more conservative.",
             ),
             "n_estimators": columns[0].slider(
                 label="`n_estimators`",
                 min_value=10,
-                max_value=100,
+                max_value=50,
                 value=50,
                 step=10,
                 help="Number of gradient boosted trees. "
@@ -59,7 +57,7 @@ class XGBoostManager:
                 min_value=0.1,
                 max_value=1.0,
                 value=0.8,
-                step=0.05,
+                step=0.1,
                 help="Subsample ratio of the training instances. "
                 "Setting it to 0.5 means that XGBoost would randomly sample half of the training data prior to growing trees and this will prevent overfitting. "
                 "Subsampling will occur once in every boosting iteration.",
@@ -69,14 +67,14 @@ class XGBoostManager:
                 min_value=0.1,
                 max_value=1.0,
                 value=0.8,
-                step=0.05,
+                step=0.1,
                 help="Subsample ratio of columns when constructing each tree. "
                 "Subsampling occurs once for every tree constructed.",
             ),
             "min_split_loss": columns[1].slider(
                 label="`min_split_loss`",
                 min_value=0.0,
-                max_value=10.0,
+                max_value=5.0,
                 value=0.0,
                 step=0.5,
                 help="Minimum loss reduction required to make a further partition on a leaf node of the tree. "
@@ -85,7 +83,7 @@ class XGBoostManager:
             "min_child_weight": columns[2].slider(
                 label="`min_child_weight`",
                 min_value=0.0,
-                max_value=10.0,
+                max_value=5.0,
                 value=1.0,
                 step=0.5,
                 help="Minimum sum of instance weight (hessian) needed in a child. "
@@ -96,7 +94,7 @@ class XGBoostManager:
             "reg_alpha": columns[2].slider(
                 label="`reg_alpha`",
                 min_value=0.0,
-                max_value=10.0,
+                max_value=5.0,
                 value=1.0,
                 step=0.5,
                 help="L1 regularization term on weights. "
@@ -105,7 +103,7 @@ class XGBoostManager:
             "reg_lambda": columns[2].slider(
                 label="`reg_lambda`",
                 min_value=0.0,
-                max_value=10.0,
+                max_value=5.0,
                 value=0.0,
                 step=0.5,
                 help="L2 regularization term on weights. "

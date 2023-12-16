@@ -15,7 +15,7 @@ class DBScanManager:
             "eps": columns[0].slider(
                 label="Maximum Distance (eps)",
                 min_value=0.1,
-                max_value=10.0,
+                max_value=5.0,
                 value=1.0,
                 step=0.1,
                 help="Maximum distance between two samples for one to be considered as in the neighborhood of the other.",

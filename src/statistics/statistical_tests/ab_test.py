@@ -31,7 +31,6 @@ def input_group_data(
         min_value=0.0,
         max_value=1.0,
         value=conversions / visitors,
-        step=0.01,
         disabled=True,
     )
     return visitors, conversions, rate

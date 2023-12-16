@@ -40,7 +40,7 @@ class Dataset:
             "test_size": columns[1].slider(
                 "test_size",
                 min_value=0.05,
-                max_value=0.5,
+                max_value=0.3,
                 value=0.2,
                 step=0.05,
                 help="The proportion of the dataset to include in the test split",
