@@ -18,7 +18,6 @@ class StreamingChatCallbackHandler(BaseCallbackHandler):
         )
 
     def on_llm_end(self, response: str, *args, **kwargs):
-        self.container.empty()
         self.container.markdown(
             body=response.generations[0][0].text,
             unsafe_allow_html=False,
