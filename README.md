@@ -1,5 +1,5 @@
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://daltunay.streamlit.app)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://data-science-superapp.streamlit.app)
 
 
 ## Prerequisites

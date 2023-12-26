@@ -4,7 +4,7 @@ version = "0.0.0"
 description = "Daniel ALTUNAY's superapp!"
 authors = ["Daniel Altunay <daniel.altunay@gmail.com>"]
 readme = "README.md"
-homepage = "https://daltunay.streamlit.app/"
+homepage = "https://data-science-superapp.streamlit.app/"
 repository = "https://github.com/daltunay/my-superapp"
 packages = [{ include = "src" }, { include = "utils" }, { include = "pages" }]
 
