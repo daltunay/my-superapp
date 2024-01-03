@@ -8,7 +8,7 @@ def input_group_data(
     group_name: t.Literal["A", "B"],
     default_visitors: int,
     default_conversions: int,
-):
+) -> t.Tuple[int, int, float]:
     visitors = st.number_input(
         "Visitors",
         key=f"ab_test.{group_name.lower()}_visitors",
